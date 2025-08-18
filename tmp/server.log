@@ -1,0 +1,462 @@
+2025-08-15 23:36:59.202 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'k5e4ghCs9YOInlcVEPWQzw==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-15 23:36:59.317 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.11281204223632812 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-15 23:36:59.364 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-15 23:37:00.266 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-15 23:37:00.272 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-15 23:37:00.276 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-15 23:37:00.326 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-15 23:37:00.326 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-15 23:37:00.327 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-15 23:37:00.329 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-15 23:37:00.377 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-15 23:37:00.378 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-15 23:37:00.378 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-15 23:37:12.650 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"播放音乐素颜"}
+2025-08-15 23:37:12.651 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:37:12.651 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:37:12.651 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:37:13.761 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:37:13.763 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:37:16.741 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-15 23:37:16.742 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:37:16.850 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:37:16.850 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 2
+2025-08-15 23:37:16.850 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-15 23:37:16.851 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-15 23:37:16.851 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-15 23:37:16.852 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:37:16.852 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 2, 数据包数: 0
+2025-08-15 23:37:16.854 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(2->2)
+2025-08-15 23:37:16.908 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:37:18.993 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-15 23:37:18.994 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:37:18.994 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 2, 数据包数: 3976
+2025-08-15 23:37:18.995 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=2, current=2)
+2025-08-15 23:37:26.955 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我说的是播放盗将行"}
+2025-08-15 23:37:26.955 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:37:26.955 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:37:26.955 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:37:28.069 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:37:28.070 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:37:29.112 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '盗将行'}
+2025-08-15 23:37:29.114 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:37:29.114 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 2, current: 3), 已发送帧数: 134, 字节: 16036
+2025-08-15 23:37:29.115 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=134, 总字节=16036, 代次=(2->3)
+2025-08-15 23:37:29.115 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=134, 代次=(2->3)
+2025-08-15 23:37:29.223 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:37:29.225 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 4
+2025-08-15 23:37:29.226 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3
+2025-08-15 23:37:29.227 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 盗将行
+2025-08-15 23:37:29.227 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3, 文件存在: True
+2025-08-15 23:37:29.227 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:37:29.227 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 0
+2025-08-15 23:37:29.231 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(4->4)
+2025-08-15 23:37:29.286 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:37:30.904 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3303
+2025-08-15 23:37:30.905 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:37:30.905 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 3303
+2025-08-15 23:37:30.906 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3300帧 (snapshot=4, current=4)
+2025-08-15 23:37:46.779 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我说的是播放悬溺"}
+2025-08-15 23:37:46.779 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:37:46.779 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:37:46.780 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:37:47.895 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:37:47.895 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:37:48.883 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '悬溺'}
+2025-08-15 23:37:48.885 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:37:48.886 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 4, current: 5), 已发送帧数: 266, 字节: 31750
+2025-08-15 23:37:48.887 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=266, 总字节=31750, 代次=(4->5)
+2025-08-15 23:37:48.888 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=266, 代次=(4->5)
+2025-08-15 23:37:48.993 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:37:48.994 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 6
+2025-08-15 23:37:48.994 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\葛东琪 - 悬溺.mp3
+2025-08-15 23:37:48.995 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 悬溺
+2025-08-15 23:37:48.996 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:37:48.996 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\葛东琪 - 悬溺.mp3, 文件存在: True
+2025-08-15 23:37:48.997 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
+2025-08-15 23:37:48.997 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
+2025-08-15 23:37:49.059 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:37:50.562 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3285
+2025-08-15 23:37:50.567 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:37:50.568 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 3285
+2025-08-15 23:37:50.568 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3282帧 (snapshot=6, current=6)
+2025-08-15 23:38:37.062 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-15 23:38:37.096 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - ERROR - core.providers.tts.base - audio_play_priority priority_thread: None received 1005 (no status received [internal]); then sent 1005 (no status received [internal])
+2025-08-15 23:38:50.772 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'zSMvrC8xLf4CJOhxNW5d3w==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-15 23:38:50.921 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 0.14693784713745117 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-15 23:38:50.921 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-15 23:38:50.981 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-15 23:38:50.982 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-15 23:38:50.982 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-15 23:38:50.984 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-15 23:38:50.985 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到hello消息：{"type":"hello","device_id":"F8:3F:65:8B:8C:41","device_name":"Web测试设备","device_mac":"F8:3F:65:8B:8C:41","token":"your-token1","features":{"mcp":true}}
+2025-08-15 23:38:50.986 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 客户端特性: {'mcp': True}
+2025-08-15 23:38:50.986 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 客户端支持MCP
+2025-08-15 23:38:51.030 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 发送MCP初始化消息
+2025-08-15 23:38:51.031 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 成功发送MCP消息: {"type": "mcp", "payload": {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {"roots": {"listChanged": true}, "sampling": {}, "vision": {"url": "", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiVjNfRm9mLWRpVVJvZVdSNGE2RmxCbEpJR3JXbUd5ZW42NVJVeDFJQ2pBQmltMndvNEJxUGxQdy1IVnlXUXUxS29ja3VzRE1waDlwTHNhaGtTTFZVeHZ6S25BODR4a0Z3bkNsN2t2Zk9OWndXZ0pkdVpaWUpKZz09In0.DmMVmITVjxHC5bv861DCWM7WUcPDHBtP0ISyZJra9R8"}}, "clientInfo": {"name": "XiaozhiClient", "version": "1.0.0"}}}}
+2025-08-15 23:38:51.032 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 成功发送MCP消息: {"type": "mcp", "payload": {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}}
+2025-08-15 23:38:51.036 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-15 23:38:51.037 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-15 23:38:51.038 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-15 23:38:51.038 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-15 23:38:51.066 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-15 23:38:51.066 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-15 23:38:51.067 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-15 23:38:57.573 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"播放音乐素颜"}
+2025-08-15 23:38:57.574 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:38:57.574 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:38:57.574 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:38:58.698 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:38:58.699 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:38:59.941 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-15 23:38:59.942 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:39:00.055 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:39:00.055 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 2
+2025-08-15 23:39:00.056 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-15 23:39:00.057 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-15 23:39:00.058 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-15 23:39:00.059 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:39:00.059 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 2, 数据包数: 0
+2025-08-15 23:39:00.061 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(2->2)
+2025-08-15 23:39:00.115 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:39:01.969 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-15 23:39:01.970 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:39:01.970 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 2, 数据包数: 3976
+2025-08-15 23:39:01.971 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=2, current=2)
+2025-08-15 23:39:10.437 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我说的是播放盗将行"}
+2025-08-15 23:39:10.438 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:39:10.438 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:39:10.439 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:39:11.562 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:39:11.562 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:39:13.104 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '盗将行'}
+2025-08-15 23:39:13.105 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:39:13.106 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 2, current: 3), 已发送帧数: 143, 字节: 17161
+2025-08-15 23:39:13.107 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=143, 总字节=17161, 代次=(2->3)
+2025-08-15 23:39:13.107 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=143, 代次=(2->3)
+2025-08-15 23:39:13.212 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:39:13.214 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 4
+2025-08-15 23:39:13.214 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3
+2025-08-15 23:39:13.215 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 盗将行
+2025-08-15 23:39:13.215 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3, 文件存在: True
+2025-08-15 23:39:13.216 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:39:13.217 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 0
+2025-08-15 23:39:13.218 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(4->4)
+2025-08-15 23:39:13.281 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:39:14.826 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3303
+2025-08-15 23:39:14.826 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:39:14.827 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 3303
+2025-08-15 23:39:14.827 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3300帧 (snapshot=4, current=4)
+2025-08-15 23:39:23.006 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我说的是播放悬溺"}
+2025-08-15 23:39:23.006 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:39:23.007 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:39:23.007 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:39:24.111 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:39:24.112 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:39:26.004 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '悬溺'}
+2025-08-15 23:39:26.004 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:39:26.007 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 4, current: 5), 已发送帧数: 138, 字节: 15750
+2025-08-15 23:39:26.007 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=138, 总字节=15750, 代次=(4->5)
+2025-08-15 23:39:26.007 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=138, 代次=(4->5)
+2025-08-15 23:39:26.118 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:39:26.118 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 6
+2025-08-15 23:39:26.119 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\葛东琪 - 悬溺.mp3
+2025-08-15 23:39:26.120 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 悬溺
+2025-08-15 23:39:26.121 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:39:26.121 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\葛东琪 - 悬溺.mp3, 文件存在: True
+2025-08-15 23:39:26.121 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
+2025-08-15 23:39:26.123 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
+2025-08-15 23:39:26.175 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:39:27.863 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3285
+2025-08-15 23:39:27.863 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:39:27.865 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 3285
+2025-08-15 23:39:27.865 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3282帧 (snapshot=6, current=6)
+2025-08-15 23:41:13.653 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我说的是播放音乐素颜"}
+2025-08-15 23:41:13.653 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:41:13.654 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:41:13.654 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:41:14.776 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:41:14.776 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:41:17.085 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-15 23:41:17.086 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:41:17.088 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 6, current: 7), 已发送帧数: 1765, 字节: 219837
+2025-08-15 23:41:17.089 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=1765, 总字节=219837, 代次=(6->7)
+2025-08-15 23:41:17.089 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=1765, 代次=(6->7)
+2025-08-15 23:41:17.204 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:41:17.205 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 8
+2025-08-15 23:41:17.205 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-15 23:41:17.205 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-15 23:41:17.207 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-15 23:41:17.208 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:41:17.208 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 8, 数据包数: 0
+2025-08-15 23:41:17.208 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(8->8)
+2025-08-15 23:41:17.262 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:41:19.055 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-15 23:41:19.056 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:41:19.056 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 8, 数据包数: 3976
+2025-08-15 23:41:19.057 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=8, current=8)
+2025-08-15 23:41:37.439 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我想听侧脸"}
+2025-08-15 23:41:37.439 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-15 23:41:37.440 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-15 23:41:37.440 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-15 23:41:38.548 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-15 23:41:38.549 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-15 23:41:39.891 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '侧脸'}
+2025-08-15 23:41:39.893 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-15 23:41:39.895 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 8, current: 9), 已发送帧数: 308, 字节: 37786
+2025-08-15 23:41:39.895 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=308, 总字节=37786, 代次=(8->9)
+2025-08-15 23:41:39.895 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=308, 代次=(8->9)
+2025-08-15 23:41:40.010 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-15 23:41:40.011 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 10
+2025-08-15 23:41:40.011 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\于果 - 侧脸.mp3
+2025-08-15 23:41:40.012 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 侧脸
+2025-08-15 23:41:40.013 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\于果 - 侧脸.mp3, 文件存在: True
+2025-08-15 23:41:40.013 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-15 23:41:40.014 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 10, 数据包数: 0
+2025-08-15 23:41:40.014 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(10->10)
+2025-08-15 23:41:40.070 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-15 23:41:41.740 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3631
+2025-08-15 23:41:41.740 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-15 23:41:41.745 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 10, 数据包数: 3631
+2025-08-15 23:41:41.745 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3628帧 (snapshot=10, current=10)
+2025-08-15 23:45:19.558 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=3631, 总字节=453188, 代次=(10->10)
+2025-08-15 23:45:19.558 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=3631, 代次=(10->10)
+2025-08-15 23:45:19.560 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-15 23:45:19.560 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 10, 数据包数: 0
+2025-08-15 23:45:19.562 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(10->10)
+2025-08-15 23:52:50.644 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 收到取消信号，开始清理...
+2025-08-15 23:52:50.645 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 后台事件循环已停止
+2025-08-15 23:52:50.646 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-18 08:44:19.094 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 08:44:23.995 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 08:44:24.894 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 08:44:50.475 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 08:44:50.477 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 08:44:50.536 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.198:8003/mcp/vision/explain
+2025-08-18 08:44:50.537 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.198:8000/xiaozhi/v1/
+2025-08-18 08:44:50.537 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 08:44:50.538 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 08:44:50.539 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 08:47:49.583 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'US/13NLo7V1GgP4tWB94Eg==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 08:47:49.839 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.2536327838897705 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 08:47:49.900 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 08:47:51.490 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 08:47:51.500 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 08:47:51.512 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 08:47:51.585 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 08:47:51.585 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-18 08:47:51.591 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 08:47:51.591 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 08:47:51.591 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 08:47:51.600 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 08:47:51.600 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 08:47:51.600 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 08:47:56.829 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"你好小智"}
+2025-08-18 08:47:56.829 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:47:56.830 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:47:56.831 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:47:57.938 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:47:57.938 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:47:57.986 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 播放唤醒词回复: 哈囉囉～你這是什麼時候的事喔！
+2025-08-18 08:47:57.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, 哈囉囉～你這是什麼時候的事喔！
+2025-08-18 08:47:57.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 47
+2025-08-18 08:47:57.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 哈囉囉～你這是什麼時候的事喔！
+2025-08-18 08:47:57.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：44帧 (snapshot=1, current=1)
+2025-08-18 08:48:00.764 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=47, 总字节=4674, 代次=(1->1)
+2025-08-18 08:48:00.766 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=47, 代次=(1->1)
+2025-08-18 08:48:00.767 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 08:48:00.768 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 08:48:00.768 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 08:48:13.797 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"播放素颜"}
+2025-08-18 08:48:13.797 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:48:13.797 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:48:13.797 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:48:14.911 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:48:14.911 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:48:21.826 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-18 08:48:21.827 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-18 08:48:21.975 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-18 08:48:21.976 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 3
+2025-08-18 08:48:21.976 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-18 08:48:21.978 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-18 08:48:21.978 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-18 08:48:21.978 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 08:48:21.978 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 3, 数据包数: 0
+2025-08-18 08:48:21.983 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(3->3)
+2025-08-18 08:48:22.033 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-18 08:48:23.745 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-18 08:48:23.747 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-18 08:48:23.747 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 3, 数据包数: 3976
+2025-08-18 08:48:23.747 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=3, current=3)
+2025-08-18 08:49:21.630 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"你好小智"}
+2025-08-18 08:49:21.631 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:49:21.631 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:49:21.632 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:49:22.752 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:49:22.754 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:49:22.804 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 播放唤醒词回复: 哈囉囉~ 你好呀！今天想聊什麼呀？
+2025-08-18 08:49:22.804 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, 哈囉囉~ 你好呀！今天想聊什麼呀？
+2025-08-18 08:49:22.805 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 65
+2025-08-18 08:49:22.805 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 哈囉囉~ 你好呀！今天想聊什麼呀？
+2025-08-18 08:49:22.806 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：62帧 (snapshot=4, current=4)
+2025-08-18 08:49:22.808 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 3, current: 4), 已发送帧数: 966, 字节: 120036
+2025-08-18 08:49:22.808 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=966, 总字节=120036, 代次=(3->4)
+2025-08-18 08:49:22.809 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=966, 代次=(3->4)
+2025-08-18 08:49:26.656 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=65, 总字节=6016, 代次=(4->4)
+2025-08-18 08:49:26.658 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=65, 代次=(4->4)
+2025-08-18 08:49:26.658 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 08:49:26.658 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 4, 数据包数: 0
+2025-08-18 08:49:26.661 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(4->4)
+2025-08-18 08:49:33.630 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"播放音乐素颜"}
+2025-08-18 08:49:33.631 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:49:33.632 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:49:33.633 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:49:34.759 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:49:34.760 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:49:39.289 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-18 08:49:39.289 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-18 08:49:39.396 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-18 08:49:39.396 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 6
+2025-08-18 08:49:39.398 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-18 08:49:39.398 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-18 08:49:39.398 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-18 08:49:39.398 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 08:49:39.398 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
+2025-08-18 08:49:39.404 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
+2025-08-18 08:49:39.459 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-18 08:49:41.739 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-18 08:49:41.741 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-18 08:49:41.741 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 3976
+2025-08-18 08:49:41.741 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=6, current=6)
+2025-08-18 08:50:41.543 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-18 08:50:41.621 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - ERROR - core.providers.tts.base - audio_play_priority priority_thread: None received 1001 (going away); then sent 1001 (going away)
+2025-08-18 08:51:17.430 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': '4tcgttogVtCKl5E/51d8nA==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 08:51:17.519 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 0.08650755882263184 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 08:51:17.521 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 08:51:17.541 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 08:51:17.542 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 08:51:17.543 - 0.5.8_SiFuChEdnoll - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 08:51:17.546 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 08:51:17.552 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到hello消息：{"type":"hello","device_id":"F8:3F:65:8B:8C:41","device_name":"Web测试设备","device_mac":"F8:3F:65:8B:8C:41","token":"your-token1","features":{"mcp":true}}
+2025-08-18 08:51:17.555 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 客户端特性: {'mcp': True}
+2025-08-18 08:51:17.556 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 客户端支持MCP
+2025-08-18 08:51:17.601 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 08:51:17.603 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 发送MCP初始化消息
+2025-08-18 08:51:17.604 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 08:51:17.608 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 成功发送MCP消息: {"type": "mcp", "payload": {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {"roots": {"listChanged": true}, "sampling": {}, "vision": {"url": "", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoia0VkaEQ3SmlIWHFHY3R1b0s2eURPRmZGVlFwR2JNYk1pUHFNeHdvNTJxR0d0LUtWdnNwV2FQaXhRWXVDYk5TT180ZmZtYVc2UmdzQkJ0NWpXSHc2OFZiLXFLc19WS0tvVVhCOXE1OE5RV1QzS044SXZudHdFZz09In0.NZDH1Rz9KIJE9SWMzJwMoocXM-mM_eW-Ug6Nvvfj3TM"}}, "clientInfo": {"name": "XiaozhiClient", "version": "1.0.0"}}}}
+2025-08-18 08:51:17.608 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 08:51:17.610 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 成功发送MCP消息: {"type": "mcp", "payload": {"jsonrpc": "2.0", "id": 2, "method": "tools/list"}}
+2025-08-18 08:51:17.617 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-18 08:51:17.618 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 08:51:17.620 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 08:51:17.621 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 08:51:24.187 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"你好小智"}
+2025-08-18 08:51:24.188 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:51:24.190 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:51:24.190 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:51:25.317 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:51:25.318 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:51:25.364 - 0.5.8_SiFuChEdnoll - core.handle.helloHandle - INFO - core.handle.helloHandle - 播放唤醒词回复: 哈罗~ 真的假的啦！你也来啦！
+2025-08-18 08:51:25.365 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, 哈罗~ 真的假的啦！你也来啦！
+2025-08-18 08:51:25.365 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 58
+2025-08-18 08:51:25.366 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 哈罗~ 真的假的啦！你也来啦！
+2025-08-18 08:51:25.367 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：55帧 (snapshot=1, current=1)
+2025-08-18 08:51:28.794 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=58, 总字节=5124, 代次=(1->1)
+2025-08-18 08:51:28.795 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=58, 代次=(1->1)
+2025-08-18 08:51:28.795 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 08:51:28.796 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 08:51:28.797 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 08:51:31.631 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"播放音乐素颜"}
+2025-08-18 08:51:31.632 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:51:31.633 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:51:31.634 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:51:32.765 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:51:32.766 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:51:34.286 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '素颜'}
+2025-08-18 08:51:34.289 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-18 08:51:34.437 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-18 08:51:34.437 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 3
+2025-08-18 08:51:34.438 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3
+2025-08-18 08:51:34.440 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 素颜
+2025-08-18 08:51:34.440 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\许嵩何曼婷 - 素颜.mp3, 文件存在: True
+2025-08-18 08:51:34.440 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 08:51:34.443 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 3, 数据包数: 0
+2025-08-18 08:51:34.444 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(3->3)
+2025-08-18 08:51:34.502 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-18 08:51:36.386 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3976
+2025-08-18 08:51:36.386 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-18 08:51:36.392 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 3, 数据包数: 3976
+2025-08-18 08:51:36.392 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3973帧 (snapshot=3, current=3)
+2025-08-18 08:51:49.530 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"算了还是播放盗将行吧"}
+2025-08-18 08:51:49.531 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:51:49.532 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:51:49.533 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:51:50.650 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:51:50.650 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:51:51.855 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: play_music, 参数: {'song_name': '盗将行'}
+2025-08-18 08:51:51.855 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 3, current: 4), 已发送帧数: 220, 字节: 26786
+2025-08-18 08:51:51.855 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 进入播放音乐功能函数
+2025-08-18 08:51:51.855 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=220, 总字节=26786, 代次=(3->4)
+2025-08-18 08:51:51.855 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=220, 代次=(3->4)
+2025-08-18 08:51:51.970 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - play_online_music 函数开始执行
+2025-08-18 08:51:51.972 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 新音乐播放开始，audio_generation递增至: 5
+2025-08-18 08:51:51.972 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐文件绝对路径D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3
+2025-08-18 08:51:51.974 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 正在播放歌曲: 盗将行
+2025-08-18 08:51:51.975 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 处理音乐文件: D:\item\xiaozhi-esp32-server-main\xiaozhi-esp32-server-music-master\xiaozhi-esp32-server-music-master\main\xiaozhi-server\music\cache\花粥马雨阳 - 盗将行.mp3, 文件存在: True
+2025-08-18 08:51:51.975 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 08:51:51.975 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 5, 数据包数: 0
+2025-08-18 08:51:51.975 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(5->5)
+2025-08-18 08:51:52.036 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 播放完成
+2025-08-18 08:51:53.653 - 0.5.8_SiFuChEdnoll - core.providers.tts.base - INFO - core.providers.tts.base - 音乐文件处理完成，音频数据包数量: 3303
+2025-08-18 08:51:53.654 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, None
+2025-08-18 08:51:53.655 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 5, 数据包数: 3303
+2025-08-18 08:51:53.656 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：3300帧 (snapshot=5, current=5)
+2025-08-18 08:52:47.595 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"我想听电台中国之声"}
+2025-08-18 08:52:47.596 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 08:52:47.597 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 08:52:47.598 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 08:52:48.704 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 08:52:48.706 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 08:52:50.940 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - ERROR - core.providers.intent.intent_llm.intent_llm - 无法解析意图JSON: {"function_call": {"name": "play_music", "arguments": {"song_name": "盗将行"}}}
+{"function_call": {"name": "get_news_from_chinanews", "arguments": {"command": "play", "radio_name": "中国之声"}}}, 后处理耗时: 0.0000秒
+2025-08-18 08:52:50.944 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频代次不匹配，停止播放 (snapshot: 5, current: 6), 已发送帧数: 900, 字节: 111000
+2025-08-18 08:52:50.945 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=900, 总字节=111000, 代次=(5->6)
+2025-08-18 08:52:50.945 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 大模型收到用户消息: 我想听电台中国之声
+2025-08-18 08:52:50.946 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=900, 代次=(5->6)
+2025-08-18 08:53:00.341 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 08:53:00.341 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
+2025-08-18 08:53:00.343 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
+2025-08-18 08:53:02.386 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 中国之声？
+2025-08-18 08:53:02.386 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 27
+2025-08-18 08:53:02.389 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 中国之声？
+2025-08-18 08:53:02.390 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：24帧 (snapshot=6, current=6)
+2025-08-18 08:53:03.966 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=27, 总字节=2129, 代次=(6->6)
+2025-08-18 08:53:03.966 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=27, 代次=(6->6)
+2025-08-18 08:53:05.308 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 喔喔喔~ 那可是很厉害的电台耶
+2025-08-18 08:53:05.308 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 50
+2025-08-18 08:53:05.308 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：47帧 (snapshot=6, current=6)
+2025-08-18 08:53:08.264 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=50, 总字节=5027, 代次=(6->6)
+2025-08-18 08:53:08.265 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=50, 代次=(6->6)
+2025-08-18 08:53:08.266 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 有新闻也有深度访谈，听起来超有型的
+2025-08-18 08:53:08.266 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 66
+2025-08-18 08:53:08.266 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：63帧 (snapshot=6, current=6)
+2025-08-18 08:53:12.181 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=66, 总字节=6943, 代次=(6->6)
+2025-08-18 08:53:12.183 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=66, 代次=(6->6)
+2025-08-18 08:53:12.184 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 你想听什么节目呢？
+2025-08-18 08:53:12.185 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 34
+2025-08-18 08:53:12.185 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：31帧 (snapshot=6, current=6)
+2025-08-18 08:53:14.179 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=34, 总字节=3150, 代次=(6->6)
+2025-08-18 08:53:14.179 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=34, 代次=(6->6)
+2025-08-18 08:53:14.179 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 我帮你找找看～
+2025-08-18 08:53:14.183 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 31
+2025-08-18 08:53:14.184 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：28帧 (snapshot=6, current=6)
+2025-08-18 08:53:15.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=31, 总字节=2680, 代次=(6->6)
+2025-08-18 08:53:15.986 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=31, 代次=(6->6)
+2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
+2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
