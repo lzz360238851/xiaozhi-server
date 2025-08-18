@@ -8,6 +8,9 @@ from core.handle.sendAudioHandle import send_stt_message, send_tts_message
 from core.handle.iotHandle import handleIotDescriptors, handleIotStatus
 from core.handle.reportHandle import enqueue_asr_report
 import asyncio
+from core.providers.tts.dto.dto import ContentType
+from core.utils.dialogue import Message
+from plugins_func.register import Action
 
 TAG = __name__
 
@@ -99,6 +102,60 @@ async def handleTextMessage(conn, message):
             if "payload" in msg_json:
                 asyncio.create_task(
                     handle_mcp_message(conn, conn.mcp_client, msg_json["payload"])
+                )
+        elif msg_json["type"] == "location":
+            conn.logger.bind(tag=TAG).info(f"收到位置消息：{filter_sensitive_info(msg_json)}")
+            # 兼容多种字段命名与嵌套
+            data = msg_json.get("content", msg_json)
+            lat = data.get("lat") or data.get("latitude")
+            lon = data.get("lon") or data.get("lng") or data.get("longitude")
+            # 解析为浮点数
+            try:
+                if isinstance(lat, str):
+                    lat = float(lat.strip())
+                if isinstance(lon, str):
+                    lon = float(lon.strip())
+                lat = float(lat)
+                lon = float(lon)
+            except Exception:
+                await conn.websocket.send(
+                    json.dumps(
+                        {
+                            "type": "location",
+                            "status": "error",
+                            "message": "经纬度格式错误或缺失，应包含 lat、lon",
+                        }
+                    )
+                )
+                return
+            # 调用导航更新函数
+            try:
+                func_item = conn.func_handler.get_function("navigation_update")
+                if not func_item:
+                    conn.logger.bind(tag=TAG).warning("navigation_update 未注册或不可用")
+                    return
+                # 可能包含网络IO，放入线程池执行避免阻塞事件循环
+                result = await asyncio.to_thread(func_item.func, conn, lat=lat, lon=lon)
+                if result and result.action == Action.RESPONSE:
+                    text = result.response
+                    if text:
+                        conn.tts.tts_one_sentence(conn, ContentType.TEXT, content_detail=text)
+                        conn.dialogue.put(Message(role="assistant", content=text))
+                elif result and result.action == Action.REQLLM:
+                    # 理论上导航更新不需要REQLLM，这里做兜底处理
+                    text = result.result
+                    if text:
+                        conn.dialogue.put(Message(role="tool", content=text))
+            except Exception as e:
+                conn.logger.bind(tag=TAG).error(f"处理位置消息失败: {e}")
+                await conn.websocket.send(
+                    json.dumps(
+                        {
+                            "type": "location",
+                            "status": "error",
+                            "message": f"处理位置消息失败: {str(e)}",
+                        }
+                    )
                 )
         elif msg_json["type"] == "server":
             # 记录日志时过滤敏感信息

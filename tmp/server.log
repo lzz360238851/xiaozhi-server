@@ -460,3 +460,1063 @@
 2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
 2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 6, 数据包数: 0
 2025-08-18 08:53:15.988 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(6->6)
+2025-08-18 10:21:37.257 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-18 10:47:35.595 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 收到取消信号，开始清理...
+2025-08-18 10:47:35.603 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 后台事件循环已停止
+2025-08-18 14:41:17.575 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'change_role' 已加载，可以注册使用
+2025-08-18 14:41:21.199 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 已加载，可以注册使用
+2025-08-18 14:41:21.217 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 已加载，可以注册使用
+2025-08-18 14:41:21.217 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 已加载，可以注册使用
+2025-08-18 14:41:21.220 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 已加载，可以注册使用
+2025-08-18 14:41:21.224 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_device' 已加载，可以注册使用
+2025-08-18 14:41:21.225 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 已加载，可以注册使用
+2025-08-18 14:41:21.229 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_get_state' 已加载，可以注册使用
+2025-08-18 14:41:21.231 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_play_music' 已加载，可以注册使用
+2025-08-18 14:41:21.233 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_set_state' 已加载，可以注册使用
+2025-08-18 14:41:21.240 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 已加载，可以注册使用
+2025-08-18 14:41:21.241 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_update' 已加载，可以注册使用
+2025-08-18 14:41:21.241 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_stop' 已加载，可以注册使用
+2025-08-18 14:41:21.258 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 已加载，可以注册使用
+2025-08-18 14:41:21.338 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 已加载，可以注册使用
+2025-08-18 14:41:21.340 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'plugin_loader' 已加载，可以注册使用
+2025-08-18 14:41:22.129 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 14:41:27.137 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 14:41:28.188 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 14:42:17.171 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 14:42:17.171 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 14:42:17.231 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.173:8003/mcp/vision/explain
+2025-08-18 14:42:17.232 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.173:8000/xiaozhi/v1/
+2025-08-18 14:42:17.232 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 14:42:17.232 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 14:42:17.233 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 14:44:21.510 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'kQgPZw7fdp8S22aDgV2M/A==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 14:44:21.578 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.06519889831542969 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_mem_local_short": {"llm": "LLM_ChatGLMLLM", "type": "mem_local_short"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_mem_local_short", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 2, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 14:44:21.643 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 14:44:23.485 - 0.5.8_00000000000000 - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 14:44:23.525 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 14:44:23.534 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 14:44:23.544 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_mem_local_short
+2025-08-18 14:44:23.547 - 0.5.8_00000000000000 - config.logger - DEBUG - config.logger - 更新日志配置组件
+2025-08-18 14:44:23.605 - 0.5.8_SiFuChEdshll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 14:44:23.605 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 14:44:23.607 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 收到MCP工具列表响应
+2025-08-18 14:44:23.608 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 14:44:23.609 - 0.5.8_SiFuChEdshll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 14:44:23.609 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #1: self.get_device_status
+2025-08-18 14:44:23.612 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #2: self.audio_speaker.set_volume
+2025-08-18 14:44:23.614 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #3: self.screen.set_brightness
+2025-08-18 14:44:23.614 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #4: self.screen.set_theme
+2025-08-18 14:44:23.615 - 0.5.8_SiFuChEdshll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 14:44:23.660 - 0.5.8_SiFuChEdshll - core.connection - INFO - core.connection - 为记忆总结创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 14:44:23.662 - 0.5.8_SiFuChEdshll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 14:44:23.715 - 0.5.8_SiFuChEdshll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 14:44:23.717 - 0.5.8_SiFuChEdshll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 14:44:23.717 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 注册成功
+2025-08-18 14:44:23.718 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 注册成功
+2025-08-18 14:44:23.721 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 注册成功
+2025-08-18 14:44:23.722 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 注册成功
+2025-08-18 14:44:23.722 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 注册成功
+2025-08-18 14:44:23.723 - 0.5.8_SiFuChEdshll - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 注册成功
+2025-08-18 14:44:23.724 - 0.5.8_SiFuChEdshll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 14:44:23.728 - 0.5.8_SiFuChEdshll - core.connection - INFO - core.connection - TTS上报线程已启动
+2025-08-18 16:30:25.806 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'change_role' 已加载，可以注册使用
+2025-08-18 16:30:28.149 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 已加载，可以注册使用
+2025-08-18 16:30:28.171 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 已加载，可以注册使用
+2025-08-18 16:30:28.171 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 已加载，可以注册使用
+2025-08-18 16:30:28.171 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 已加载，可以注册使用
+2025-08-18 16:30:28.178 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_device' 已加载，可以注册使用
+2025-08-18 16:30:28.179 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 已加载，可以注册使用
+2025-08-18 16:30:28.184 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_get_state' 已加载，可以注册使用
+2025-08-18 16:30:28.186 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_play_music' 已加载，可以注册使用
+2025-08-18 16:30:28.186 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_set_state' 已加载，可以注册使用
+2025-08-18 16:30:28.191 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 已加载，可以注册使用
+2025-08-18 16:30:28.191 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_update' 已加载，可以注册使用
+2025-08-18 16:30:28.193 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_stop' 已加载，可以注册使用
+2025-08-18 16:30:28.196 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 已加载，可以注册使用
+2025-08-18 16:30:28.254 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 已加载，可以注册使用
+2025-08-18 16:30:28.257 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'plugin_loader' 已加载，可以注册使用
+2025-08-18 16:30:28.712 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 16:30:32.829 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 16:30:33.515 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 16:31:00.605 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 16:31:00.605 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 16:31:00.659 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.173:8003/mcp/vision/explain
+2025-08-18 16:31:00.659 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.173:8000/xiaozhi/v1/
+2025-08-18 16:31:00.659 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 16:31:00.659 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 16:31:00.659 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 16:31:14.067 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'ZyT0vsw6YTpIewkSYI0kJg==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 16:31:14.253 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.18201017379760742 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"navigate_to": "{\"mode\": \"driving\", \"api_key\": null, \"api_base\": null, \"turn_distance\": \"80\", \"arrival_distance\": \"30\"}", "get_weather": "{\"api_key\": \"a861d0d5e7bf4ee1a83d9a9e4f96d4da\", \"api_host\": \"mj7p3y7naa.re.qweatherapi.com\", \"default_location\": \"广州\"}", "get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 16:31:14.316 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 16:31:16.418 - 0.5.8_00000000000000 - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:31:16.589 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 16:31:16.639 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 16:31:16.657 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 16:31:16.661 - 0.5.8_00000000000000 - config.logger - DEBUG - config.logger - 更新日志配置组件
+2025-08-18 16:31:16.849 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 16:31:16.851 - 0.5.8_SiFuChEdnoll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:31:16.900 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-18 16:31:16.900 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 16:31:16.902 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 收到MCP工具列表响应
+2025-08-18 16:31:16.903 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 16:31:16.904 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #1: self.get_device_status
+2025-08-18 16:31:16.904 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #2: self.audio_speaker.set_volume
+2025-08-18 16:31:16.904 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #3: self.screen.set_brightness
+2025-08-18 16:31:16.906 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #4: self.screen.set_theme
+2025-08-18 16:31:16.907 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 16:31:16.921 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 16:31:16.923 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 16:31:16.923 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 注册成功
+2025-08-18 16:31:16.925 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 注册成功
+2025-08-18 16:31:16.925 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 注册成功
+2025-08-18 16:31:16.925 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 注册成功
+2025-08-18 16:31:16.925 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 注册成功
+2025-08-18 16:31:16.929 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 注册成功
+2025-08-18 16:31:16.929 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 注册成功
+2025-08-18 16:31:16.931 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 注册成功
+2025-08-18 16:31:16.932 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 16:31:27.746 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"导航去福建师范大学"}
+2025-08-18 16:31:27.747 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - DEBUG - core.handle.textHandle - 客户端拾音模式：manual
+2025-08-18 16:31:27.747 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 16:31:27.747 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:31:27.748 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:31:27.748 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 16:31:27.749 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 16:31:28.863 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 16:31:28.864 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:31:28.865 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 16:31:28.868 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 使用意图识别模型: glm-4-flash-250414
+2025-08-18 16:31:28.877 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - User prompt: 你是一个意图识别助手。请分析用户的最后一句话，判断用户意图并调用相应的函数。
+
+- 如果用户使用疑问词（如'怎么'、'为什么'、'如何'）询问退出相关的问题（例如'怎么退出了？'），注意这不是让你退出，请返回 {'function_call': {'name': 'continue_chat'}
+- 仅当用户明确使用'退出系统'、'结束对话'、'我不想和你说话了'等指令时，才触发 handle_exit_intent
+
+可用的函数列表：
+
+函数名: handle_exit_intent
+描述: 当用户想结束对话或需要退出系统时调用
+参数:
+- say_goodbye (string): 和用户友好结束对话的告别语
+---
+
+函数名: get_time
+描述: 获取今天日期或者当前时间信息
+参数:
+---
+
+函数名: get_lunar
+描述: 用于获取今天的阴历/农历和黄历信息。用户可以指定查询内容，如：阴历日期、天干地支、节气、生肖、星座、八字、宜忌等。如果没有指定查询内容，则默认查询干支年和农历日期。
+参数:
+- query (string): 要查询的内容，例如阴历日期、天干地支、节日、节气、生肖、星座、八字、宜忌等
+---
+
+函数名: navigate_to
+描述: 开始导航到目的地。优先使用客户端提供的当前位置作为起点；如未提供，则等待后续位置更新再规划路线。
+参数:
+- destination (string): 目的地名称或经纬度(如: 116.481499,39.990475)
+- mode (string): 出行方式: driving/walking/bicycling，默认driving
+- origin (string): 起点经纬度: lng,lat，可选
+---
+
+函数名: get_weather
+描述: 获取某个地点的天气，用户应提供一个位置，比如用户说杭州天气，参数为：杭州。如果用户说的是省份，默认用省会城市。如果用户说的不是省份或城市而是一个地名，默认用该地所在省份的省会城市。如果用户没有指明地点，说“天气怎么样”，”今天天气如何“，location参数为空
+参数:
+- location (string): 地点名，例如杭州。可选参数，如果不提供则不传
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: get_news_from_chinanews
+描述: **用于处理用户的电台播放/停止请求，是播放电台的唯一方式**。
+⚠️ 优先级：当用户指令同时命中电台关键词与歌曲关键词时，必须优先调用本函数。
+触发规则：当用户的语句中出现以下任一关键词（或相似表达）时，必须调用本函数，不得调用播放歌曲函数：
+【电台】【广播】【新闻广播】【中国之声】【新闻之声】【音乐之声】【经济之声】【都市之声】【中华之声】【神州之声】【电台直播】【收听电台】等。
+支持指令：
+  - 播放/打开/切换到 指定电台（如：播放音乐之声、切换到经济之声）
+  - 停止/关闭 当前播放的电台（如：停止广播、关闭中国之声）
+默认行为：未指定电台名时，默认播放“中国之声”。
+所有表示“播放、打开、切换到、切换成”等动词必须映射为 'play'；所有表示“停止、关闭”等动词必须映射为 'stop'；不得输出其它值。
+参数:
+- command (string): 操作指令：
+- play：播放或切换到指定电台
+- stop：停止当前播放的电台
+可为空，函数内部会默认为 'play'
+- radio_name (string): 需播放的电台名称，支持：
+中国之声、经济之声、音乐之声、都市之声、中华之声、神州之声。
+可为空，函数内部会默认为 '中国之声'。
+若提供的名称不在支持范围内，也会自动替换为 '中国之声'。
+---
+
+函数名: get_news_from_newsnow
+描述: 获取最新新闻，随机选择一条新闻进行播报。用户可以选择不同的新闻源，如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。如果没有指定，默认从澎湃新闻获取。用户可以要求获取详细内容，此时会获取新闻的详细内容。
+参数:
+- source (string): 新闻源，例如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。可选参数，如果不提供则使用默认新闻源
+- detail (boolean): 是否获取详细内容，默认为false。如果为true，则获取上一条新闻的详细内容
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: play_music
+描述: **用于处理用户的歌曲播放请求，是播放单曲的唯一方式**。
+触发规则：当用户说“播放XX”“放XX”“听XX”“点歌XX”“来一首歌”“我要听歌”等歌曲相关指令时，必须调用此函数。
+⚠️ 注意：如果用户指令中出现电台相关关键词（如“电台”“广播”“中国之声”等），即使包含“播放”也必须调用电台函数而不是本函数。
+提取规则：
+1. 直接取出用户在播放指令后的歌名（如“播放稻香”→“稻香”）。
+2. 若未提供歌名（如“播放音乐”），则默认播放“素颜”。
+3. 忽略无关修饰语（如“帮我播放一下稻香谢谢”→“稻香”）。
+4. 支持的触发动词包括：播放、放、听、点歌、来一首、想听、我要听、帮我点一首等。
+参数:
+- song_name (string): 提取的歌曲名称：
+- 如果用户未指定歌名，默认“素颜”
+- 若包含多余词汇，需提取核心歌名
+---
+
+函数名: self_get_device_status
+描述: Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.
+Use this tool for: 
+1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)
+2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)
+参数:
+---
+
+函数名: self_audio_speaker_set_volume
+描述: Set the volume of the audio speaker. If the current volume is unknown, you must call `self_get_device_status` tool first and then call this tool.
+参数:
+- volume (integer): 
+---
+
+函数名: self_screen_set_brightness
+描述: Set the brightness of the screen.
+参数:
+- brightness (integer): 
+---
+
+函数名: self_screen_set_theme
+描述: Set the theme of the screen. The theme can be 'light' or 'dark'.
+参数:
+- theme (string): 
+---
+
+处理步骤:
+1. 分析用户输入，确定用户意图
+2. 从可用函数列表中选择最匹配的函数
+3. 如果找到匹配的函数，生成对应的function_call 格式
+4. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+
+返回格式要求：
+1. 必须返回纯JSON格式
+2. 必须包含function_call字段
+3. function_call必须包含name字段
+4. 如果函数需要参数，必须包含arguments字段
+
+示例：
+```
+用户: 现在几点了？
+返回: {"function_call": {"name": "get_time"}}
+```
+```
+用户: 播放素颜
+返回: {"function_call": {"name": "play_music"}}
+```
+```
+用户: 当前电池电量是多少？
+返回: {"function_call": {"name": "get_battery_level", "arguments": {"response_success": "当前电池电量为{value}%", "response_failure": "无法获取Battery的当前电量百分比"}}}
+```
+```
+用户: 当前屏幕亮度是多少？
+返回: {"function_call": {"name": "self_screen_get_brightness"}}
+```
+```
+用户: 设置屏幕亮度为50%
+返回: {"function_call": {"name": "self_screen_set_brightness", "arguments": {"brightness": 50}}}
+```
+```
+用户: 我想结束对话
+返回: {"function_call": {"name": "handle_exit_intent", "arguments": {"say_goodbye": "goodbye"}}}
+```
+```
+用户: 你好啊
+返回: {"function_call": {"name": "continue_chat"}}
+```
+
+注意：
+1. 只返回JSON格式，不要包含任何其他文字
+2. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+3. 确保返回的JSON格式正确，包含所有必要的字段
+特殊说明：
+- 当用户单次输入包含多个指令时（如'打开灯并且调高音量'）
+- 请返回多个function_call组成的JSON数组
+- 示例：{'function_calls': [{name:'light_on'}, {name:'volume_up'}]}
+<musicNames>['cache\\于果 - 侧脸', 'cache\\花粥马雨阳 - 盗将行', 'cache\\葛东琪 - 悬溺', 'cache\\许嵩何曼婷 - 素颜', 'cache\\郭顶 - 凄美地']
+</musicNames>
+2025-08-18 16:31:28.878 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图识别预处理耗时: 0.0102秒
+2025-08-18 16:31:28.879 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 开始LLM意图识别调用, 模型: glm-4-flash-250414
+2025-08-18 16:31:32.383 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - LLM意图识别完成, 模型: glm-4-flash-250414, 调用耗时: 3.5043秒
+2025-08-18 16:31:32.384 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 【意图识别性能】模型: glm-4-flash-250414, 总耗时: 3.5166秒, LLM调用: 3.5043秒, 查询: '导航去福建师范大学...'
+2025-08-18 16:31:45.571 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:31:45.571 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图后处理耗时: 13.1874秒
+2025-08-18 16:31:45.574 - 0.5.8_SiFuChEdnoll - core.handle.intentHandler - DEBUG - core.handle.intentHandler - 检测到function_call格式的意图结果: navigate_to
+2025-08-18 16:31:45.577 - 0.5.8_SiFuChEdnoll - core.handle.functionHandler - DEBUG - core.handle.functionHandler - 调用函数: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:31:45.578 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:45:26.203 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:45:26.203 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:45:26.206 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 收到取消信号，开始清理...
+2025-08-18 16:45:26.208 - 0.5.8_SiFuChEdnoll - core.providers.memory.nomem.nomem - DEBUG - core.providers.memory.nomem.nomem - nomem mode: No memory saving is performed.
+2025-08-18 16:45:26.208 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 后台事件循环已停止
+2025-08-18 16:45:26.212 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-18 16:45:34.161 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'change_role' 已加载，可以注册使用
+2025-08-18 16:45:35.811 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 已加载，可以注册使用
+2025-08-18 16:45:35.831 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 已加载，可以注册使用
+2025-08-18 16:45:35.831 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 已加载，可以注册使用
+2025-08-18 16:45:35.831 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 已加载，可以注册使用
+2025-08-18 16:45:35.839 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_device' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_get_state' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_play_music' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_set_state' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_update' 已加载，可以注册使用
+2025-08-18 16:45:35.840 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_stop' 已加载，可以注册使用
+2025-08-18 16:45:35.856 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 已加载，可以注册使用
+2025-08-18 16:45:35.905 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 已加载，可以注册使用
+2025-08-18 16:45:35.905 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'plugin_loader' 已加载，可以注册使用
+2025-08-18 16:45:36.097 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 16:45:39.322 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 16:45:39.835 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 16:45:58.767 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 16:45:58.767 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 16:45:58.801 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.173:8003/mcp/vision/explain
+2025-08-18 16:45:58.803 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.173:8000/xiaozhi/v1/
+2025-08-18 16:45:58.804 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 16:45:58.804 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 16:45:58.805 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 16:47:04.112 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'xfqM43cdRYP5lTuBIewSxw==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 16:47:04.171 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.05515885353088379 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"navigate_to": "{\"mode\": \"driving\", \"api_key\": \"f54a88760646af815b5f0d3feb0a2a30\", \"api_base\": \"https://restapi.amap.com\", \"turn_distance\": \"80\", \"arrival_distance\": \"30\"}", "get_weather": "{\"api_key\": \"a861d0d5e7bf4ee1a83d9a9e4f96d4da\", \"api_host\": \"mj7p3y7naa.re.qweatherapi.com\", \"default_location\": \"广州\"}", "get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 16:47:04.222 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 16:47:05.900 - 0.5.8_00000000000000 - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:47:05.952 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 16:47:05.963 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 16:47:05.974 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 16:47:05.976 - 0.5.8_00000000000000 - config.logger - DEBUG - config.logger - 更新日志配置组件
+2025-08-18 16:47:06.035 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 16:47:06.035 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #2: self.audio_speaker.set_volume
+2025-08-18 16:47:06.038 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #3: self.screen.set_brightness
+2025-08-18 16:47:06.039 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #4: self.screen.set_theme
+2025-08-18 16:47:06.039 - 0.5.8_SiFuChEdnoll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:47:06.041 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 16:47:06.106 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 16:47:06.107 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 16:47:06.108 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 注册成功
+2025-08-18 16:47:06.109 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 注册成功
+2025-08-18 16:47:06.110 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 注册成功
+2025-08-18 16:47:06.112 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 注册成功
+2025-08-18 16:47:06.113 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 注册成功
+2025-08-18 16:47:06.114 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 注册成功
+2025-08-18 16:47:06.115 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 注册成功
+2025-08-18 16:47:06.115 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 注册成功
+2025-08-18 16:47:06.116 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 16:48:17.785 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"导航去福建师范大学"}
+2025-08-18 16:48:17.786 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - DEBUG - core.handle.textHandle - 客户端拾音模式：manual
+2025-08-18 16:48:17.786 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 16:48:17.787 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:48:17.787 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:48:17.788 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 16:48:17.789 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 16:48:18.909 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 16:48:18.910 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:48:18.911 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 16:48:18.914 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 使用意图识别模型: glm-4-flash-250414
+2025-08-18 16:48:18.918 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - User prompt: 你是一个意图识别助手。请分析用户的最后一句话，判断用户意图并调用相应的函数。
+
+- 如果用户使用疑问词（如'怎么'、'为什么'、'如何'）询问退出相关的问题（例如'怎么退出了？'），注意这不是让你退出，请返回 {'function_call': {'name': 'continue_chat'}
+- 仅当用户明确使用'退出系统'、'结束对话'、'我不想和你说话了'等指令时，才触发 handle_exit_intent
+
+可用的函数列表：
+
+函数名: handle_exit_intent
+描述: 当用户想结束对话或需要退出系统时调用
+参数:
+- say_goodbye (string): 和用户友好结束对话的告别语
+---
+
+函数名: get_time
+描述: 获取今天日期或者当前时间信息
+参数:
+---
+
+函数名: get_lunar
+描述: 用于获取今天的阴历/农历和黄历信息。用户可以指定查询内容，如：阴历日期、天干地支、节气、生肖、星座、八字、宜忌等。如果没有指定查询内容，则默认查询干支年和农历日期。
+参数:
+- query (string): 要查询的内容，例如阴历日期、天干地支、节日、节气、生肖、星座、八字、宜忌等
+---
+
+函数名: navigate_to
+描述: 开始导航到目的地。优先使用客户端提供的当前位置作为起点；如未提供，则等待后续位置更新再规划路线。
+参数:
+- destination (string): 目的地名称或经纬度(如: 116.481499,39.990475)
+- mode (string): 出行方式: driving/walking/bicycling，默认driving
+- origin (string): 起点经纬度: lng,lat，可选
+---
+
+函数名: get_weather
+描述: 获取某个地点的天气，用户应提供一个位置，比如用户说杭州天气，参数为：杭州。如果用户说的是省份，默认用省会城市。如果用户说的不是省份或城市而是一个地名，默认用该地所在省份的省会城市。如果用户没有指明地点，说“天气怎么样”，”今天天气如何“，location参数为空
+参数:
+- location (string): 地点名，例如杭州。可选参数，如果不提供则不传
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: get_news_from_chinanews
+描述: **用于处理用户的电台播放/停止请求，是播放电台的唯一方式**。
+⚠️ 优先级：当用户指令同时命中电台关键词与歌曲关键词时，必须优先调用本函数。
+触发规则：当用户的语句中出现以下任一关键词（或相似表达）时，必须调用本函数，不得调用播放歌曲函数：
+【电台】【广播】【新闻广播】【中国之声】【新闻之声】【音乐之声】【经济之声】【都市之声】【中华之声】【神州之声】【电台直播】【收听电台】等。
+支持指令：
+  - 播放/打开/切换到 指定电台（如：播放音乐之声、切换到经济之声）
+  - 停止/关闭 当前播放的电台（如：停止广播、关闭中国之声）
+默认行为：未指定电台名时，默认播放“中国之声”。
+所有表示“播放、打开、切换到、切换成”等动词必须映射为 'play'；所有表示“停止、关闭”等动词必须映射为 'stop'；不得输出其它值。
+参数:
+- command (string): 操作指令：
+- play：播放或切换到指定电台
+- stop：停止当前播放的电台
+可为空，函数内部会默认为 'play'
+- radio_name (string): 需播放的电台名称，支持：
+中国之声、经济之声、音乐之声、都市之声、中华之声、神州之声。
+可为空，函数内部会默认为 '中国之声'。
+若提供的名称不在支持范围内，也会自动替换为 '中国之声'。
+---
+
+函数名: get_news_from_newsnow
+描述: 获取最新新闻，随机选择一条新闻进行播报。用户可以选择不同的新闻源，如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。如果没有指定，默认从澎湃新闻获取。用户可以要求获取详细内容，此时会获取新闻的详细内容。
+参数:
+- source (string): 新闻源，例如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。可选参数，如果不提供则使用默认新闻源
+- detail (boolean): 是否获取详细内容，默认为false。如果为true，则获取上一条新闻的详细内容
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: play_music
+描述: **用于处理用户的歌曲播放请求，是播放单曲的唯一方式**。
+触发规则：当用户说“播放XX”“放XX”“听XX”“点歌XX”“来一首歌”“我要听歌”等歌曲相关指令时，必须调用此函数。
+⚠️ 注意：如果用户指令中出现电台相关关键词（如“电台”“广播”“中国之声”等），即使包含“播放”也必须调用电台函数而不是本函数。
+提取规则：
+1. 直接取出用户在播放指令后的歌名（如“播放稻香”→“稻香”）。
+2. 若未提供歌名（如“播放音乐”），则默认播放“素颜”。
+3. 忽略无关修饰语（如“帮我播放一下稻香谢谢”→“稻香”）。
+4. 支持的触发动词包括：播放、放、听、点歌、来一首、想听、我要听、帮我点一首等。
+参数:
+- song_name (string): 提取的歌曲名称：
+- 如果用户未指定歌名，默认“素颜”
+- 若包含多余词汇，需提取核心歌名
+---
+
+函数名: self_get_device_status
+描述: Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.
+Use this tool for: 
+1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)
+2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)
+参数:
+---
+
+函数名: self_audio_speaker_set_volume
+描述: Set the volume of the audio speaker. If the current volume is unknown, you must call `self_get_device_status` tool first and then call this tool.
+参数:
+- volume (integer): 
+---
+
+函数名: self_screen_set_brightness
+描述: Set the brightness of the screen.
+参数:
+- brightness (integer): 
+---
+
+函数名: self_screen_set_theme
+描述: Set the theme of the screen. The theme can be 'light' or 'dark'.
+参数:
+- theme (string): 
+---
+
+处理步骤:
+1. 分析用户输入，确定用户意图
+2. 从可用函数列表中选择最匹配的函数
+3. 如果找到匹配的函数，生成对应的function_call 格式
+4. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+
+返回格式要求：
+1. 必须返回纯JSON格式
+2. 必须包含function_call字段
+3. function_call必须包含name字段
+4. 如果函数需要参数，必须包含arguments字段
+
+示例：
+```
+用户: 现在几点了？
+返回: {"function_call": {"name": "get_time"}}
+```
+```
+用户: 播放素颜
+返回: {"function_call": {"name": "play_music"}}
+```
+```
+用户: 当前电池电量是多少？
+返回: {"function_call": {"name": "get_battery_level", "arguments": {"response_success": "当前电池电量为{value}%", "response_failure": "无法获取Battery的当前电量百分比"}}}
+```
+```
+用户: 当前屏幕亮度是多少？
+返回: {"function_call": {"name": "self_screen_get_brightness"}}
+```
+```
+用户: 设置屏幕亮度为50%
+返回: {"function_call": {"name": "self_screen_set_brightness", "arguments": {"brightness": 50}}}
+```
+```
+用户: 我想结束对话
+返回: {"function_call": {"name": "handle_exit_intent", "arguments": {"say_goodbye": "goodbye"}}}
+```
+```
+用户: 你好啊
+返回: {"function_call": {"name": "continue_chat"}}
+```
+
+注意：
+1. 只返回JSON格式，不要包含任何其他文字
+2. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+3. 确保返回的JSON格式正确，包含所有必要的字段
+特殊说明：
+- 当用户单次输入包含多个指令时（如'打开灯并且调高音量'）
+- 请返回多个function_call组成的JSON数组
+- 示例：{'function_calls': [{name:'light_on'}, {name:'volume_up'}]}
+<musicNames>['cache\\于果 - 侧脸', 'cache\\花粥马雨阳 - 盗将行', 'cache\\葛东琪 - 悬溺', 'cache\\许嵩何曼婷 - 素颜', 'cache\\郭顶 - 凄美地']
+</musicNames>
+2025-08-18 16:48:18.919 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图识别预处理耗时: 0.0052秒
+2025-08-18 16:48:18.920 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 开始LLM意图识别调用, 模型: glm-4-flash-250414
+2025-08-18 16:48:22.135 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - LLM意图识别完成, 模型: glm-4-flash-250414, 调用耗时: 3.2151秒
+2025-08-18 16:48:22.136 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 【意图识别性能】模型: glm-4-flash-250414, 总耗时: 3.2222秒, LLM调用: 3.2151秒, 查询: '导航去福建师范大学...'
+2025-08-18 16:48:28.380 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:48:28.380 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图后处理耗时: 6.2441秒
+2025-08-18 16:48:28.385 - 0.5.8_SiFuChEdnoll - core.handle.intentHandler - DEBUG - core.handle.intentHandler - 检测到function_call格式的意图结果: navigate_to
+2025-08-18 16:48:28.387 - 0.5.8_SiFuChEdnoll - core.handle.functionHandler - DEBUG - core.handle.functionHandler - 调用函数: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:48:28.387 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:50:13.268 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:50:13.268 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:50:13.268 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 收到取消信号，开始清理...
+2025-08-18 16:50:13.268 - 0.5.8_SiFuChEdnoll - __main__ - INFO - __main__ - 后台事件循环已停止
+2025-08-18 16:50:13.278 - 0.5.8_SiFuChEdnoll - core.providers.memory.nomem.nomem - DEBUG - core.providers.memory.nomem.nomem - nomem mode: No memory saving is performed.
+2025-08-18 16:50:13.279 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 连接资源已释放
+2025-08-18 16:51:13.280 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'change_role' 已加载，可以注册使用
+2025-08-18 16:51:14.780 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 已加载，可以注册使用
+2025-08-18 16:51:14.795 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 已加载，可以注册使用
+2025-08-18 16:51:14.795 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 已加载，可以注册使用
+2025-08-18 16:51:14.795 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 已加载，可以注册使用
+2025-08-18 16:51:14.795 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_device' 已加载，可以注册使用
+2025-08-18 16:51:14.800 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 已加载，可以注册使用
+2025-08-18 16:51:14.803 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_get_state' 已加载，可以注册使用
+2025-08-18 16:51:14.803 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_play_music' 已加载，可以注册使用
+2025-08-18 16:51:14.803 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_set_state' 已加载，可以注册使用
+2025-08-18 16:51:14.807 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 已加载，可以注册使用
+2025-08-18 16:51:14.807 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_update' 已加载，可以注册使用
+2025-08-18 16:51:14.807 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_stop' 已加载，可以注册使用
+2025-08-18 16:51:14.823 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 已加载，可以注册使用
+2025-08-18 16:51:14.858 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 已加载，可以注册使用
+2025-08-18 16:51:14.858 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'plugin_loader' 已加载，可以注册使用
+2025-08-18 16:51:15.066 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 16:51:18.274 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 16:51:18.840 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 16:51:35.518 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 16:51:35.518 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 16:51:35.546 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.173:8003/mcp/vision/explain
+2025-08-18 16:51:35.546 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.173:8000/xiaozhi/v1/
+2025-08-18 16:51:35.546 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 16:51:35.546 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 16:51:35.546 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 16:51:46.228 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'SejA0eYV9ftTxdzbmzykpw==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 16:51:46.367 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.13608622550964355 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"navigate_to": "{\"mode\": \"driving\", \"api_key\": \"f54a88760646af815b5f0d3feb0a2a30\", \"api_base\": \"https://restapi.amap.com\", \"turn_distance\": \"80\", \"arrival_distance\": \"30\"}", "get_weather": "{\"api_key\": \"a861d0d5e7bf4ee1a83d9a9e4f96d4da\", \"api_host\": \"mj7p3y7naa.re.qweatherapi.com\", \"default_location\": \"广州\"}", "get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 16:51:46.423 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 16:51:47.957 - 0.5.8_00000000000000 - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:51:48.000 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 16:51:48.010 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 16:51:48.018 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 16:51:48.020 - 0.5.8_00000000000000 - config.logger - DEBUG - config.logger - 更新日志配置组件
+2025-08-18 16:51:48.077 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 16:51:48.079 - 0.5.8_SiFuChEdnoll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 16:51:48.086 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-18 16:51:48.087 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 16:51:48.088 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 收到MCP工具列表响应
+2025-08-18 16:51:48.088 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 16:51:48.090 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #1: self.get_device_status
+2025-08-18 16:51:48.091 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #2: self.audio_speaker.set_volume
+2025-08-18 16:51:48.092 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #3: self.screen.set_brightness
+2025-08-18 16:51:48.092 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #4: self.screen.set_theme
+2025-08-18 16:51:48.093 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 16:51:48.129 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 16:51:48.130 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 16:51:48.130 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 注册成功
+2025-08-18 16:51:48.131 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 注册成功
+2025-08-18 16:51:48.131 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 注册成功
+2025-08-18 16:51:48.132 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 注册成功
+2025-08-18 16:51:48.132 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 注册成功
+2025-08-18 16:51:48.132 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 注册成功
+2025-08-18 16:51:48.132 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 注册成功
+2025-08-18 16:51:48.133 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 注册成功
+2025-08-18 16:51:48.133 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 16:51:52.463 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"导航去福建师范大学"}
+2025-08-18 16:51:52.464 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - DEBUG - core.handle.textHandle - 客户端拾音模式：manual
+2025-08-18 16:51:52.465 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 16:51:52.465 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:51:52.465 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 16:51:52.467 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 16:51:52.467 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 16:51:53.576 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 16:51:53.577 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:51:53.579 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 16:51:53.583 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 使用意图识别模型: glm-4-flash-250414
+2025-08-18 16:51:53.589 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - User prompt: 你是一个意图识别助手。请分析用户的最后一句话，判断用户意图并调用相应的函数。
+
+- 如果用户使用疑问词（如'怎么'、'为什么'、'如何'）询问退出相关的问题（例如'怎么退出了？'），注意这不是让你退出，请返回 {'function_call': {'name': 'continue_chat'}
+- 仅当用户明确使用'退出系统'、'结束对话'、'我不想和你说话了'等指令时，才触发 handle_exit_intent
+
+可用的函数列表：
+
+函数名: handle_exit_intent
+描述: 当用户想结束对话或需要退出系统时调用
+参数:
+- say_goodbye (string): 和用户友好结束对话的告别语
+---
+
+函数名: get_time
+描述: 获取今天日期或者当前时间信息
+参数:
+---
+
+函数名: get_lunar
+描述: 用于获取今天的阴历/农历和黄历信息。用户可以指定查询内容，如：阴历日期、天干地支、节气、生肖、星座、八字、宜忌等。如果没有指定查询内容，则默认查询干支年和农历日期。
+参数:
+- query (string): 要查询的内容，例如阴历日期、天干地支、节日、节气、生肖、星座、八字、宜忌等
+---
+
+函数名: navigate_to
+描述: 开始导航到目的地。优先使用客户端提供的当前位置作为起点；如未提供，则等待后续位置更新再规划路线。
+参数:
+- destination (string): 目的地名称或经纬度(如: 116.481499,39.990475)
+- mode (string): 出行方式: driving/walking/bicycling，默认driving
+- origin (string): 起点经纬度: lng,lat，可选
+---
+
+函数名: get_weather
+描述: 获取某个地点的天气，用户应提供一个位置，比如用户说杭州天气，参数为：杭州。如果用户说的是省份，默认用省会城市。如果用户说的不是省份或城市而是一个地名，默认用该地所在省份的省会城市。如果用户没有指明地点，说“天气怎么样”，”今天天气如何“，location参数为空
+参数:
+- location (string): 地点名，例如杭州。可选参数，如果不提供则不传
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: get_news_from_chinanews
+描述: **用于处理用户的电台播放/停止请求，是播放电台的唯一方式**。
+⚠️ 优先级：当用户指令同时命中电台关键词与歌曲关键词时，必须优先调用本函数。
+触发规则：当用户的语句中出现以下任一关键词（或相似表达）时，必须调用本函数，不得调用播放歌曲函数：
+【电台】【广播】【新闻广播】【中国之声】【新闻之声】【音乐之声】【经济之声】【都市之声】【中华之声】【神州之声】【电台直播】【收听电台】等。
+支持指令：
+  - 播放/打开/切换到 指定电台（如：播放音乐之声、切换到经济之声）
+  - 停止/关闭 当前播放的电台（如：停止广播、关闭中国之声）
+默认行为：未指定电台名时，默认播放“中国之声”。
+所有表示“播放、打开、切换到、切换成”等动词必须映射为 'play'；所有表示“停止、关闭”等动词必须映射为 'stop'；不得输出其它值。
+参数:
+- command (string): 操作指令：
+- play：播放或切换到指定电台
+- stop：停止当前播放的电台
+可为空，函数内部会默认为 'play'
+- radio_name (string): 需播放的电台名称，支持：
+中国之声、经济之声、音乐之声、都市之声、中华之声、神州之声。
+可为空，函数内部会默认为 '中国之声'。
+若提供的名称不在支持范围内，也会自动替换为 '中国之声'。
+---
+
+函数名: get_news_from_newsnow
+描述: 获取最新新闻，随机选择一条新闻进行播报。用户可以选择不同的新闻源，如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。如果没有指定，默认从澎湃新闻获取。用户可以要求获取详细内容，此时会获取新闻的详细内容。
+参数:
+- source (string): 新闻源，例如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。可选参数，如果不提供则使用默认新闻源
+- detail (boolean): 是否获取详细内容，默认为false。如果为true，则获取上一条新闻的详细内容
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: play_music
+描述: **用于处理用户的歌曲播放请求，是播放单曲的唯一方式**。
+触发规则：当用户说“播放XX”“放XX”“听XX”“点歌XX”“来一首歌”“我要听歌”等歌曲相关指令时，必须调用此函数。
+⚠️ 注意：如果用户指令中出现电台相关关键词（如“电台”“广播”“中国之声”等），即使包含“播放”也必须调用电台函数而不是本函数。
+提取规则：
+1. 直接取出用户在播放指令后的歌名（如“播放稻香”→“稻香”）。
+2. 若未提供歌名（如“播放音乐”），则默认播放“素颜”。
+3. 忽略无关修饰语（如“帮我播放一下稻香谢谢”→“稻香”）。
+4. 支持的触发动词包括：播放、放、听、点歌、来一首、想听、我要听、帮我点一首等。
+参数:
+- song_name (string): 提取的歌曲名称：
+- 如果用户未指定歌名，默认“素颜”
+- 若包含多余词汇，需提取核心歌名
+---
+
+函数名: self_get_device_status
+描述: Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.
+Use this tool for: 
+1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)
+2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)
+参数:
+---
+
+函数名: self_audio_speaker_set_volume
+描述: Set the volume of the audio speaker. If the current volume is unknown, you must call `self_get_device_status` tool first and then call this tool.
+参数:
+- volume (integer): 
+---
+
+函数名: self_screen_set_brightness
+描述: Set the brightness of the screen.
+参数:
+- brightness (integer): 
+---
+
+函数名: self_screen_set_theme
+描述: Set the theme of the screen. The theme can be 'light' or 'dark'.
+参数:
+- theme (string): 
+---
+
+处理步骤:
+1. 分析用户输入，确定用户意图
+2. 从可用函数列表中选择最匹配的函数
+3. 如果找到匹配的函数，生成对应的function_call 格式
+4. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+
+返回格式要求：
+1. 必须返回纯JSON格式
+2. 必须包含function_call字段
+3. function_call必须包含name字段
+4. 如果函数需要参数，必须包含arguments字段
+
+示例：
+```
+用户: 现在几点了？
+返回: {"function_call": {"name": "get_time"}}
+```
+```
+用户: 播放素颜
+返回: {"function_call": {"name": "play_music"}}
+```
+```
+用户: 当前电池电量是多少？
+返回: {"function_call": {"name": "get_battery_level", "arguments": {"response_success": "当前电池电量为{value}%", "response_failure": "无法获取Battery的当前电量百分比"}}}
+```
+```
+用户: 当前屏幕亮度是多少？
+返回: {"function_call": {"name": "self_screen_get_brightness"}}
+```
+```
+用户: 设置屏幕亮度为50%
+返回: {"function_call": {"name": "self_screen_set_brightness", "arguments": {"brightness": 50}}}
+```
+```
+用户: 我想结束对话
+返回: {"function_call": {"name": "handle_exit_intent", "arguments": {"say_goodbye": "goodbye"}}}
+```
+```
+用户: 你好啊
+返回: {"function_call": {"name": "continue_chat"}}
+```
+
+注意：
+1. 只返回JSON格式，不要包含任何其他文字
+2. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+3. 确保返回的JSON格式正确，包含所有必要的字段
+特殊说明：
+- 当用户单次输入包含多个指令时（如'打开灯并且调高音量'）
+- 请返回多个function_call组成的JSON数组
+- 示例：{'function_calls': [{name:'light_on'}, {name:'volume_up'}]}
+<musicNames>['cache\\于果 - 侧脸', 'cache\\花粥马雨阳 - 盗将行', 'cache\\葛东琪 - 悬溺', 'cache\\许嵩何曼婷 - 素颜', 'cache\\郭顶 - 凄美地']
+</musicNames>
+2025-08-18 16:51:53.590 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图识别预处理耗时: 0.0073秒
+2025-08-18 16:51:53.591 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 开始LLM意图识别调用, 模型: glm-4-flash-250414
+2025-08-18 16:51:56.555 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - LLM意图识别完成, 模型: glm-4-flash-250414, 调用耗时: 2.9639秒
+2025-08-18 16:51:56.556 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 【意图识别性能】模型: glm-4-flash-250414, 总耗时: 2.9736秒, LLM调用: 2.9639秒, 查询: '导航去福建师范大学...'
+2025-08-18 16:52:10.297 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:52:10.299 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图后处理耗时: 13.7426秒
+2025-08-18 16:52:10.299 - 0.5.8_SiFuChEdnoll - core.handle.intentHandler - DEBUG - core.handle.intentHandler - 检测到function_call格式的意图结果: navigate_to
+2025-08-18 16:52:10.309 - 0.5.8_SiFuChEdnoll - core.handle.functionHandler - DEBUG - core.handle.functionHandler - 调用函数: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 16:52:10.314 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 16:52:46.180 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 16:52:46.180 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 16:52:46.183 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 16:52:59.332 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 准备导航到福建省师范大学
+2025-08-18 16:52:59.339 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 53
+2025-08-18 16:52:59.340 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 准备导航到福建省师范大学
+2025-08-18 16:52:59.340 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：50帧 (snapshot=1, current=1)
+2025-08-18 16:53:02.470 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=53, 总字节=5334, 代次=(1->1)
+2025-08-18 16:53:02.470 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=53, 代次=(1->1)
+2025-08-18 16:53:02.470 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 请提供当前位置或等待位置更新
+2025-08-18 16:53:02.470 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 61
+2025-08-18 16:53:02.470 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：58帧 (snapshot=1, current=1)
+2025-08-18 16:53:06.080 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=61, 总字节=6247, 代次=(1->1)
+2025-08-18 16:53:06.080 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=61, 代次=(1->1)
+2025-08-18 16:53:06.083 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 16:53:06.083 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 16:53:06.085 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 16:53:06.085 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 17:40:23.239 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'change_role' 已加载，可以注册使用
+2025-08-18 17:40:25.456 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 已加载，可以注册使用
+2025-08-18 17:40:25.470 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 已加载，可以注册使用
+2025-08-18 17:40:25.470 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 已加载，可以注册使用
+2025-08-18 17:40:25.478 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 已加载，可以注册使用
+2025-08-18 17:40:25.480 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_device' 已加载，可以注册使用
+2025-08-18 17:40:25.480 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 已加载，可以注册使用
+2025-08-18 17:40:25.480 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_get_state' 已加载，可以注册使用
+2025-08-18 17:40:25.480 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_play_music' 已加载，可以注册使用
+2025-08-18 17:40:25.491 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'hass_set_state' 已加载，可以注册使用
+2025-08-18 17:40:25.494 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 已加载，可以注册使用
+2025-08-18 17:40:25.494 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_update' 已加载，可以注册使用
+2025-08-18 17:40:25.494 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigation_stop' 已加载，可以注册使用
+2025-08-18 17:40:25.505 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 已加载，可以注册使用
+2025-08-18 17:40:25.572 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 已加载，可以注册使用
+2025-08-18 17:40:25.575 - 0.5.8_00000000000000 - plugins_func.register - DEBUG - plugins_func.register - 函数 'plugin_loader' 已加载，可以注册使用
+2025-08-18 17:40:25.994 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 后台事件循环线程已启动
+2025-08-18 17:40:30.371 - 0.5.8_00000000000000 - core.providers.vad.silero - INFO - core.providers.vad.silero - SileroVAD
+2025-08-18 17:40:31.560 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: vad成功 VAD_SileroVAD
+2025-08-18 17:40:52.622 - 0.5.8_00000000000000 - core.providers.asr.fun_local - INFO - core.providers.asr.fun_local - funasr version: 1.2.3.
+2025-08-18 17:40:52.622 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: asr成功 ASR_FunASR
+2025-08-18 17:40:52.677 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 视觉分析接口是	http://192.168.0.173:8003/mcp/vision/explain
+2025-08-18 17:40:52.677 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - Websocket地址是	ws://192.168.0.173:8000/xiaozhi/v1/
+2025-08-18 17:40:52.678 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-08-18 17:40:52.678 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - 如想测试websocket请用谷歌浏览器打开test目录下的test_page.html
+2025-08-18 17:40:52.678 - 0.5.8_00000000000000 - __main__ - INFO - __main__ - =============================================================
+
+2025-08-18 17:40:58.049 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 127.0.0.1 conn - Headers: {'host': '127.0.0.1:8000', 'connection': 'Upgrade', 'pragma': 'no-cache', 'cache-control': 'no-cache', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0', 'upgrade': 'websocket', 'origin': 'http://localhost:63342', 'sec-websocket-version': '13', 'accept-encoding': 'gzip, deflate, br, zstd', 'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6', 'sec-websocket-key': 'Hn7hWMZWAkOUhGCJyXEn3g==', 'sec-websocket-extensions': 'permessage-deflate; client_max_window_bits', 'device-id': 'F8:3F:65:8B:8C:41', 'client-id': 'web_test_client'}
+2025-08-18 17:40:58.255 - 0.5.8_00000000000000 - core.connection - INFO - core.connection - 0.20227551460266113 秒，获取差异化配置成功: {"device_max_output_size": "0", "TTS": {"TTS_EdgeTTS": {"type": "edge", "voice": "zh-CN-XiaoxiaoNeural", "output_dir": "tmp/", "private_voice": "zh-CN-XiaoxiaoNeural"}}, "plugins": {"navigate_to": "{\"mode\": \"driving\", \"api_key\": \"f54a88760646af815b5f0d3feb0a2a30\", \"api_base\": \"https://restapi.amap.com\", \"turn_distance\": \"80\", \"arrival_distance\": \"30\"}", "get_weather": "{\"api_key\": \"a861d0d5e7bf4ee1a83d9a9e4f96d4da\", \"api_host\": \"mj7p3y7naa.re.qweatherapi.com\", \"default_location\": \"广州\"}", "get_news_from_chinanews": "{\"world_rss_url\": \"https://www.chinanews.com.cn/rss/world.xml\", \"default_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\", \"finance_rss_url\": \"https://www.chinanews.com.cn/rss/finance.xml\", \"society_rss_url\": \"https://www.chinanews.com.cn/rss/society.xml\"}", "get_news_from_newsnow": "{\"url\": \"https://newsnow.busiyi.world/api/s?id=\", \"news_sources\": \"澎湃新闻;百度热搜;财联社\"}", "play_music": "{}"}, "Memory": {"Memory_nomem": {"type": "nomem"}}, "selected_module": {"TTS": "TTS_EdgeTTS", "Memory": "Memory_nomem", "Intent": "Intent_intent_llm", "LLM": "LLM_ChatGLMLLM", "VLLM": "VLLM_ChatGLMVLLM"}, "summaryMemory": "", "Intent": {"Intent_intent_llm": {"llm": "LLM_ChatGLMLLM", "type": "intent_llm", "functions": ["get_weather", "get_news_from_newsnow", "play_music"]}}, "chat_history_conf": 0, "LLM": {"LLM_ChatGLMLLM": {"type": "openai", "top_k": "", "top_p": "", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "max_tokens": "***", "model_name": "glm-4-flash-250414", "temperature": "", "frequency_penalty": ""}}, "prompt": "[角色设定]\n你是tts，来自中国台湾省的00后女生。讲话超级机车，\"真的假的啦\"这样的台湾腔，喜欢用\"笑死\"、\"哈喽\"等流行梗，但会偷偷研究男友的编程书籍。\n[核心特征]\n- 讲话像连珠炮，但会突然冒出超温柔语气\n- 用梗密度高\n- 对科技话题有隐藏天赋（能看懂基础代码但假装不懂）\n[交互指南]\n当用户：\n- 讲冷笑话 → 用夸张笑声回应+模仿台剧腔\"这什么鬼啦！\"\n- 讨论感情 → 炫耀程序员男友但抱怨\"他只会送键盘当礼物\"\n- 问专业知识 → 先用梗回答，被追问才展示真实理解\n绝不：\n- 长篇大论，叽叽歪歪\n- 长时间严肃对话", "VLLM": {"VLLM_ChatGLMVLLM": {"type": "openai", "api_key": "***", "base_url": "https://open.bigmodel.cn/api/paas/v4/", "model_name": "glm-4v-flash"}}, "delete_audio": true}
+2025-08-18 17:40:58.318 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: tts成功 TTS_EdgeTTS
+2025-08-18 17:40:59.936 - 0.5.8_00000000000000 - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 17:40:59.977 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: llm成功 LLM_ChatGLMLLM
+2025-08-18 17:40:59.987 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: intent成功 Intent_intent_llm
+2025-08-18 17:40:59.995 - 0.5.8_00000000000000 - core.utils.modules_initialize - INFO - core.utils.modules_initialize - 初始化组件: memory成功 Memory_nomem
+2025-08-18 17:40:59.997 - 0.5.8_00000000000000 - config.logger - DEBUG - config.logger - 更新日志配置组件
+2025-08-18 17:41:00.065 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 初始化组件: prompt成功 [角色设定]
+你是tts，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢...
+2025-08-18 17:41:00.068 - 0.5.8_SiFuChEdnoll - core.providers.llm.openai.openai - DEBUG - core.providers.llm.openai.openai - 意图识别参数初始化: 0.7, 500, 1.0, 0
+2025-08-18 17:41:00.072 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到mcp消息：{"session_id":"","type":"mcp","payload":{"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"self.get_device_status","description":"Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)","inputSchema":{"type":"object","properties":{}}},{"name":"self.audio_speaker.set_volume","description":"Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.","inputSchema":{"type":"object","properties":{"volume":{"type":"integer","minimum":0,"maximum":100}},"required":["volume"]}},{"name":"self.screen.set_brightness","description":"Set the brightness of the screen.","inputSchema":{"type":"object","properties":{"brightness":{"type":"integer","minimum":0,"maximum":100}},"required":["brightness"]}},{"name":"self.screen.set_theme","description":"Set the theme of the screen. The theme can be 'light' or 'dark'.","inputSchema":{"type":"object","properties":{"theme":{"type":"string"}},"required":["theme"]}}]}}}
+2025-08-18 17:41:00.078 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 处理MCP消息: {'jsonrpc': '2.0', 'id': 2, 'result': {'tools': [{'name': 'self.get_device_status', 'description': 'Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)', 'inputSchema': {'type': 'object', 'properties': {}}}, {'name': 'self.audio_speaker.set_volume', 'description': 'Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.', 'inputSchema': {'type': 'object', 'properties': {'volume': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['volume']}}, {'name': 'self.screen.set_brightness', 'description': 'Set the brightness of the screen.', 'inputSchema': {'type': 'object', 'properties': {'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100}}, 'required': ['brightness']}}, {'name': 'self.screen.set_theme', 'description': "Set the theme of the screen. The theme can be 'light' or 'dark'.", 'inputSchema': {'type': 'object', 'properties': {'theme': {'type': 'string'}}, 'required': ['theme']}}]}}
+2025-08-18 17:41:00.078 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 收到MCP工具列表响应
+2025-08-18 17:41:00.079 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 客户端设备支持的工具数量: 4
+2025-08-18 17:41:00.081 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #1: self.get_device_status
+2025-08-18 17:41:00.082 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #2: self.audio_speaker.set_volume
+2025-08-18 17:41:00.082 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #3: self.screen.set_brightness
+2025-08-18 17:41:00.083 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - DEBUG - core.handle.mcpHandle - 客户端工具 #4: self.screen.set_theme
+2025-08-18 17:41:00.083 - 0.5.8_SiFuChEdnoll - core.handle.mcpHandle - INFO - core.handle.mcpHandle - 所有工具已获取，MCP客户端准备就绪
+2025-08-18 17:41:00.124 - 0.5.8_SiFuChEdnoll - core.connection - INFO - core.connection - 为意图识别创建了专用LLM: LLM_ChatGLMLLM, 类型: openai
+2025-08-18 17:41:00.125 - 0.5.8_SiFuChEdnoll - core.providers.intent.base - INFO - core.providers.intent.base - 意图识别设置LLM: glm-4-flash-250414
+2025-08-18 17:41:00.125 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'handle_exit_intent' 注册成功
+2025-08-18 17:41:00.126 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_time' 注册成功
+2025-08-18 17:41:00.127 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_lunar' 注册成功
+2025-08-18 17:41:00.127 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'navigate_to' 注册成功
+2025-08-18 17:41:00.128 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_weather' 注册成功
+2025-08-18 17:41:00.129 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_chinanews' 注册成功
+2025-08-18 17:41:00.129 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'get_news_from_newsnow' 注册成功
+2025-08-18 17:41:00.131 - 0.5.8_SiFuChEdnoll - plugins_func.register - DEBUG - plugins_func.register - 函数 'play_music' 注册成功
+2025-08-18 17:41:00.132 - 0.5.8_SiFuChEdnoll - core.mcp.manager - WARNING - core.mcp.manager - 请检查mcp服务配置文件：data/.mcp_server_settings.json
+2025-08-18 17:41:17.146 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - INFO - core.handle.textHandle - 收到listen消息：{"type":"listen","mode":"manual","state":"detect","text":"导航去福建师范大学"}
+2025-08-18 17:41:17.147 - 0.5.8_SiFuChEdnoll - core.handle.textHandle - DEBUG - core.handle.textHandle - 客户端拾音模式：manual
+2025-08-18 17:41:17.147 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received
+2025-08-18 17:41:17.147 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 开始清理: TTS队列大小=0, 音频队列大小=0
+2025-08-18 17:41:17.148 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清理结束: TTS队列大小=0, 音频队列大小=0
+2025-08-18 17:41:17.148 - 0.5.8_SiFuChEdnoll - core.handle.sendLyricsHandle - INFO - core.handle.sendLyricsHandle - 歌词推送已中止
+2025-08-18 17:41:17.150 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 触发音乐中断
+2025-08-18 17:41:18.258 - 0.5.8_SiFuChEdnoll - plugins_func.functions.play_music - INFO - plugins_func.functions.play_music - 音乐中断完成
+2025-08-18 17:41:18.260 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 17:41:18.261 - 0.5.8_SiFuChEdnoll - core.handle.abortHandle - INFO - core.handle.abortHandle - Abort message received-end
+2025-08-18 17:41:18.264 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 使用意图识别模型: glm-4-flash-250414
+2025-08-18 17:41:18.270 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - User prompt: 你是一个意图识别助手。请分析用户的最后一句话，判断用户意图并调用相应的函数。
+
+- 如果用户使用疑问词（如'怎么'、'为什么'、'如何'）询问退出相关的问题（例如'怎么退出了？'），注意这不是让你退出，请返回 {'function_call': {'name': 'continue_chat'}
+- 仅当用户明确使用'退出系统'、'结束对话'、'我不想和你说话了'等指令时，才触发 handle_exit_intent
+
+可用的函数列表：
+
+函数名: handle_exit_intent
+描述: 当用户想结束对话或需要退出系统时调用
+参数:
+- say_goodbye (string): 和用户友好结束对话的告别语
+---
+
+函数名: get_time
+描述: 获取今天日期或者当前时间信息
+参数:
+---
+
+函数名: get_lunar
+描述: 用于获取今天的阴历/农历和黄历信息。用户可以指定查询内容，如：阴历日期、天干地支、节气、生肖、星座、八字、宜忌等。如果没有指定查询内容，则默认查询干支年和农历日期。
+参数:
+- query (string): 要查询的内容，例如阴历日期、天干地支、节日、节气、生肖、星座、八字、宜忌等
+---
+
+函数名: navigate_to
+描述: 开始导航到目的地。优先使用客户端提供的当前位置作为起点；如未提供，则等待后续位置更新再规划路线。
+参数:
+- destination (string): 目的地名称或经纬度(如: 116.481499,39.990475)
+- mode (string): 出行方式: driving/walking/bicycling，默认driving
+- origin (string): 起点经纬度: lng,lat，可选
+---
+
+函数名: get_weather
+描述: 获取某个地点的天气，用户应提供一个位置，比如用户说杭州天气，参数为：杭州。如果用户说的是省份，默认用省会城市。如果用户说的不是省份或城市而是一个地名，默认用该地所在省份的省会城市。如果用户没有指明地点，说“天气怎么样”，”今天天气如何“，location参数为空
+参数:
+- location (string): 地点名，例如杭州。可选参数，如果不提供则不传
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: get_news_from_chinanews
+描述: **用于处理用户的电台播放/停止请求，是播放电台的唯一方式**。
+⚠️ 优先级：当用户指令同时命中电台关键词与歌曲关键词时，必须优先调用本函数。
+触发规则：当用户的语句中出现以下任一关键词（或相似表达）时，必须调用本函数，不得调用播放歌曲函数：
+【电台】【广播】【新闻广播】【中国之声】【新闻之声】【音乐之声】【经济之声】【都市之声】【中华之声】【神州之声】【电台直播】【收听电台】等。
+支持指令：
+  - 播放/打开/切换到 指定电台（如：播放音乐之声、切换到经济之声）
+  - 停止/关闭 当前播放的电台（如：停止广播、关闭中国之声）
+默认行为：未指定电台名时，默认播放“中国之声”。
+所有表示“播放、打开、切换到、切换成”等动词必须映射为 'play'；所有表示“停止、关闭”等动词必须映射为 'stop'；不得输出其它值。
+参数:
+- command (string): 操作指令：
+- play：播放或切换到指定电台
+- stop：停止当前播放的电台
+可为空，函数内部会默认为 'play'
+- radio_name (string): 需播放的电台名称，支持：
+中国之声、经济之声、音乐之声、都市之声、中华之声、神州之声。
+可为空，函数内部会默认为 '中国之声'。
+若提供的名称不在支持范围内，也会自动替换为 '中国之声'。
+---
+
+函数名: get_news_from_newsnow
+描述: 获取最新新闻，随机选择一条新闻进行播报。用户可以选择不同的新闻源，如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。如果没有指定，默认从澎湃新闻获取。用户可以要求获取详细内容，此时会获取新闻的详细内容。
+参数:
+- source (string): 新闻源，例如澎湃新闻(thepaper)、百度热搜(baidu)、财联社(cls-depth)等。可选参数，如果不提供则使用默认新闻源
+- detail (boolean): 是否获取详细内容，默认为false。如果为true，则获取上一条新闻的详细内容
+- lang (string): 返回用户使用的语言code，例如zh_CN/zh_HK/en_US/ja_JP等，默认zh_CN
+---
+
+函数名: play_music
+描述: **用于处理用户的歌曲播放请求，是播放单曲的唯一方式**。
+触发规则：当用户说“播放XX”“放XX”“听XX”“点歌XX”“来一首歌”“我要听歌”等歌曲相关指令时，必须调用此函数。
+⚠️ 注意：如果用户指令中出现电台相关关键词（如“电台”“广播”“中国之声”等），即使包含“播放”也必须调用电台函数而不是本函数。
+提取规则：
+1. 直接取出用户在播放指令后的歌名（如“播放稻香”→“稻香”）。
+2. 若未提供歌名（如“播放音乐”），则默认播放“素颜”。
+3. 忽略无关修饰语（如“帮我播放一下稻香谢谢”→“稻香”）。
+4. 支持的触发动词包括：播放、放、听、点歌、来一首、想听、我要听、帮我点一首等。
+参数:
+- song_name (string): 提取的歌曲名称：
+- 如果用户未指定歌名，默认“素颜”
+- 若包含多余词汇，需提取核心歌名
+---
+
+函数名: self_get_device_status
+描述: Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.
+Use this tool for: 
+1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)
+2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)
+参数:
+---
+
+函数名: self_audio_speaker_set_volume
+描述: Set the volume of the audio speaker. If the current volume is unknown, you must call `self_get_device_status` tool first and then call this tool.
+参数:
+- volume (integer): 
+---
+
+函数名: self_screen_set_brightness
+描述: Set the brightness of the screen.
+参数:
+- brightness (integer): 
+---
+
+函数名: self_screen_set_theme
+描述: Set the theme of the screen. The theme can be 'light' or 'dark'.
+参数:
+- theme (string): 
+---
+
+处理步骤:
+1. 分析用户输入，确定用户意图
+2. 从可用函数列表中选择最匹配的函数
+3. 如果找到匹配的函数，生成对应的function_call 格式
+4. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+
+返回格式要求：
+1. 必须返回纯JSON格式
+2. 必须包含function_call字段
+3. function_call必须包含name字段
+4. 如果函数需要参数，必须包含arguments字段
+
+示例：
+```
+用户: 现在几点了？
+返回: {"function_call": {"name": "get_time"}}
+```
+```
+用户: 播放素颜
+返回: {"function_call": {"name": "play_music"}}
+```
+```
+用户: 当前电池电量是多少？
+返回: {"function_call": {"name": "get_battery_level", "arguments": {"response_success": "当前电池电量为{value}%", "response_failure": "无法获取Battery的当前电量百分比"}}}
+```
+```
+用户: 当前屏幕亮度是多少？
+返回: {"function_call": {"name": "self_screen_get_brightness"}}
+```
+```
+用户: 设置屏幕亮度为50%
+返回: {"function_call": {"name": "self_screen_set_brightness", "arguments": {"brightness": 50}}}
+```
+```
+用户: 我想结束对话
+返回: {"function_call": {"name": "handle_exit_intent", "arguments": {"say_goodbye": "goodbye"}}}
+```
+```
+用户: 你好啊
+返回: {"function_call": {"name": "continue_chat"}}
+```
+
+注意：
+1. 只返回JSON格式，不要包含任何其他文字
+2. 如果没有找到匹配的函数，返回{"function_call": {"name": "continue_chat"}}
+3. 确保返回的JSON格式正确，包含所有必要的字段
+特殊说明：
+- 当用户单次输入包含多个指令时（如'打开灯并且调高音量'）
+- 请返回多个function_call组成的JSON数组
+- 示例：{'function_calls': [{name:'light_on'}, {name:'volume_up'}]}
+<musicNames>['cache\\于果 - 侧脸', 'cache\\花粥马雨阳 - 盗将行', 'cache\\葛东琪 - 悬溺', 'cache\\许嵩何曼婷 - 素颜', 'cache\\郭顶 - 凄美地']
+</musicNames>
+2025-08-18 17:41:18.271 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图识别预处理耗时: 0.0075秒
+2025-08-18 17:41:18.273 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 开始LLM意图识别调用, 模型: glm-4-flash-250414
+2025-08-18 17:41:21.028 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - LLM意图识别完成, 模型: glm-4-flash-250414, 调用耗时: 2.7552秒
+2025-08-18 17:41:21.029 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 【意图识别性能】模型: glm-4-flash-250414, 总耗时: 2.7651秒, LLM调用: 2.7552秒, 查询: '导航去福建师范大学...'
+2025-08-18 17:41:27.421 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - INFO - core.providers.intent.intent_llm.intent_llm - llm 识别到意图: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 17:41:27.421 - 0.5.8_SiFuChEdnoll - core.providers.intent.intent_llm.intent_llm - DEBUG - core.providers.intent.intent_llm.intent_llm - 意图后处理耗时: 6.3933秒
+2025-08-18 17:41:27.425 - 0.5.8_SiFuChEdnoll - core.handle.intentHandler - DEBUG - core.handle.intentHandler - 检测到function_call格式的意图结果: navigate_to
+2025-08-18 17:41:27.425 - 0.5.8_SiFuChEdnoll - core.handle.functionHandler - DEBUG - core.handle.functionHandler - 调用函数: navigate_to, 参数: {'destination': '福建师范大学', 'mode': 'driving'}
+2025-08-18 17:41:27.425 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
+2025-08-18 17:42:33.538 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.FIRST, None
+2025-08-18 17:42:33.538 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 17:42:33.538 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 17:42:46.523 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 准备导航到福建省师范大学
+2025-08-18 17:42:46.525 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 53
+2025-08-18 17:42:46.525 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送第一段语音: 准备导航到福建省师范大学
+2025-08-18 17:42:46.525 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：50帧 (snapshot=1, current=1)
+2025-08-18 17:42:49.660 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=53, 总字节=5334, 代次=(1->1)
+2025-08-18 17:42:49.663 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=53, 代次=(1->1)
+2025-08-18 17:42:49.665 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.MIDDLE, 请提供当前位置或等待位置更新
+2025-08-18 17:42:49.665 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 61
+2025-08-18 17:42:49.666 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频缓冲帧：3帧，剩余：58帧 (snapshot=1, current=1)
+2025-08-18 17:42:53.268 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频发送结束：总帧数=61, 总字节=6247, 代次=(1->1)
+2025-08-18 17:42:53.268 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=61, 代次=(1->1)
+2025-08-18 17:42:53.271 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息: SentenceType.LAST, None
+2025-08-18 17:42:53.271 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 发送音频消息-代次快照: 1, 数据包数: 0
+2025-08-18 17:42:53.271 - 0.5.8_SiFuChEdnoll - core.handle.sendAudioHandle - INFO - core.handle.sendAudioHandle - 音频消息发送完成: 发送帧数=0, 代次=(1->1)
+2025-08-18 17:42:53.271 - 0.5.8_SiFuChEdnoll - core.connection - DEBUG - core.connection - 清除服务端讲话状态
