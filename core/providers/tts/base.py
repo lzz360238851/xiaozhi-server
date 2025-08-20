@@ -245,11 +245,8 @@ class TTSProviderBase(ABC):
                     tts_file = message.content_file
                     logger.bind(tag=TAG).info(f"处理音乐文件: {tts_file}, 文件存在: {os.path.exists(tts_file) if tts_file else False}")
                     if tts_file and os.path.exists(tts_file):
-                        audio_datas = self._process_audio_file(tts_file)
-                        logger.bind(tag=TAG).info(f"音乐文件处理完成，音频数据包数量: {len(audio_datas) if audio_datas else 0}")
-                        self.tts_audio_queue.put(
-                            (message.sentence_type, audio_datas, message.content_detail)
-                        )
+                        # 使用流式处理音频文件
+                        self._process_audio_file_streaming(tts_file, message.sentence_type, message.content_detail)
                     else:
                         logger.bind(tag=TAG).error(f"音乐文件不存在或路径为空: {tts_file}")
 
@@ -368,6 +365,122 @@ class TTSProviderBase(ABC):
         ):
             os.remove(tts_file)
         return audio_datas
+
+    def _process_audio_file_streaming(self, tts_file, sentence_type, content_detail):
+        """两部分发送音频文件：第一部分128KB快速启动，第二部分剩余音频
+        
+        Args:
+            tts_file: 音频文件路径
+            sentence_type: 句子类型
+            content_detail: 内容详情
+        """
+        import threading
+        from pydub import AudioSegment
+        import numpy as np
+        import opuslib_next
+        
+        def streaming_process():
+            try:
+                # 获取文件后缀名
+                file_type = os.path.splitext(tts_file)[1]
+                if file_type:
+                    file_type = file_type.lstrip(".")
+                
+                # 读取音频文件
+                audio = AudioSegment.from_file(
+                    tts_file, format=file_type, parameters=["-nostdin"]
+                )
+                
+                # 转换为单声道/16kHz采样率/16位小端编码
+                audio = audio.set_channels(1).set_frame_rate(16000).set_sample_width(2)
+                
+                # 获取原始PCM数据
+                raw_data = audio.raw_data
+                
+                # 初始化Opus编码器
+                encoder = opuslib_next.Encoder(16000, 1, opuslib_next.APPLICATION_AUDIO)
+                
+                # 编码参数
+                frame_duration = 60  # 60ms per frame
+                frame_size = int(16000 * frame_duration / 1000)  # 960 samples/frame
+                
+                # 计算128KB对应的PCM数据量
+                # 128KB Opus数据大约对应 8-10秒的音频（取8秒保守估计）
+                first_part_duration_sec = 8
+                first_part_pcm_size = first_part_duration_sec * 16000 * 2  # 8秒 * 16kHz * 2字节
+                first_part_pcm_size = min(first_part_pcm_size, len(raw_data))  # 不超过总长度
+                
+                # 第一部分：前128KB对应的音频数据
+                first_part_raw = raw_data[:first_part_pcm_size]
+                first_part_datas = []
+                
+                for i in range(0, len(first_part_raw), frame_size * 2):
+                    frame_chunk = first_part_raw[i:i + frame_size * 2]
+                    
+                    # 如果最后一帧不足，补零
+                    if len(frame_chunk) < frame_size * 2:
+                        frame_chunk += b"\x00" * (frame_size * 2 - len(frame_chunk))
+                    
+                    if self.conn.audio_format == "pcm":
+                        frame_data = frame_chunk if isinstance(frame_chunk, bytes) else bytes(frame_chunk)
+                    else:
+                        # 转换为numpy数组处理
+                        np_frame = np.frombuffer(frame_chunk, dtype=np.int16)
+                        # 编码Opus数据
+                        frame_data = encoder.encode(np_frame.tobytes(), frame_size)
+                    
+                    first_part_datas.append(frame_data)
+                
+                # 立即发送第一部分（快速启动播放）
+                if first_part_datas:
+                    logger.bind(tag=TAG).info(f"发送第一部分音频数据，包含 {len(first_part_datas)} 帧 (约{first_part_duration_sec}秒)")
+                    self.tts_audio_queue.put(
+                        (sentence_type, first_part_datas, content_detail)
+                    )
+                
+                # 检查是否有剩余音频需要发送
+                if first_part_pcm_size < len(raw_data):
+                    # 第二部分：剩余的音频数据
+                    remaining_raw = raw_data[first_part_pcm_size:]
+                    remaining_datas = []
+                    
+                    for i in range(0, len(remaining_raw), frame_size * 2):
+                        if self.conn.client_abort:
+                            logger.bind(tag=TAG).info("收到打断信息，终止剩余音频处理")
+                            break
+                            
+                        frame_chunk = remaining_raw[i:i + frame_size * 2]
+                        
+                        # 如果最后一帧不足，补零
+                        if len(frame_chunk) < frame_size * 2:
+                            frame_chunk += b"\x00" * (frame_size * 2 - len(frame_chunk))
+                        
+                        if self.conn.audio_format == "pcm":
+                            frame_data = frame_chunk if isinstance(frame_chunk, bytes) else bytes(frame_chunk)
+                        else:
+                            # 转换为numpy数组处理
+                            np_frame = np.frombuffer(frame_chunk, dtype=np.int16)
+                            # 编码Opus数据
+                            frame_data = encoder.encode(np_frame.tobytes(), frame_size)
+                        
+                        remaining_datas.append(frame_data)
+                    
+                    # 发送第二部分（剩余音频）
+                    if remaining_datas and not self.conn.client_abort:
+                        logger.bind(tag=TAG).info(f"发送第二部分音频数据，包含 {len(remaining_datas)} 帧")
+                        self.tts_audio_queue.put(
+                            (sentence_type, remaining_datas, content_detail)
+                        )
+                
+                total_frames = len(first_part_datas) + (len(remaining_datas) if 'remaining_datas' in locals() else 0)
+                logger.bind(tag=TAG).info(f"音乐文件两部分发送完成，总共 {total_frames} 帧")
+                
+            except Exception as e:
+                logger.bind(tag=TAG).error(f"流式音频处理失败: {str(e)}")
+        
+        # 在单独线程中执行流式处理
+        streaming_thread = threading.Thread(target=streaming_process, daemon=True)
+        streaming_thread.start()
 
     def _process_before_stop_play_files(self):
         for tts_file, text in self.before_stop_play_files:

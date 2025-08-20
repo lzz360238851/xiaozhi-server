@@ -559,13 +559,23 @@ async def _stream_download_and_convert(conn, music_url, processed_song_name):
                     stderr=subprocess.PIPE
                 )
 
-                # === 3. 边下载边喂给 ffmpeg stdin ===
+                # === 3. 边下载边喂给 ffmpeg stdin，同时监控输出文件 ===
                 downloaded = 0
+                playback_triggered = False
+                
                 for chunk in r.iter_content(chunk_size=8192):
                     if not chunk:
                         continue
                     process.stdin.write(chunk)
                     downloaded += len(chunk)
+
+                    # 检查输出文件大小，达到128KB时立即触发播放
+                    if not playback_triggered and os.path.exists(mp3_cache_path):
+                        output_size = os.path.getsize(mp3_cache_path)
+                        if output_size >= 128 * 1024:  # 128KB
+                            conn.logger.bind(tag=TAG).info(f"转码输出达到128KB，立即开始播放")
+                            _signal_start_once()
+                            playback_triggered = True
 
                     # 可选：记录进度
                     # if downloaded % (1024 * 100) == 0:
@@ -581,7 +591,7 @@ async def _stream_download_and_convert(conn, music_url, processed_song_name):
                     error_msg = stderr_output.decode() if isinstance(stderr_output, bytes) else str(stderr_output)
                     raise RuntimeError(f"ffmpeg 转码失败: {error_msg}")
 
-            # === 5. 记录耗时 & 触发播放 ===
+            # === 5. 记录耗时，如果还没触发播放则触发 ===
             total_time = time.time() - start_time
             output_size = os.path.getsize(mp3_cache_path) if os.path.exists(mp3_cache_path) else 0
 
@@ -591,7 +601,9 @@ async def _stream_download_and_convert(conn, music_url, processed_song_name):
             if output_size == 0:
                 raise Exception("转码后文件为空")
 
-            _signal_start_once()
+            # 如果由于某种原因还没触发播放，现在触发
+            if not playback_triggered:
+                _signal_start_once()
 
         except Exception as e:
             # 清理可能的残余文件
@@ -818,11 +830,11 @@ def interrupt_current_music(conn):
         try:
             asyncio.run_coroutine_threadsafe(
                 send_tts_message(conn, "stop", None), conn.loop
-            ).result(timeout=1)
+            ).result(timeout=0.2)
         except Exception:
             pass
         # 给客户端一些时间处理 stop 和中断
-        time.sleep(0.1)
+        time.sleep(0.05)
     except Exception:
         pass
 
