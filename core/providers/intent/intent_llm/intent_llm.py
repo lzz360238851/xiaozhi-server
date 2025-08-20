@@ -204,6 +204,31 @@ class IntentProvider(IntentProviderBase):
 
         # === 新增：支持 function_name{json} 模式 ===
         # 例如：get_news_from_chinanews {"command": "play", "radio_name": "中国之声"}
+        # 但首先需要处理多个函数调用的情况，提取最后一个
+        
+        # 查找所有 function_name {json} 模式
+        all_func_patterns = []
+        
+        # 模式1: function_name {json}
+        func_json_matches = list(re.finditer(r'([a-zA-Z_][a-zA-Z0-9_]*)\s+(\{[^}]*\})', raw))
+        for match in func_json_matches:
+            func_name = match.group(1)
+            json_str = match.group(2)
+            if func_name not in ["json", "text", "string", "data", "result", "output", "response"]:
+                try:
+                    args = json.loads(json_str)
+                    if isinstance(args, dict):
+                        all_func_patterns.append((match.start(), {"name": func_name, "arguments": args}))
+                except Exception:
+                    pass
+        
+        # 如果找到了函数模式，返回最后一个（位置最靠后的）
+        if all_func_patterns:
+            all_func_patterns.sort(key=lambda x: x[0])  # 按位置排序
+            last_func = all_func_patterns[-1][1]  # 取最后一个
+            return {"function_call": last_func}
+        
+        # 原有的单个函数匹配逻辑作为兜底
         func_match = re.match(r"^\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*", raw)
         if func_match:
             func_name = func_match.group(1)
@@ -211,7 +236,7 @@ class IntentProvider(IntentProviderBase):
                 after_func = raw[func_match.end():].lstrip()
                 json_blocks_pos_after = extract_json_objects(after_func)
                 if json_blocks_pos_after:
-                    # 选择最后一个 JSON 块，遵循“就近、后者覆盖前者”的策略
+                    # 选择最后一个 JSON 块，遵循"就近、后者覆盖前者"的策略
                     last_json_pos = json_blocks_pos_after[-1]
                     json_str = after_func[last_json_pos[0]:last_json_pos[1]]
                     try:
