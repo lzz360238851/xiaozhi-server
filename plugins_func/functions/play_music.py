@@ -530,49 +530,78 @@ async def _stream_download_and_convert(conn, music_url, processed_song_name):
                         _signal_start_once()
 
     def _transcode_to_mp3_blocking():
-        with requests.get(music_url, stream=True, timeout=10, headers={'User-Agent': 'Mozilla/5.0'}) as r:
-            r.raise_for_status()
-            ffmpeg_cmd = [
-                "ffmpeg", "-nostdin", "-loglevel", "error",
-                "-i", "pipe:0",
-                "-f", "mp3", "-b:a", "192k",
-                "pipe:1"
-            ]
-            process = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-            bytes_written = 0
-            with open(mp3_cache_path, 'wb') as f_cache:
+        start_time = time.time()
+
+        try:
+            # === 1. 发起流式下载 ===
+            with requests.get(music_url, stream=True, timeout=30, headers={'User-Agent': 'Mozilla/5.0'}) as r:
+                r.raise_for_status()
+
+                # === 2. 启动 ffmpeg 子进程，输入为 pipe，输出为本地文件 ===
+                ffmpeg_cmd = [
+                    "ffmpeg", "-nostdin", "-y", "-loglevel", "error",
+                    "-i", "pipe:0",  # 从 stdin 接收原始音频流
+                    "-f", "mp3",
+                    "-b:a", "128k",
+                    "-ac", "1",
+                    "-ar", "22050",
+                    "-acodec", "libmp3lame",
+                    "-compression_level", "10",
+                    mp3_cache_path  # 直接输出到目标文件
+                ]
+
+                conn.logger.bind(tag=TAG).info(f"执行流式ffmpeg命令: {' '.join(ffmpeg_cmd)}")
+
+                process = subprocess.Popen(
+                    ffmpeg_cmd,
+                    stdin=subprocess.PIPE,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.PIPE
+                )
+
+                # === 3. 边下载边喂给 ffmpeg stdin ===
+                downloaded = 0
                 for chunk in r.iter_content(chunk_size=8192):
                     if not chunk:
                         continue
                     process.stdin.write(chunk)
-                    # 从 ffmpeg stdout 读取已转码的 mp3 数据
-                    while True:
-                        try:
-                            # 尝试以非阻塞方式读取部分数据
-                            if process.stdout.peek():
-                                data = process.stdout.read1(8192)
-                                if not data:
-                                    break
-                                f_cache.write(data)
-                                bytes_written += len(data)
-                                if bytes_written >= 128 * 1024:
-                                    _signal_start_once()
-                            else:
-                                break
-                        except Exception:
-                            break
+                    downloaded += len(chunk)
 
-            process.stdin.close()
-            process.wait()
-            if process.stdout:
-                process.stdout.close()
-            if process.stderr:
+                    # 可选：记录进度
+                    # if downloaded % (1024 * 100) == 0:
+                    #     conn.logger.bind(tag=TAG).info(f"已传输: {downloaded} bytes 到 ffmpeg")
+
+                # === 4. 关闭 stdin，等待转码完成 ===
+                process.stdin.close()
+                stderr_output = process.stderr.read()
                 process.stderr.close()
-            # 若转码很快结束也保证触发一次
-            _signal_start_once()
-            if process.returncode != 0:
-                raise RuntimeError("ffmpeg 转码失败")
+                return_code = process.wait()
 
+                if return_code != 0:
+                    error_msg = stderr_output.decode() if isinstance(stderr_output, bytes) else str(stderr_output)
+                    raise RuntimeError(f"ffmpeg 转码失败: {error_msg}")
+
+            # === 5. 记录耗时 & 触发播放 ===
+            total_time = time.time() - start_time
+            output_size = os.path.getsize(mp3_cache_path) if os.path.exists(mp3_cache_path) else 0
+
+            conn.logger.bind(tag=TAG).info(f"下载+转码完成，总耗时: {total_time:.2f}秒")
+            conn.logger.bind(tag=TAG).info(f"输出文件大小: {output_size} bytes")
+
+            if output_size == 0:
+                raise Exception("转码后文件为空")
+
+            _signal_start_once()
+
+        except Exception as e:
+            # 清理可能的残余文件
+            if os.path.exists(mp3_cache_path):
+                try:
+                    os.remove(mp3_cache_path)
+                except:
+                    pass
+            conn.logger.bind(tag=TAG).error(f"流式转码失败: {e}")
+            raise e
     # 在后台线程执行阻塞型网络/转码
     if is_mp3:
         asyncio.create_task(asyncio.to_thread(_download_mp3_blocking))
