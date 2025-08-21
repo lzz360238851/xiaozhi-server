@@ -30,7 +30,7 @@ logging.basicConfig(
 PLAY_RADIO_FUNCTION_DESC = {
     "type": "function",
     "function": {
-        "name": "get_news_from_chinanews",
+        "name": "play_radio",
         "description": (
             "**用于处理用户的电台播放/停止请求，是播放电台的唯一方式**。\n"
             "⚠️ 优先级：当用户指令同时命中电台关键词与歌曲关键词时，必须优先调用本函数。\n"
@@ -84,7 +84,7 @@ PLAY_RADIO_FUNCTION_DESC = {
 
 
 # 同步注册函数
-@register_function("get_news_from_chinanews", PLAY_RADIO_FUNCTION_DESC, ToolType.SYSTEM_CTL)
+@register_function("play_radio", PLAY_RADIO_FUNCTION_DESC, ToolType.SYSTEM_CTL)
 def get_news_from_chinanews(conn, command: str, radio_name: str):
     if command is None or command.strip() == "":
         command="play"
