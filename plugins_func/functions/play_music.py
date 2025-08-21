@@ -655,7 +655,7 @@ async def handle_online_song_command(conn, song_name):
             for f in music_cache_files:
                 if processed_song_name in f:
                     mp3_path = os.path.join(MUSIC_CACHE["music_cache_dir"], f)
-                    await send_stt_message(conn, f"正在播放在线歌曲: {processed_song_name}")
+                    # await send_stt_message(conn, f"正在播放在线歌曲: {processed_song_name}")
                     await play_online_music(conn, specific_file=mp3_path, song_name=processed_song_name)
                     return True
 

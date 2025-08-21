@@ -32,9 +32,9 @@ class OpusEncoderUtils:
         # 总帧大小 = 每帧样本数 * 通道数
         self.total_frame_size = self.frame_size * channels
 
-        # 比特率和复杂度设置
-        self.bitrate = 24000  # bps
-        self.complexity = 10  # 最高质量
+        # 比特率和复杂度设置 - 优化音频质量
+        self.bitrate = 32000  # bps - 提高比特率以改善音质
+        self.complexity = 8   # 平衡质量和性能
 
         # 缓冲区初始化为空
         self.buffer = np.array([], dtype=np.int16)

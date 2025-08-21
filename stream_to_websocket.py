@@ -56,8 +56,8 @@ class OpusEncoder:
                 encoder._encoder = opuslib_next.Encoder(
                     SAMPLE_RATE, CHANNELS, opuslib_next.APPLICATION_AUDIO
                 )
-                encoder._encoder.bitrate = 24000
-                encoder._encoder.complexity = 5
+                encoder._encoder.bitrate = 32000  # 提高比特率以改善音质
+                encoder._encoder.complexity = 8   # 平衡质量和性能
                 cls._instance = encoder
         return cls._instance
 

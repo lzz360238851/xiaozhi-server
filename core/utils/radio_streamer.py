@@ -42,8 +42,8 @@ FRAME_SIZE_BYTES = FRAME_SIZE_SAMPLES * 2
 class OpusEncoder:
     def __init__(self):
         self._encoder = opuslib_next.Encoder(SAMPLE_RATE, CHANNELS, opuslib_next.APPLICATION_AUDIO)
-        self._encoder.bitrate = 24000
-        self._encoder.complexity = 5
+        self._encoder.bitrate = 32000  # 提高比特率以改善音质
+        self._encoder.complexity = 8   # 平衡质量和性能
 
     def encode_frame(self, pcm_data: bytes) -> bytes:
         try:

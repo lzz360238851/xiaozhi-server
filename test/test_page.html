@@ -610,8 +610,9 @@
         let audioBufferQueue = [];     // 存储接收到的音频包
         let isAudioBuffering = false;  // 是否正在缓冲音频
         let isAudioPlaying = false;    // 是否正在播放音频
-        const BUFFER_THRESHOLD = 3;    // 缓冲包数量阈值，至少累积3个包再开始播放
-        const MIN_AUDIO_DURATION = 0.1; // 最小音频长度(秒)，小于这个长度的音频会被合并
+        const BUFFER_THRESHOLD = 8;    // 缓冲包数量阈值，增加到8个包以提高播放流畅性
+        const MIN_AUDIO_DURATION = 0.3; // 最小音频长度(秒)，增加到0.3秒以减少频繁的播放启停
+        const MAX_BUFFER_SIZE = 50;    // 最大缓冲队列大小，防止内存过度占用
         let streamingContext = null;   // 音频流上下文
 let bufferTimeoutId = null;    // 缓冲超时定时器ID
 let bufferCheckInterval = null; // 缓冲检查间隔ID
@@ -828,9 +829,12 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                     }
                                     this.totalSamples += decodedSamples.length;
 
-                                    // 如果累积了至少0.2秒的音频，开始播放
+                                    // 改进播放启动条件，减少延迟
                                     const minSamples = SAMPLE_RATE * MIN_AUDIO_DURATION;
-                                    if (!this.playing && (this.queue.length >= minSamples || __forceStart === true)) {
+                                    const hasEnoughSamples = this.queue.length >= minSamples;
+                                    const hasMinimumBuffer = this.queue.length >= SAMPLE_RATE * 0.1; // 至少100ms缓冲
+                                    
+                                    if (!this.playing && (hasEnoughSamples || __forceStart === true || hasMinimumBuffer)) {
                                         this.startPlaying();
                                     }
                                 } else {
@@ -876,44 +880,58 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                 this.lastPlayTime = audioContext.currentTime;
                                 log(`开始播放 ${currentSamples.length} 个样本，约 ${(currentSamples.length / SAMPLE_RATE).toFixed(2)} 秒`, 'info');
 
-                                // 播放结束后的处理
+                                // 播放结束后的处理 - 优化连续播放
                                 this.source.onended = () => {
                                     this.source = null;
                                     this.playing = false;
 
-                                    // 使用setTimeout避免递归调用
-                                    setTimeout(() => {
-                                        // 如果队列中还有数据，继续播放
-                                        if (this.queue.length > 0) {
+                                    // 立即检查是否有足够的数据继续播放，减少间隙
+                                    const continuePlayback = () => {
+                                        // 优先播放已解码的队列数据
+                                        const minContinueSamples = SAMPLE_RATE * 0.05; // 50ms最小继续播放阈值
+                                        if (this.queue.length >= minContinueSamples) {
                                             this.startPlaying();
-                                        } else if (audioBufferQueue.length > 0) {
-                                            // 缓冲区有新数据，进行解码
+                                            return;
+                                        }
+                                        
+                                        // 如果缓冲区有新数据，立即解码
+                                        if (audioBufferQueue.length > 0) {
                                             const frames = [...audioBufferQueue];
                                             audioBufferQueue = [];
-                                            this.decodeOpusFrames(frames);
-                                        } else if (this.endOfStream) {
-                                            // 流已结束且没有更多数据
+                                            this.decodeOpusFrames(frames).then(() => {
+                                                // 解码完成后再次检查是否可以继续播放
+                                                if (this.queue.length >= minContinueSamples) {
+                                                    this.startPlaying();
+                                                }
+                                            });
+                                            return;
+                                        }
+                                        
+                                        // 如果流已结束且没有更多数据
+                                        if (this.endOfStream) {
                                             log("音频播放完成", 'info');
                                             isAudioPlaying = false;
                                             this.endOfStream = false;
                                             streamingContext = null;
-                                        } else {
-                                            // 等待更多数据
-                                            setTimeout(() => {
-                                                // 如果仍然没有新数据，但有更多的包到达
-                                                if (this.queue.length === 0 && audioBufferQueue.length > 0) {
-                                                    const frames = [...audioBufferQueue];
-                                                    audioBufferQueue = [];
-                                                    this.decodeOpusFrames(frames);
-                                                } else if (this.queue.length === 0 && audioBufferQueue.length === 0) {
-                                                    // 真的没有更多数据了
-                                                    log("音频播放完成 (超时)", 'info');
-                                                    isAudioPlaying = false;
-                                                    streamingContext = null;
-                                                }
-                                            }, 500); // 500ms超时
+                                            return;
                                         }
-                                    }, 10); // 10ms延迟，避免立即递归
+                                        
+                                        // 等待更多数据，使用更短的超时时间
+                                        setTimeout(() => {
+                                            if (this.queue.length === 0 && audioBufferQueue.length > 0) {
+                                                const frames = [...audioBufferQueue];
+                                                audioBufferQueue = [];
+                                                this.decodeOpusFrames(frames);
+                                            } else if (this.queue.length === 0 && audioBufferQueue.length === 0) {
+                                                log("音频播放完成 (超时)", 'info');
+                                                isAudioPlaying = false;
+                                                streamingContext = null;
+                                            }
+                                        }, 200); // 减少超时时间到200ms
+                                    };
+
+                                    // 使用更短的延迟，提高响应速度
+                                    setTimeout(continuePlayback, 5); // 5ms延迟
                                 };
 
                                 this.source.start();
@@ -1938,11 +1956,11 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                 throw new Error(`Opus编码器初始化失败: ${err}`);
                             }
 
-                            // 设置位率 (16kbps)
-                            mod._opus_encoder_ctl(this.encoderPtr, 4002, 16000); // OPUS_SET_BITRATE
+                            // 设置位率 (32kbps) - 提高音质
+                            mod._opus_encoder_ctl(this.encoderPtr, 4002, 32000); // OPUS_SET_BITRATE
 
-                            // 设置复杂度 (0-10, 越高质量越好但CPU使用越多)
-                            mod._opus_encoder_ctl(this.encoderPtr, 4010, 5);     // OPUS_SET_COMPLEXITY
+                            // 设置复杂度 (0-10, 平衡质量和性能)
+                            mod._opus_encoder_ctl(this.encoderPtr, 4010, 8);     // OPUS_SET_COMPLEXITY
 
                             // 设置使用DTX (不传输静音帧)
                             mod._opus_encoder_ctl(this.encoderPtr, 4016, 1);     // OPUS_SET_DTX
@@ -2480,6 +2498,12 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                 const opusData = new Uint8Array(arrayBuffer);
 
                 if (opusData.length > 0) {
+                    // 检查缓冲队列大小，防止内存过度占用
+                    if (audioBufferQueue.length >= MAX_BUFFER_SIZE) {
+                        log(`缓冲队列已满(${MAX_BUFFER_SIZE})，丢弃最旧的音频包`, 'warning');
+                        audioBufferQueue.shift(); // 移除最旧的包
+                    }
+                    
                     // 将数据添加到缓冲队列
                     audioBufferQueue.push(opusData);
 

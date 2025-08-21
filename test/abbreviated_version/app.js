@@ -44,8 +44,9 @@ playButton.addEventListener("click", playRecording);
 let audioBufferQueue = [];     // 存储接收到的音频包
 let isAudioBuffering = false;  // 是否正在缓冲音频
 let isAudioPlaying = false;    // 是否正在播放音频
-const BUFFER_THRESHOLD = 3;    // 缓冲包数量阈值，至少累积5个包再开始播放
-const MIN_AUDIO_DURATION = 0.1; // 最小音频长度(秒)，小于这个长度的音频会被合并
+const BUFFER_THRESHOLD = 8;    // 缓冲包数量阈值，增加到8个包以提高播放流畅性
+const MIN_AUDIO_DURATION = 0.3; // 最小音频长度(秒)，增加到0.3秒以减少频繁的播放启停
+const MAX_BUFFER_SIZE = 50;    // 最大缓冲队列大小，防止内存过度占用
 let streamingContext = null;   // 音频流上下文
 let bufferTimeoutId = null;    // 缓冲超时定时器ID
 let bufferCheckInterval = null; // 缓冲检查间隔ID
@@ -696,6 +697,12 @@ async function handleBinaryMessage(data) {
         const opusData = new Uint8Array(arrayBuffer);
 
         if (opusData.length > 0) {
+            // 检查缓冲队列大小，防止内存过度占用
+            if (audioBufferQueue.length >= MAX_BUFFER_SIZE) {
+                console.warn(`缓冲队列已满(${MAX_BUFFER_SIZE})，丢弃最旧的音频包`);
+                audioBufferQueue.shift(); // 移除最旧的包
+            }
+            
             // 将数据添加到缓冲队列
             audioBufferQueue.push(opusData);
             

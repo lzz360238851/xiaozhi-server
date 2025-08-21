@@ -77,19 +77,20 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
     if audios is None or len(audios) == 0:
         return 0
         
-    # 流控参数优化
-    frame_duration = 60  # 帧时长（毫秒），匹配 Opus 编码
+    # 流控参数优化 - 使用更精确的时间控制
+    frame_duration_ms = 60  # 帧时长（毫秒），匹配 Opus 编码
+    frame_duration_s = frame_duration_ms / 1000.0  # 转换为秒，提高精度
     start_time = time.perf_counter()
-    play_position = 0
+    frame_count = 0  # 使用帧计数而非累积时间，避免误差累积
     last_reset_time = time.perf_counter()  # 记录最后的重置时间
 
-    # 增强缓冲机制：确保至少缓冲3个音频包，而仅依赖于 pre_buffer 标志
-    min_buffer_frames = 3
+    # 增强缓冲机制：确保至少缓冲5个音频包，提高播放流畅性
+    min_buffer_frames = 5  # 增加缓冲帧数
     
     # 如果音频包数量很少，全部作为缓冲
     buffer_frames = min(min_buffer_frames, len(audios))
     
-    # 对于短音频（小于等于3帧），直接缓冲所有帧
+    # 对于短音频（小于等于5帧），直接缓冲所有帧
     if len(audios) <= min_buffer_frames:
         buffer_frames = len(audios)
         remaining_audios = []
@@ -100,11 +101,11 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
     
     frames_sent = 0
     bytes_sent = 0
-    # 发送初始缓冲帧
+    # 发送初始缓冲帧 - 快速发送以建立客户端缓冲
     conn.logger.bind(tag=TAG).info(f"发送音频缓冲帧：{buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
     for i in range(buffer_frames):
-        # 检查音频代次，确保不发送过期音频
-        if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
+        # 减少代次检查频率，避免过度检查导致丢包
+        if i % 3 == 0 and snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止发送缓冲帧 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             return frames_sent
         
@@ -115,16 +116,16 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
         packet = audios[i]
         await conn.websocket.send(packet)
         frames_sent += 1
+        frame_count += 1
         try:
             bytes_sent += len(packet)
         except Exception:
             pass
-        play_position += frame_duration
 
-    # 播放剩余音频帧
-    for opus_packet in remaining_audios:
-        # 优先检查音频代次，确保旧音频包被正确丢弃
-        if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
+    # 播放剩余音频帧 - 使用精确的时间控制
+    for i, opus_packet in enumerate(remaining_audios):
+        # 减少代次检查频率，每5帧检查一次
+        if i % 5 == 0 and snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止播放 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             break
             
@@ -137,20 +138,26 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
             await conn.reset_timeout()
             last_reset_time = time.perf_counter()
 
-        # 计算预期发送时间
-        expected_time = start_time + (play_position / 1000)
+        # 使用帧计数计算精确的预期发送时间，避免累积误差
+        expected_time = start_time + (frame_count * frame_duration_s)
         current_time = time.perf_counter()
         delay = expected_time - current_time
-        if delay > 0:
+        
+        # 添加最小延迟保护，确保不会发送过快
+        min_delay = 0.001  # 1ms最小延迟
+        if delay > min_delay:
             await asyncio.sleep(delay)
+        elif delay < -frame_duration_s:  # 如果延迟过大，重置时间基准
+            start_time = current_time
+            frame_count = 0
 
         await conn.websocket.send(opus_packet)
         frames_sent += 1
+        frame_count += 1
         try:
             bytes_sent += len(opus_packet)
         except Exception:
             pass
-        play_position += frame_duration
 
     conn.logger.bind(tag=TAG).info(f"音频发送结束：总帧数={frames_sent}, 总字节={bytes_sent}, 代次=({snapshot_generation}->{getattr(conn, 'audio_generation', 0)})")
     return frames_sent
