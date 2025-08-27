@@ -23,6 +23,16 @@ async def handleTextMessage(conn, message):
             conn.logger.bind(tag=TAG).info(f"收到文本消息：{message}")
             await conn.websocket.send(message)
             return
+            
+        # 对于所有类型的消息（除了hello），都先检查是否需要立即中断当前播放
+        # 这确保用户的任何输入都能立即停止音频播放
+        if msg_json["type"] != "hello" and msg_json["type"] != "abort":
+            # 检查是否有音频正在播放，如果有则立即中断
+            if (hasattr(conn, 'client_is_speaking') and conn.client_is_speaking) or \
+               (hasattr(conn, 'tts') and conn.tts and not conn.tts.tts_audio_queue.empty()):
+                conn.logger.bind(tag=TAG).info(f"检测到用户输入，立即中断当前音频播放")
+                await handleAbortMessage(conn)
+        
         if msg_json["type"] == "hello":
             conn.logger.bind(tag=TAG).info(f"收到hello消息：{message}")
             await handleHelloMessage(conn, msg_json)

@@ -43,7 +43,7 @@ class TTSProviderBase(ABC):
         self.tts_text_buff = []
         self.punctuations = (
             "。",
-            ".",
+            # ".",
             "？",
             "?",
             "！",
@@ -59,7 +59,7 @@ class TTSProviderBase(ABC):
             "、",
             ",",
             "。",
-            ".",
+            # ".",
             "？",
             "?",
             "！",

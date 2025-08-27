@@ -104,8 +104,8 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
     # 发送初始缓冲帧 - 快速发送以建立客户端缓冲
     conn.logger.bind(tag=TAG).info(f"发送音频缓冲帧：{buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
     for i in range(buffer_frames):
-        # 减少代次检查频率，避免过度检查导致丢包
-        if i % 3 == 0 and snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
+        # 每帧都检查中断状态，确保快速响应
+        if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止发送缓冲帧 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             return frames_sent
         
@@ -124,8 +124,8 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
 
     # 播放剩余音频帧 - 使用精确的时间控制
     for i, opus_packet in enumerate(remaining_audios):
-        # 减少代次检查频率，每5帧检查一次
-        if i % 5 == 0 and snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
+        # 每帧都检查中断状态，确保立即响应用户输入
+        if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止播放 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             break
             

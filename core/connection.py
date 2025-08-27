@@ -981,20 +981,35 @@ class ConnectionHandler:
                 f"开始清理: TTS队列大小={self.tts.tts_text_queue.qsize()}, 音频队列大小={self.tts.tts_audio_queue.qsize()}"
             )
 
-            # 使用非阻塞方式清空队列
-            for q in [
+            # 使用非阻塞方式快速清空队列
+            queues_to_clear = [
                 self.tts.tts_text_queue,
                 self.tts.tts_audio_queue,
                 self.report_queue,
                 self.audio_play_queue,  # 添加音频播放队列
-            ]:
+            ]
+            
+            # 添加ASR相关队列
+            if hasattr(self, 'asr_audio_queue'):
+                queues_to_clear.append(self.asr_audio_queue)
+            
+            for q in queues_to_clear:
                 if not q:
                     continue
+                # 使用更高效的清空方式
+                cleared_count = 0
                 while True:
                     try:
                         q.get_nowait()
+                        cleared_count += 1
+                        # 避免无限循环，最多清理1000个项目
+                        if cleared_count > 1000:
+                            self.logger.bind(tag=TAG).warning(f"队列清理达到上限，可能存在异常")
+                            break
                     except queue.Empty:
                         break
+                if cleared_count > 0:
+                    self.logger.bind(tag=TAG).debug(f"清理了 {cleared_count} 个队列项目")
 
             self.logger.bind(tag=TAG).debug(
                 f"清理结束: TTS队列大小={self.tts.tts_text_queue.qsize()}, 音频队列大小={self.tts.tts_audio_queue.qsize()}"
