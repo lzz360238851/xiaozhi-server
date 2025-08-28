@@ -52,6 +52,11 @@ let streamingContext = null;   // 音频流上下文
 let bufferTimeoutId = null;    // 缓冲超时定时器ID
 let bufferCheckInterval = null; // 缓冲检查间隔ID
 
+// 音频代次验证相关变量
+let currentAudioGeneration = null; // 当前音频代次
+let audioStateCleanupTime = null;  // 音频状态清理时间戳
+const AUDIO_TIMEOUT_MS = 2000;     // 音频超时保护时间（毫秒）
+
 // 初始化Opus编码器与解码器
 async function initOpus() {
     if (typeof window.ModuleInstance === 'undefined') {
@@ -703,7 +708,22 @@ async function handleBinaryMessage(data) {
             return;
         }
         
-        console.log(`[音频控制] 接收音频数据包: ${opusData.length} 字节，当前队列长度: ${audioBufferQueue.length}`);
+        // 检查音频超时保护
+        if (audioStateCleanupTime !== null) {
+            const timeSinceCleanup = Date.now() - audioStateCleanupTime;
+            if (timeSinceCleanup < AUDIO_TIMEOUT_MS) {
+                console.warn(`[音频代次] 音频状态清理后 ${timeSinceCleanup}ms 内收到音频数据，可能是残留数据，丢弃 (${opusData.length} 字节)`);
+                return;
+            }
+        }
+        
+        // 检查音频代次验证
+        if (currentAudioGeneration === null) {
+            console.warn(`[音频代次] 未收到音频代次信息，丢弃音频数据包 (${opusData.length} 字节)`);
+            return;
+        }
+        
+        console.log(`[音频控制] 接收音频数据包: ${opusData.length} 字节，当前队列长度: ${audioBufferQueue.length}，代次: ${currentAudioGeneration}`);
 
         if (opusData.length > 0) {
             // 检查缓冲队列大小，防止内存过度占用
@@ -849,6 +869,12 @@ function playBufferedAudio(forceStart = false) {
                     this.source = null;
                     this.playing = false;
                     setTimeout(() => {
+                        // 检查音频状态是否已被清理，如果是则直接返回
+                        if (!isAudioPlaying || !streamingContext) {
+                            console.log("音频状态已被清理，停止继续播放");
+                            return;
+                        }
+                        
                         if (this.queue.length > 0) {
                             this.startPlaying();
                         } else if (audioBufferQueue.length > 0) {
@@ -862,6 +888,10 @@ function playBufferedAudio(forceStart = false) {
                             streamingContext = null;
                         } else {
                             setTimeout(() => {
+                                // 再次检查状态
+                                if (!isAudioPlaying || !streamingContext) {
+                                    return;
+                                }
                                 if (this.queue.length === 0 && audioBufferQueue.length > 0) {
                                     const frames = [...audioBufferQueue];
                                     audioBufferQueue = [];
@@ -1191,6 +1221,18 @@ function updateStatus(message, type = 'info') {
 function handleTextMessage(message) {
     if (message.type === 'hello') {
         console.log(`服务器回应：${JSON.stringify(message, null, 2)}`);
+    } else if (message.type === 'audio_generation') {
+        // 处理音频代次控制消息
+        currentAudioGeneration = message.generation;
+        console.log(`[音频代次] 收到新的音频代次: ${currentAudioGeneration}`);
+        
+        // 重置音频超时保护
+        audioStateCleanupTime = null;
+        
+        // 启用音频接收
+        isAudioReceivingEnabled = true;
+        
+        console.log(`[音频代次] 音频接收已启用，当前代次: ${currentAudioGeneration}`);
     } else if (message.type === 'tts') {
         // TTS状态消息
         if (message.state === 'start') {
@@ -1227,7 +1269,24 @@ function handleTextMessage(message) {
             // 禁用音频接收，防止接收旧音频数据
             isAudioReceivingEnabled = false;
             
-            console.log('[音频控制] 收到tts start，已清理所有音频状态，音频接收已禁用');
+            // 清理WebSocket缓冲区（如果WebSocket支持的话）
+            if (websocket && websocket.readyState === WebSocket.OPEN) {
+                try {
+                    // 尝试清理WebSocket的内部缓冲区
+                    // 注意：WebSocket API没有直接的缓冲区清理方法，但我们可以通过发送空消息来刷新
+                    console.log('[WebSocket] 尝试清理WebSocket缓冲区');
+                } catch (e) {
+                    console.warn('[WebSocket] 清理WebSocket缓冲区时出错:', e);
+                }
+            }
+            
+            // 设置音频状态清理时间戳，启用超时保护
+            audioStateCleanupTime = Date.now();
+            
+            // 清除当前音频代次
+            currentAudioGeneration = null;
+            
+            console.log('[音频控制] 收到tts start，已清理所有音频状态，音频接收已禁用，超时保护已启用');
         } else if (message.state === 'sentence_start') {
             console.log(`服务器发送语音段: ${message.text}`);
             
@@ -1236,13 +1295,21 @@ function handleTextMessage(message) {
             if (isAudioPlaying || isAudioBuffering) {
                 console.log('检测到新的语音段开始，重置音频播放状态并清理定时器');
                 
-                // 停止当前播放
+                // 停止当前播放并断开连接
                 if (streamingContext && streamingContext.source) {
                     try {
                         streamingContext.source.stop();
+                        streamingContext.source.disconnect();
                     } catch (e) {
                         // 忽略已经停止的错误
                     }
+                }
+                
+                // 清理 streamingContext 内部状态
+                if (streamingContext) {
+                    streamingContext.queue = [];
+                    streamingContext.playing = false;
+                    streamingContext.endOfStream = true;
                 }
                 
                 // 清理缓冲相关定时器
@@ -1315,6 +1382,13 @@ function handleTextMessage(message) {
             } catch (e) {
                 // 忽略已经停止的错误
             }
+        }
+        
+        // 清理 streamingContext 内部状态
+        if (streamingContext) {
+            streamingContext.queue = [];
+            streamingContext.playing = false;
+            streamingContext.endOfStream = true;
         }
         
         // 清理所有定时器

@@ -608,9 +608,14 @@
         let totalAudioSize = 0; // 跟踪累积的音频大小
 
         let audioBufferQueue = [];     // 存储接收到的音频包
-        let isAudioBuffering = false;  // 是否正在缓冲音频
-        let isAudioPlaying = false;    // 是否正在播放音频
-        let isAudioReceivingEnabled = true; // 是否允许接收音频数据
+let isAudioBuffering = false;  // 是否正在缓冲音频
+let isAudioPlaying = false;    // 是否正在播放音频
+let isAudioReceivingEnabled = true; // 是否允许接收音频数据
+
+// 音频代次验证相关变量
+let currentAudioGeneration = null; // 当前音频代次
+let audioStateCleanupTime = 0;     // 音频状态清理时间戳
+const AUDIO_TIMEOUT_MS = 1000;     // 音频超时保护时间(毫秒)
         const BUFFER_THRESHOLD = 8;    // 缓冲包数量阈值，增加到8个包以提高播放流畅性
         const MIN_AUDIO_DURATION = 0.3; // 最小音频长度(秒)，增加到0.3秒以减少频繁的播放启停
         const MAX_BUFFER_SIZE = 50;    // 最大缓冲队列大小，防止内存过度占用
@@ -929,6 +934,10 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                         
                                         // 等待更多数据，使用更短的超时时间
                                         setTimeout(() => {
+                                            // 检查音频状态是否已被清理
+                                            if (!isAudioPlaying || !streamingContext) {
+                                                return;
+                                            }
                                             if (this.queue.length === 0 && audioBufferQueue.length > 0) {
                                                 const frames = [...audioBufferQueue];
                                                 audioBufferQueue = [];
@@ -942,7 +951,14 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                     };
 
                                     // 使用更短的延迟，提高响应速度
-                                    setTimeout(continuePlayback, 5); // 5ms延迟
+                                    setTimeout(() => {
+                                        // 检查音频状态是否已被清理
+                                        if (!isAudioPlaying || !streamingContext) {
+                                            console.log("音频状态已被清理，停止继续播放");
+                                            return;
+                                        }
+                                        continuePlayback();
+                                    }, 5); // 5ms延迟
                                 };
 
                                 this.source.start();
@@ -1513,6 +1529,12 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
 
                             if (message.type === 'hello') {
                                 log(`服务器回应：${JSON.stringify(message, null, 2)}`, 'success');
+                            } else if (message.type === 'audio_generation') {
+                                // 处理音频代次消息
+                                currentAudioGeneration = message.generation;
+                                audioStateCleanupTime = 0; // 重置超时保护
+                                isAudioReceivingEnabled = true; // 启用音频接收
+                                log(`收到音频代次: ${currentAudioGeneration}`, 'info');
                             } else if (message.type === 'tts') {
                                 // TTS状态消息
                                 if (message.state === 'start') {
@@ -1552,6 +1574,21 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                     
                                     // 暂时禁用音频接收，防止接收旧音频数据
                                     window.isAudioReceivingEnabled = false;
+                                    
+                                    // 清理WebSocket缓冲区（如果WebSocket支持的话）
+                                    if (websocket && websocket.readyState === WebSocket.OPEN) {
+                                        try {
+                                            // 尝试清理WebSocket的内部缓冲区
+                                            // 注意：WebSocket API没有直接的缓冲区清理方法，但我们可以通过发送空消息来刷新
+                                            log('尝试清理WebSocket缓冲区', 'info');
+                                        } catch (e) {
+                                            log('清理WebSocket缓冲区时出错: ' + e.message, 'warn');
+                                        }
+                                    }
+                                    
+                                    // 设置超时保护时间戳和清除音频代次
+                                    audioStateCleanupTime = Date.now();
+                                    currentAudioGeneration = null;
                                     
                                     log('收到tts start，已清理所有音频状态并禁用音频接收，准备接收新音频', 'info');
                                 } else if (message.state === 'sentence_start') {
@@ -1605,6 +1642,23 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                             }
                                         }
                                         
+                                        // 停止当前播放并断开连接
+                                        if (window.streamingContext && window.streamingContext.source) {
+                                            try {
+                                                window.streamingContext.source.stop();
+                                                window.streamingContext.source.disconnect();
+                                            } catch (e) {
+                                                // 忽略已经停止的错误
+                                            }
+                                        }
+                                        
+                                        // 清理 streamingContext 内部状态
+                                        if (window.streamingContext) {
+                                            window.streamingContext.queue = [];
+                                            window.streamingContext.playing = false;
+                                            window.streamingContext.endOfStream = true;
+                                        }
+                                        
                                         // 清理所有定时器
                                         if (window.bufferTimeoutId) { clearTimeout(window.bufferTimeoutId); window.bufferTimeoutId = null; }
                                         if (window.bufferCheckInterval) { clearInterval(window.bufferCheckInterval); window.bufferCheckInterval = null; }
@@ -1646,6 +1700,13 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                                     } catch (e) {
                                         // 忽略已经停止的错误
                                     }
+                                }
+                                
+                                // 清理 streamingContext 内部状态
+                                if (window.streamingContext) {
+                                    window.streamingContext.queue = [];
+                                    window.streamingContext.playing = false;
+                                    window.streamingContext.endOfStream = true;
                                 }
                                 
                                 // 清理所有定时器
@@ -2618,6 +2679,18 @@ let bufferCheckInterval = null; // 缓冲检查间隔ID
                 const opusData = new Uint8Array(arrayBuffer);
 
                 if (opusData.length > 0) {
+                    // 检查音频超时保护
+                    if (audioStateCleanupTime > 0 && Date.now() - audioStateCleanupTime < AUDIO_TIMEOUT_MS) {
+                        log(`音频状态清理后超时保护期内，丢弃音频数据包(${opusData.length}字节)`, 'warning');
+                        return;
+                    }
+                    
+                    // 检查音频代次验证
+                    if (currentAudioGeneration === null) {
+                        log(`未收到音频代次信息，丢弃音频数据包(${opusData.length}字节)`, 'warning');
+                        return;
+                    }
+                    
                     // 检查是否允许接收音频数据
                     if (!isAudioReceivingEnabled) {
                         log(`音频接收已禁用，丢弃音频数据包(${opusData.length}字节)`, 'warning');

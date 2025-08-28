@@ -76,6 +76,16 @@ async def sendAudioMessage(conn, sentenceType, audios, text):
 async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
     if audios is None or len(audios) == 0:
         return 0
+    
+    # 在发送音频数据前，先发送音频代次控制消息
+    if snapshot_generation is not None:
+        audio_generation_message = {
+            "type": "audio_generation",
+            "generation": snapshot_generation,
+            "session_id": conn.session_id
+        }
+        await conn.websocket.send(json.dumps(audio_generation_message))
+        conn.logger.bind(tag=TAG).info(f"发送音频代次控制消息: generation={snapshot_generation}")
         
     # 流控参数优化 - 使用更精确的时间控制
     frame_duration_ms = 60  # 帧时长（毫秒），匹配 Opus 编码
