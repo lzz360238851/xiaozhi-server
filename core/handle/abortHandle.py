@@ -11,12 +11,10 @@ async def handleAbortMessage(conn):
     
     # 立即发送停止信号到客户端，优先级最高
     try:
-        # 发送多个stop消息确保客户端立即停止
+        # 只发送一次stop消息，避免重复导致客户端混乱
         stop_message = json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id})
         await conn.websocket.send(stop_message)
-        # 立即再发送一次，确保客户端收到
-        await conn.websocket.send(stop_message)
-        conn.logger.bind(tag=TAG).info("已发送立即停止信号到客户端")
+        conn.logger.bind(tag=TAG).info("已发送停止信号到客户端")
     except Exception as e:
         conn.logger.bind(tag=TAG).error(f"发送停止信号失败: {str(e)}")
     

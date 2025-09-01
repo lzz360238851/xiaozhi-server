@@ -83,6 +83,10 @@ async def checkWakeupWords(conn, text):
 
     # 播放唤醒词回复
     conn.client_abort = False
+    
+    # 添加延迟，确保客户端完全处理完之前的stop消息和音乐播放中断
+    await asyncio.sleep(0.08)
+    
     opus_packets, _ = audio_to_data(response.get("file_path"))
 
     conn.logger.bind(tag=TAG).info(f"播放唤醒词回复: {response.get('text')}")

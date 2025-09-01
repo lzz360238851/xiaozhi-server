@@ -63,14 +63,6 @@ async def handleTextMessage(conn, message):
                 if len(conn.asr_audio) > 0:
                     await handleAudioMessage(conn, b"")
             elif msg_json["state"] == "detect":
-                # 前端检测到用户在说话(或准备说话)，立即触发打断
-                await handleAbortMessage(conn)
-                # 同时停止电台播放
-                try:
-                    from core.utils.radio_streamer import stop_radio_stream
-                    await stop_radio_stream(conn.websocket)
-                except Exception:
-                    pass
                 conn.client_have_voice = False
                 conn.asr_audio.clear()
                 if "text" in msg_json:
@@ -83,6 +75,15 @@ async def handleTextMessage(conn, message):
                     is_wakeup_words = filtered_text in conn.config.get("wakeup_words")
                     # 是否开启唤醒词回复
                     enable_greeting = conn.config.get("enable_greeting", True)
+
+                    # 对于唤醒词和普通文本，都需要先打断当前播放
+                    await handleAbortMessage(conn)
+                    # 同时停止电台播放
+                    try:
+                        from core.utils.radio_streamer import stop_radio_stream
+                        await stop_radio_stream(conn.websocket)
+                    except Exception:
+                        pass
 
                     if is_wakeup_words and not enable_greeting:
                         # 如果是唤醒词，且关闭了唤醒词回复，就不用回答

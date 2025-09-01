@@ -381,6 +381,10 @@ class TTSProviderBase(ABC):
 
         def streaming_process():
             logger.bind(tag=TAG).info("进入streaming_process")
+            
+            # 发送音频流开始标记
+            self.tts_audio_queue.put((SentenceType.FIRST, [], content_detail))
+            logger.bind(tag=TAG).info("发送音频流开始标记")
 
             proc = None
             try:
@@ -433,7 +437,7 @@ class TTSProviderBase(ABC):
                         # 第一段达到目标帧数后立即发送
                         if len(first_part) == first_part_target_frames:
                             logger.bind(tag=TAG).info(f"发送首段音频数据，帧数={len(first_part)}（约{first_part_seconds}秒）")
-                            self.tts_audio_queue.put((sentence_type, first_part, content_detail))
+                            self.tts_audio_queue.put((SentenceType.MIDDLE, first_part, content_detail))
                         continue
 
                     # 其余帧全部累积到剩余部分
@@ -442,7 +446,9 @@ class TTSProviderBase(ABC):
                 # 发送剩余部分（一次性）
                 if remaining_datas and not self.conn.client_abort:
                     logger.bind(tag=TAG).info(f"发送剩余音频数据，帧数={len(remaining_datas)}")
-                    self.tts_audio_queue.put((sentence_type, remaining_datas, content_detail))
+                    self.tts_audio_queue.put((SentenceType.MIDDLE, remaining_datas, content_detail))
+                    # 发送结束标记
+                    self.tts_audio_queue.put((SentenceType.LAST, [], content_detail))
 
                 logger.bind(tag=TAG).info(f"流式音乐发送完成，总帧数={total_frames}")
 

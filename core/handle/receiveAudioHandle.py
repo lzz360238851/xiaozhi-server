@@ -56,7 +56,8 @@ async def startToChat(conn, text):
         ):
             await max_out_size(conn)
             return
-    if conn.client_is_speaking:
+    # 检查是否需要中断当前播放（避免重复调用handleAbortMessage）
+    if conn.client_is_speaking and not conn.client_abort:
         await handleAbortMessage(conn)
 
     # 首先进行意图分析

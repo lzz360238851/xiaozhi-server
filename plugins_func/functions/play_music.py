@@ -801,7 +801,31 @@ async def play_local_music(conn, specific_file=None):
             PLAY_CONTROL["current_song"] = None
             return
 
-        conn.audio_play_queue.put((opus_packets, None, conn.tts_last_text_index))
+        # 使用TTS队列系统发送音频，与在线音乐播放保持一致
+        # 发送FIRST信号以启动客户端播放器
+        tts_start_msg = TTSMessageDTO(
+            sentence_id=conn.sentence_id,
+            sentence_type=SentenceType.FIRST,
+            content_type=ContentType.ACTION,
+        )
+        conn.tts.tts_text_queue.put(tts_start_msg)
+
+        # 发送音频文件到播放队列
+        tts_msg = TTSMessageDTO(
+            sentence_id=conn.sentence_id,
+            sentence_type=SentenceType.MIDDLE,
+            content_type=ContentType.FILE,
+            content_file=music_path,
+        )
+        conn.tts.tts_text_queue.put(tts_msg)
+
+        # 发送LAST信号结束播放
+        tts_end_msg = TTSMessageDTO(
+            sentence_id=conn.sentence_id,
+            sentence_type=SentenceType.LAST,
+            content_type=ContentType.ACTION,
+        )
+        conn.tts.tts_text_queue.put(tts_end_msg)
 
         # 重置播放状态
         PLAY_CONTROL["is_playing"] = False
@@ -822,19 +846,11 @@ def interrupt_current_music(conn):
     PLAY_CONTROL["interrupt_flag"] = True
     conn.logger.bind(tag=TAG).info("触发音乐中断")
 
-    # 先向客户端发出中断信号，防止旧音频包继续播放
+    # 设置中断状态，不重复发送stop消息（由handleAbortMessage统一处理）
     try:
         conn.client_abort = True
         # 注意：audio_generation 的递增由 handleAbortMessage 统一处理，避免重复递增
-        # 通知客户端立即停止，清空客户端端的缓冲
-        try:
-            asyncio.run_coroutine_threadsafe(
-                send_tts_message(conn, "stop", None), conn.loop
-            ).result(timeout=0.2)
-        except Exception:
-            pass
-        # 给客户端一些时间处理 stop 和中断
-        time.sleep(0.05)
+        # 注意：stop消息的发送由 handleAbortMessage 统一处理，避免重复发送
     except Exception:
         pass
 

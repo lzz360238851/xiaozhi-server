@@ -78,14 +78,17 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
         return 0
     
     # 在发送音频数据前，先发送音频代次控制消息
-    if snapshot_generation is not None:
-        audio_generation_message = {
-            "type": "audio_generation",
-            "generation": snapshot_generation,
-            "session_id": conn.session_id
-        }
-        await conn.websocket.send(json.dumps(audio_generation_message))
-        conn.logger.bind(tag=TAG).info(f"发送音频代次控制消息: generation={snapshot_generation}")
+    # 修改为测试系统能识别的audio消息类型，避免"未知消息类型"错误
+    # 注释掉generation_control消息发送，避免客户端播放问题
+    # if snapshot_generation is not None:
+    #     audio_generation_message = {
+    #         "type": "audio",
+    #         "action": "generation_control",
+    #         "generation": snapshot_generation,
+    #         "session_id": conn.session_id
+    #     }
+    #     await conn.websocket.send(json.dumps(audio_generation_message))
+    #     conn.logger.bind(tag=TAG).info(f"发送音频代次控制消息: generation={snapshot_generation}")
         
     # 流控参数优化 - 使用更精确的时间控制
     frame_duration_ms = 60  # 帧时长（毫秒），匹配 Opus 编码
@@ -111,8 +114,8 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
     
     frames_sent = 0
     bytes_sent = 0
-    # 发送初始缓冲帧 - 快速发送以建立客户端缓冲
-    conn.logger.bind(tag=TAG).info(f"发送音频缓冲帧：{buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
+    # 发送初始缓冲帧 - 添加适当延迟确保客户端能正确接收
+    conn.logger.bind(tag=TAG).info(f"开始发送初始缓冲帧: {buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
     for i in range(buffer_frames):
         # 每帧都检查中断状态，确保快速响应
         if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
@@ -131,6 +134,13 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
             bytes_sent += len(packet)
         except Exception:
             pass
+        
+        conn.logger.bind(tag=TAG).info(f"发送初始缓冲帧 {i+1}/{buffer_frames}")
+        
+        # 在缓冲帧之间添加延迟，确保客户端能正确接收
+        if i < buffer_frames - 1:  # 最后一帧不需要延迟
+            await asyncio.sleep(0.1)  # 增加到100ms延迟
+            conn.logger.bind(tag=TAG).info(f"缓冲帧间延迟100ms完成")
 
     # 播放剩余音频帧 - 使用精确的时间控制
     for i, opus_packet in enumerate(remaining_audios):
