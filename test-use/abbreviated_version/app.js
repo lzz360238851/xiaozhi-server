@@ -44,18 +44,9 @@ playButton.addEventListener("click", playRecording);
 let audioBufferQueue = [];     // 存储接收到的音频包
 let isAudioBuffering = false;  // 是否正在缓冲音频
 let isAudioPlaying = false;    // 是否正在播放音频
-let isAudioReceivingEnabled = true; // 是否允许接收音频数据
-const BUFFER_THRESHOLD = 8;    // 缓冲包数量阈值，增加到8个包以提高播放流畅性
-const MIN_AUDIO_DURATION = 0.3; // 最小音频长度(秒)，增加到0.3秒以减少频繁的播放启停
-const MAX_BUFFER_SIZE = 50;    // 最大缓冲队列大小，防止内存过度占用
+const BUFFER_THRESHOLD = 3;    // 缓冲包数量阈值，至少累积5个包再开始播放
+const MIN_AUDIO_DURATION = 0.1; // 最小音频长度(秒)，小于这个长度的音频会被合并
 let streamingContext = null;   // 音频流上下文
-let bufferTimeoutId = null;    // 缓冲超时定时器ID
-let bufferCheckInterval = null; // 缓冲检查间隔ID
-
-// 音频代次验证相关变量
-let currentAudioGeneration = null; // 当前音频代次
-let audioStateCleanupTime = null;  // 音频状态清理时间戳
-const AUDIO_TIMEOUT_MS = 2000;     // 音频超时保护时间（毫秒）
 
 // 初始化Opus编码器与解码器
 async function initOpus() {
@@ -702,36 +693,7 @@ async function handleBinaryMessage(data) {
         // 创建Uint8Array用于处理
         const opusData = new Uint8Array(arrayBuffer);
 
-        // 检查是否允许接收音频数据
-        if (!isAudioReceivingEnabled) {
-            console.warn(`[音频控制] 音频接收已禁用，丢弃音频数据包 (${opusData.length} 字节)`);
-            return;
-        }
-        
-        // 检查音频超时保护
-        if (audioStateCleanupTime !== null) {
-            const timeSinceCleanup = Date.now() - audioStateCleanupTime;
-            if (timeSinceCleanup < AUDIO_TIMEOUT_MS) {
-                console.warn(`[音频代次] 音频状态清理后 ${timeSinceCleanup}ms 内收到音频数据，可能是残留数据，丢弃 (${opusData.length} 字节)`);
-                return;
-            }
-        }
-        
-        // 检查音频代次验证
-        if (currentAudioGeneration === null) {
-            console.warn(`[音频代次] 未收到音频代次信息，丢弃音频数据包 (${opusData.length} 字节)`);
-            return;
-        }
-        
-        console.log(`[音频控制] 接收音频数据包: ${opusData.length} 字节，当前队列长度: ${audioBufferQueue.length}，代次: ${currentAudioGeneration}`);
-
         if (opusData.length > 0) {
-            // 检查缓冲队列大小，防止内存过度占用
-            if (audioBufferQueue.length >= MAX_BUFFER_SIZE) {
-                console.warn(`缓冲队列已满(${MAX_BUFFER_SIZE})，丢弃最旧的音频包`);
-                audioBufferQueue.shift(); // 移除最旧的包
-            }
-            
             // 将数据添加到缓冲队列
             audioBufferQueue.push(opusData);
             
@@ -744,7 +706,7 @@ async function handleBinaryMessage(data) {
             
             // 如果缓冲队列中有数据且没有在播放，立即开始播放
             if (audioBufferQueue.length > 0 && !isAudioPlaying) {
-                playBufferedAudio(true);
+                playBufferedAudio();
             }
             
             // 如果正在播放，发送结束信号
@@ -761,42 +723,27 @@ async function handleBinaryMessage(data) {
 function startAudioBuffering() {
     if (isAudioBuffering || isAudioPlaying) return;
     
-    // 如果音频接收被禁用，说明正在清理状态，不应该开始新的缓冲
-    if (!isAudioReceivingEnabled) {
-        console.log("[音频控制] 音频接收已禁用，跳过缓冲启动，清空队列中的旧音频数据");
-        audioBufferQueue.length = 0; // 清空队列中的旧音频数据
-        return;
-    }
-    
-    // 在开始缓冲时确保音频接收已启用
-    isAudioReceivingEnabled = true;
-    
     isAudioBuffering = true;
-    console.log("[音频控制] 开始音频缓冲，音频接收已启用...");
+    console.log("开始音频缓冲...");
     
     // 设置超时，如果在一定时间内没有收集到足够的音频包，就开始播放
-    if (bufferTimeoutId) clearTimeout(bufferTimeoutId);
-    bufferTimeoutId = setTimeout(() => {
+    setTimeout(() => {
         if (isAudioBuffering && audioBufferQueue.length > 0) {
             console.log(`缓冲超时，当前缓冲包数: ${audioBufferQueue.length}，开始播放`);
-            playBufferedAudio(true);
+            playBufferedAudio();
         }
-        bufferTimeoutId = null;
     }, 300); // 300ms超时
     
     // 监控缓冲进度
-    if (bufferCheckInterval) clearInterval(bufferCheckInterval);
-    bufferCheckInterval = setInterval(() => {
+    const bufferCheckInterval = setInterval(() => {
         if (!isAudioBuffering) {
             clearInterval(bufferCheckInterval);
-            bufferCheckInterval = null;
             return;
         }
         
         // 当累积了足够的音频包，开始播放
         if (audioBufferQueue.length >= BUFFER_THRESHOLD) {
             clearInterval(bufferCheckInterval);
-            bufferCheckInterval = null;
             console.log(`已缓冲 ${audioBufferQueue.length} 个音频包，开始播放`);
             playBufferedAudio();
         }
@@ -804,7 +751,7 @@ function startAudioBuffering() {
 }
 
 // 播放已缓冲的音频
-function playBufferedAudio(forceStart = false) {
+function playBufferedAudio() {
     if (isAudioPlaying || audioBufferQueue.length === 0) return;
     
     isAudioPlaying = true;
@@ -819,14 +766,16 @@ function playBufferedAudio(forceStart = false) {
             source: null,       // 当前音频源
             totalSamples: 0,    // 累积的总样本数
             lastPlayTime: 0,    // 上次播放的时间戳
-            forceStartFlag: false,
             // 将Opus数据解码为PCM
             decodeOpusFrames: async function(opusFrames) {
                 let decodedSamples = [];
+                
                 for (const frame of opusFrames) {
                     try {
+                        // 使用Opus解码器解码
                         const frameData = opusDecoder.decode(frame);
                         if (frameData && frameData.length > 0) {
+                            // 转换为Float32
                             const floatData = convertInt16ToFloat32(frameData);
                             decodedSamples.push(...floatData);
                         }
@@ -834,87 +783,103 @@ function playBufferedAudio(forceStart = false) {
                         console.error("Opus解码失败:", error);
                     }
                 }
+                
                 if (decodedSamples.length > 0) {
+                    // 添加到解码队列
                     this.queue.push(...decodedSamples);
                     this.totalSamples += decodedSamples.length;
+                    
+                    // 如果累积了至少0.2秒的音频，开始播放
                     const minSamples = SAMPLE_RATE * MIN_AUDIO_DURATION;
-                    if (!this.playing && (this.queue.length >= minSamples || this.forceStartFlag === true)) {
+                    if (!this.playing && this.queue.length >= minSamples) {
                         this.startPlaying();
                     }
                 }
             },
+            // 开始播放音频
             startPlaying: function() {
                 if (this.playing || this.queue.length === 0) return;
+                
                 this.playing = true;
-                const minPlaySamples = Math.min(this.queue.length, SAMPLE_RATE);
+                
+                // 创建新的音频缓冲区
+                const minPlaySamples = Math.min(this.queue.length, SAMPLE_RATE); // 最多播放1秒
                 const currentSamples = this.queue.splice(0, minPlaySamples);
+                
                 const audioBuffer = audioContext.createBuffer(CHANNELS, currentSamples.length, SAMPLE_RATE);
                 audioBuffer.copyToChannel(new Float32Array(currentSamples), 0);
+                
+                // 创建音频源
                 this.source = audioContext.createBufferSource();
                 this.source.buffer = audioBuffer;
+                
+                // 创建增益节点用于平滑过渡
                 const gainNode = audioContext.createGain();
-                const fadeDuration = 0.02;
+                
+                // 应用淡入淡出效果避免爆音
+                const fadeDuration = 0.02; // 20毫秒
                 gainNode.gain.setValueAtTime(0, audioContext.currentTime);
                 gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + fadeDuration);
+                
                 const duration = audioBuffer.duration;
                 if (duration > fadeDuration * 2) {
                     gainNode.gain.setValueAtTime(1, audioContext.currentTime + duration - fadeDuration);
                     gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
                 }
+                
+                // 连接节点并开始播放
                 this.source.connect(gainNode);
                 gainNode.connect(audioContext.destination);
+                
                 this.lastPlayTime = audioContext.currentTime;
                 console.log(`开始播放 ${currentSamples.length} 个样本，约 ${(currentSamples.length / SAMPLE_RATE).toFixed(2)} 秒`);
+                
+                // 播放结束后的处理
                 this.source.onended = () => {
                     this.source = null;
                     this.playing = false;
-                    setTimeout(() => {
-                        // 检查音频状态是否已被清理，如果是则直接返回
-                        if (!isAudioPlaying || !streamingContext) {
-                            console.log("音频状态已被清理，停止继续播放");
-                            return;
-                        }
-                        
-                        if (this.queue.length > 0) {
-                            this.startPlaying();
-                        } else if (audioBufferQueue.length > 0) {
-                            const frames = [...audioBufferQueue];
-                            audioBufferQueue = [];
-                            this.decodeOpusFrames(frames);
-                        } else if (this.endOfStream) {
-                            console.log("音频播放完成");
-                            isAudioPlaying = false;
-                            this.endOfStream = false;
-                            streamingContext = null;
-                        } else {
-                            setTimeout(() => {
-                                // 再次检查状态
-                                if (!isAudioPlaying || !streamingContext) {
-                                    return;
-                                }
-                                if (this.queue.length === 0 && audioBufferQueue.length > 0) {
-                                    const frames = [...audioBufferQueue];
-                                    audioBufferQueue = [];
-                                    this.decodeOpusFrames(frames);
-                                } else if (this.queue.length === 0 && audioBufferQueue.length === 0) {
-                                    console.log("音频播放完成 (超时)");
-                                    isAudioPlaying = false;
-                                    streamingContext = null;
-                                }
-                            }, 500);
-                        }
-                    }, 10);
+                    
+                    // 如果队列中还有数据或者缓冲区有新数据，继续播放
+                    if (this.queue.length > 0) {
+                        setTimeout(() => this.startPlaying(), 10);
+                    } else if (audioBufferQueue.length > 0) {
+                        // 缓冲区有新数据，进行解码
+                        const frames = [...audioBufferQueue];
+                        audioBufferQueue = [];
+                        this.decodeOpusFrames(frames);
+                    } else if (this.endOfStream) {
+                        // 流已结束且没有更多数据
+                        console.log("音频播放完成");
+                        isAudioPlaying = false;
+                        streamingContext = null;
+                    } else {
+                        // 等待更多数据
+                        setTimeout(() => {
+                            // 如果仍然没有新数据，但有更多的包到达
+                            if (this.queue.length === 0 && audioBufferQueue.length > 0) {
+                                const frames = [...audioBufferQueue];
+                                audioBufferQueue = [];
+                                this.decodeOpusFrames(frames);
+                            } else if (this.queue.length === 0 && audioBufferQueue.length === 0) {
+                                // 真的没有更多数据了
+                                console.log("音频播放完成 (超时)");
+                                isAudioPlaying = false;
+                                streamingContext = null;
+                            }
+                        }, 500); // 500ms超时
+                    }
                 };
+                
                 this.source.start();
             }
         };
     }
     
-    // 将当前调用的 forceStart 记录到 context 上
-    streamingContext.forceStartFlag = forceStart === true;
-    
+    // 开始处理缓冲的数据
     const frames = [...audioBufferQueue];
-    audioBufferQueue = [];
+    audioBufferQueue = []; // 清空缓冲队列
+    
+    // 解码并播放
     streamingContext.decodeOpusFrames(frames);
 }
 
@@ -968,12 +933,6 @@ function decodeAndPlayOpusDataOld(opusData) {
 
 // 更新playOpusFromServer函数为Promise版本
 function playOpusFromServer(opusData) {
-    // 检查音频接收是否被禁用
-    if (!isAudioReceivingEnabled) {
-        console.log('[音频控制] playOpusFromServer: 音频接收已禁用，丢弃音频数据');
-        return Promise.resolve();
-    }
-    
     // 为了兼容，我们将opusData添加到audioBufferQueue并触发播放
     if (Array.isArray(opusData) && opusData.length > 0) {
         for (const frame of opusData) {
@@ -1221,115 +1180,12 @@ function updateStatus(message, type = 'info') {
 function handleTextMessage(message) {
     if (message.type === 'hello') {
         console.log(`服务器回应：${JSON.stringify(message, null, 2)}`);
-    } else if (message.type === 'audio_generation') {
-        // 处理音频代次控制消息
-        currentAudioGeneration = message.generation;
-        console.log(`[音频代次] 收到新的音频代次: ${currentAudioGeneration}`);
-        
-        // 重置音频超时保护
-        audioStateCleanupTime = null;
-        
-        // 启用音频接收
-        isAudioReceivingEnabled = true;
-        
-        console.log(`[音频代次] 音频接收已启用，当前代次: ${currentAudioGeneration}`);
     } else if (message.type === 'tts') {
         // TTS状态消息
         if (message.state === 'start') {
             console.log('服务器开始发送语音');
-            
-            // 收到tts start时，立即清理所有音频状态，确保不会播放旧音频
-            if (streamingContext && streamingContext.source) {
-                try {
-                    streamingContext.source.stop();
-                    streamingContext.source.disconnect();
-                } catch (e) {
-                    // 忽略已经停止的错误
-                }
-            }
-            
-            // 清理所有定时器
-            if (bufferTimeoutId) {
-                clearTimeout(bufferTimeoutId);
-                bufferTimeoutId = null;
-            }
-            if (bufferCheckInterval) {
-                clearInterval(bufferCheckInterval);
-                bufferCheckInterval = null;
-            }
-            
-            // 重置所有音频状态
-            isAudioPlaying = false;
-            isAudioBuffering = false;
-            streamingContext = null;
-            
-            // 清空音频缓冲队列
-            audioBufferQueue = [];
-            
-            // 禁用音频接收，防止接收旧音频数据
-            isAudioReceivingEnabled = false;
-            
-            // 清理WebSocket缓冲区（如果WebSocket支持的话）
-            if (websocket && websocket.readyState === WebSocket.OPEN) {
-                try {
-                    // 尝试清理WebSocket的内部缓冲区
-                    // 注意：WebSocket API没有直接的缓冲区清理方法，但我们可以通过发送空消息来刷新
-                    console.log('[WebSocket] 尝试清理WebSocket缓冲区');
-                } catch (e) {
-                    console.warn('[WebSocket] 清理WebSocket缓冲区时出错:', e);
-                }
-            }
-            
-            // 设置音频状态清理时间戳，启用超时保护
-            audioStateCleanupTime = Date.now();
-            
-            // 清除当前音频代次
-            currentAudioGeneration = null;
-            
-            console.log('[音频控制] 收到tts start，已清理所有音频状态，音频接收已禁用，超时保护已启用');
         } else if (message.state === 'sentence_start') {
             console.log(`服务器发送语音段: ${message.text}`);
-            
-            // 收到新的sentence_start时，强制重置音频播放状态
-            // 这是解决第二首歌无声问题的关键
-            if (isAudioPlaying || isAudioBuffering) {
-                console.log('检测到新的语音段开始，重置音频播放状态并清理定时器');
-                
-                // 停止当前播放并断开连接
-                if (streamingContext && streamingContext.source) {
-                    try {
-                        streamingContext.source.stop();
-                        streamingContext.source.disconnect();
-                    } catch (e) {
-                        // 忽略已经停止的错误
-                    }
-                }
-                
-                // 清理 streamingContext 内部状态
-                if (streamingContext) {
-                    streamingContext.queue = [];
-                    streamingContext.playing = false;
-                    streamingContext.endOfStream = true;
-                }
-                
-                // 清理缓冲相关定时器
-                if (bufferTimeoutId) { clearTimeout(bufferTimeoutId); bufferTimeoutId = null; }
-                if (bufferCheckInterval) { clearInterval(bufferCheckInterval); bufferCheckInterval = null; }
-                
-                // 重置所有音频状态
-                isAudioPlaying = false;
-                isAudioBuffering = false;
-                streamingContext = null;
-                
-                // 清空所有音频队列
-                audioBufferQueue = [];
-                
-                // 启用音频接收，准备接收新的音频数据
-                isAudioReceivingEnabled = true;
-                
-                console.log('[音频控制] 检测到新的语音段开始，已重置音频播放状态，音频接收已启用');
-            }
-            
             // 添加文本到会话记录
             if (message.text) {
                 addMessage(message.text);
@@ -1338,34 +1194,6 @@ function handleTextMessage(message) {
             console.log(`语音段结束: ${message.text}`);
         } else if (message.state === 'stop') {
             console.log('服务器语音传输结束');
-            
-            // 立即停止当前音频播放并清理所有缓冲
-            if (isAudioPlaying || isAudioBuffering) {
-                console.log('收到stop信号，立即停止音频播放并清理缓冲');
-                
-                // 停止当前播放
-                if (streamingContext && streamingContext.source) {
-                    try {
-                        streamingContext.source.stop();
-                    } catch (e) {
-                        // 忽略已经停止的错误
-                    }
-                }
-                
-                // 清理所有定时器
-                if (bufferTimeoutId) { clearTimeout(bufferTimeoutId); bufferTimeoutId = null; }
-                if (bufferCheckInterval) { clearInterval(bufferCheckInterval); bufferCheckInterval = null; }
-                
-                // 重置所有音频状态
-                isAudioPlaying = false;
-                isAudioBuffering = false;
-                streamingContext = null;
-                
-                // 清空所有音频队列
-                audioBufferQueue = [];
-                
-                console.log('音频播放已停止，所有缓冲已清理');
-            }
         }
     } else if (message.type === 'audio') {
         // 音频控制消息
@@ -1373,48 +1201,6 @@ function handleTextMessage(message) {
     } else if (message.type === 'stt') {
         // 语音识别结果
         console.log(`识别结果: ${message.text}`);
-        
-        // 收到识别结果时，立即清理所有音频状态，确保之后不会播放旧音频
-        if (streamingContext && streamingContext.source) {
-            try {
-                streamingContext.source.stop();
-                streamingContext.source.disconnect();
-            } catch (e) {
-                // 忽略已经停止的错误
-            }
-        }
-        
-        // 清理 streamingContext 内部状态
-        if (streamingContext) {
-            streamingContext.queue = [];
-            streamingContext.playing = false;
-            streamingContext.endOfStream = true;
-        }
-        
-        // 清理所有定时器
-        if (bufferTimeoutId) {
-            clearTimeout(bufferTimeoutId);
-            bufferTimeoutId = null;
-        }
-        if (bufferCheckInterval) {
-            clearInterval(bufferCheckInterval);
-            bufferCheckInterval = null;
-        }
-        if (playTimeoutId) {
-            clearTimeout(playTimeoutId);
-            playTimeoutId = null;
-        }
-        
-        // 重置所有音频状态
-        isAudioPlaying = false;
-        isAudioBuffering = false;
-        streamingContext = null;
-        
-        // 清空音频缓冲队列
-        audioBufferQueue = [];
-        
-        console.log('收到识别结果，已清理所有音频状态，确保不播放旧音频');
-        
         // 添加识别结果到会话记录
         addMessage(`[语音识别] ${message.text}`, true);
     } else if (message.type === 'llm') {

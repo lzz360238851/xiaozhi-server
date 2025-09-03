@@ -9,16 +9,7 @@ TAG = __name__
 async def handleAbortMessage(conn):
     conn.logger.bind(tag=TAG).info("Abort message received")
     
-    # 立即发送停止信号到客户端，优先级最高
-    try:
-        # 只发送一次stop消息，避免重复导致客户端混乱
-        stop_message = json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id})
-        await conn.websocket.send(stop_message)
-        conn.logger.bind(tag=TAG).info("已发送停止信号到客户端")
-    except Exception as e:
-        conn.logger.bind(tag=TAG).error(f"发送停止信号失败: {str(e)}")
-    
-    # 设置成打断状态，会自动打断llm、tts任务
+    # 首先设置成打断状态，会自动打断llm、tts任务
     conn.client_abort = True
     
     # 增加音频代次，客户端可据此丢弃旧缓冲（若前端支持）
@@ -48,4 +39,13 @@ async def handleAbortMessage(conn):
     
     # 清除服务端讲话状态
     conn.clearSpeakStatus()
+    
+    # 最后发送停止信号到客户端，确保所有中断处理完成
+    try:
+        # 只发送一次stop消息，避免重复导致客户端混乱
+        stop_message = json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id})
+        await conn.websocket.send(stop_message)
+        conn.logger.bind(tag=TAG).info("已发送停止信号到客户端")
+    except Exception as e:
+        conn.logger.bind(tag=TAG).error(f"发送停止信号失败: {str(e)}")
     conn.logger.bind(tag=TAG).info("Abort message received-end")

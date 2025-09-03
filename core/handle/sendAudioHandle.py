@@ -51,14 +51,16 @@ async def sendAudioMessage(conn, sentenceType, audios, text):
             )
         )
     pre_buffer = False
+    send_stop_before_audio = False
     if conn.tts.tts_audio_first_sentence and text is not None:
         conn.logger.bind(tag=TAG).info(f"发送第一段语音: {text}")
         conn.tts.tts_audio_first_sentence = False
         pre_buffer = True
+        send_stop_before_audio = True  # 只在第一次发送对话时发送stop
 
     await send_tts_message(conn, "sentence_start", text)
 
-    frames_sent = await sendAudio(conn, audios, pre_buffer, snapshot_generation=snapshot_generation)
+    frames_sent = await sendAudio(conn, audios, pre_buffer, snapshot_generation=snapshot_generation, send_stop_before_audio=send_stop_before_audio)
 
     await send_tts_message(conn, "sentence_end", text)
 
@@ -73,9 +75,19 @@ async def sendAudioMessage(conn, sentenceType, audios, text):
 
 
 # 播放音频
-async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None):
+async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, send_stop_before_audio=False):
     if audios is None or len(audios) == 0:
         return 0
+    
+    # 只在第一次发送对话时发送stop消息清空客户端缓冲区
+    if send_stop_before_audio:
+        stop_message = {
+            "type": "tts",
+            "state": "stop",
+            "session_id": conn.session_id
+        }
+        await conn.websocket.send(json.dumps(stop_message))
+        conn.logger.bind(tag=TAG).info("发送预清理stop消息，清空客户端音频缓冲区（仅第一次对话）")
     
     # 在发送音频数据前，先发送音频代次控制消息
     # 修改为测试系统能识别的audio消息类型，避免"未知消息类型"错误
