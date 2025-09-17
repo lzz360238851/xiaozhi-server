@@ -85,7 +85,7 @@ PLAY_RADIO_FUNCTION_DESC = {
 
 # 同步注册函数
 @register_function("play_radio", PLAY_RADIO_FUNCTION_DESC, ToolType.SYSTEM_CTL)
-def get_news_from_chinanews(conn, command: str, radio_name: str):
+def handle_radio_request (conn, command: str="play", radio_name: str=""):
     if command is None or command.strip() == "":
         command="play"
     if command not in ("play", "stop"):
@@ -106,7 +106,8 @@ def get_news_from_chinanews(conn, command: str, radio_name: str):
         #    run_coroutine_threadsafe 是用于从非异步线程安全地调度协程的方法
         asyncio.run_coroutine_threadsafe(start_radio_stream(websocket,radio_name), main_loop)
         # ✅ 返回静默响应，不触发 TTS
-        return ActionResponse(Action.NONE, "", None)
+        # return ActionResponse(Action.NONE, "", None)
+        return None
 
     elif command == "stop":
         asyncio.run_coroutine_threadsafe(stop_radio_stream(websocket), main_loop)

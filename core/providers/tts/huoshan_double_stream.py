@@ -430,7 +430,7 @@ class TTSProvider(TTSProviderBase):
                         self.tts_text = json_data.get("text", "")
                         logger.bind(tag=TAG).debug(f"句子语音生成开始: {self.tts_text}")
                         self.tts_audio_queue.put(
-                            (SentenceType.FIRST, [], self.tts_text)
+                            (SentenceType.FIRST, [], self.tts_text, None)
                         )
                         opus_datas_cache = []
                         first_sentence_segment_count = 0  # 重置计数器
@@ -447,7 +447,7 @@ class TTSProvider(TTSProviderBase):
                             first_sentence_segment_count += 1
                             if first_sentence_segment_count <= 6:
                                 self.tts_audio_queue.put(
-                                    (SentenceType.MIDDLE, opus_datas, None)
+                                    (SentenceType.MIDDLE, opus_datas, None, None)
                                 )
                             else:
                                 opus_datas_cache = opus_datas_cache + opus_datas
@@ -459,7 +459,7 @@ class TTSProvider(TTSProviderBase):
                         if not is_first_sentence or first_sentence_segment_count > 10:
                             # 发送缓存的数据
                             self.tts_audio_queue.put(
-                                (SentenceType.MIDDLE, opus_datas_cache, None)
+                                (SentenceType.MIDDLE, opus_datas_cache, None, None)
                             )
                         # 第一句话结束后，将标志设置为False
                         is_first_sentence = False

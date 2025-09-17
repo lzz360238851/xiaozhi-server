@@ -32,7 +32,7 @@ emoji_map = {
 }
 
 
-async def sendAudioMessage(conn, sentenceType, audios, text):
+async def sendAudioMessage(conn, sentenceType, audios, text, navigate_info=None):
     # 发送句子开始消息
     conn.logger.bind(tag=TAG).info(f"发送音频消息: {sentenceType}, {text}")
     snapshot_generation = getattr(conn, "audio_generation", 0)
@@ -58,16 +58,17 @@ async def sendAudioMessage(conn, sentenceType, audios, text):
         pre_buffer = True
         send_stop_before_audio = True  # 只在第一次发送对话时发送stop
 
-    await send_tts_message(conn, "sentence_start", text)
+    await send_tts_message(conn, "sentence_start", text, navigate_info)
 
     frames_sent = await sendAudio(conn, audios, pre_buffer, snapshot_generation=snapshot_generation, send_stop_before_audio=send_stop_before_audio)
 
-    await send_tts_message(conn, "sentence_end", text)
+    await send_tts_message(conn, "sentence_end", text, navigate_info)
 
     conn.logger.bind(tag=TAG).info(f"音频消息发送完成: 发送帧数={frames_sent}, 代次=({snapshot_generation}->{getattr(conn, 'audio_generation', 0)})")
 
     # 发送结束消息（如果是最后一个文本）
     if conn.llm_finish_task and sentenceType == SentenceType.LAST:
+        conn.logger.bind(tag=TAG).info(f"stop发送lzz:")
         await send_tts_message(conn, "stop", None)
         conn.client_is_speaking = False
         if conn.close_after_chat:
@@ -80,14 +81,14 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         return 0
     
     # 只在第一次发送对话时发送stop消息清空客户端缓冲区
-    if send_stop_before_audio:
-        stop_message = {
-            "type": "tts",
-            "state": "stop",
-            "session_id": conn.session_id
-        }
-        await conn.websocket.send(json.dumps(stop_message))
-        conn.logger.bind(tag=TAG).info("发送预清理stop消息，清空客户端音频缓冲区（仅第一次对话）")
+    # if send_stop_before_audio:
+    #     stop_message = {
+    #         "type": "tts",
+    #         "state": "stop",
+    #         "session_id": conn.session_id
+    #     }
+    #     # await conn.websocket.send(json.dumps(stop_message))
+    #     conn.logger.bind(tag=TAG).info("发送预清理stop消息，清空客户端音频缓冲区（仅第一次对话）")
     
     # 在发送音频数据前，先发送音频代次控制消息
     # 修改为测试系统能识别的audio消息类型，避免"未知消息类型"错误
@@ -127,7 +128,7 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
     frames_sent = 0
     bytes_sent = 0
     # 发送初始缓冲帧 - 添加适当延迟确保客户端能正确接收
-    conn.logger.bind(tag=TAG).info(f"开始发送初始缓冲帧: {buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
+    # conn.logger.bind(tag=TAG).info(f"开始发送初始缓冲帧: {buffer_frames}帧，剩余：{len(remaining_audios)}帧 (snapshot={snapshot_generation}, current={getattr(conn, 'audio_generation', 0)})")
     for i in range(buffer_frames):
         # 每帧都检查中断状态，确保快速响应
         if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
@@ -147,12 +148,12 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         except Exception:
             pass
         
-        conn.logger.bind(tag=TAG).info(f"发送初始缓冲帧 {i+1}/{buffer_frames}")
+        # conn.logger.bind(tag=TAG).info(f"发送初始缓冲帧 {i+1}/{buffer_frames}")
         
         # 在缓冲帧之间添加延迟，确保客户端能正确接收
         if i < buffer_frames - 1:  # 最后一帧不需要延迟
-            await asyncio.sleep(0.1)  # 增加到100ms延迟
-            conn.logger.bind(tag=TAG).info(f"缓冲帧间延迟100ms完成")
+            await asyncio.sleep(0.001)  # 增加到10ms延迟
+            # conn.logger.bind(tag=TAG).info(f"缓冲帧间延迟10ms完成")
 
     # 播放剩余音频帧 - 使用精确的时间控制
     for i, opus_packet in enumerate(remaining_audios):
@@ -195,11 +196,14 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
     return frames_sent
 
 
-async def send_tts_message(conn, state, text=None):
+async def send_tts_message(conn, state, text=None, navigate_info=None):
     """发送 TTS 状态消息"""
     message = {"type": "tts", "state": state, "session_id": conn.session_id}
     if text is not None:
         message["text"] = text
+    if navigate_info is not None:
+        message["navigate"] = 1
+    else: message["navigate"] = 0
 
     # TTS播放结束
     if state == "stop":
@@ -215,7 +219,7 @@ async def send_tts_message(conn, state, text=None):
             await sendAudio(conn, audios, pre_buffer=False, snapshot_generation=snapshot_generation)
         # 清除服务端讲话状态
         conn.clearSpeakStatus()
-
+    logger.bind(tag=TAG).info(f"发送出去的消息: {message}")
     # 发送消息到客户端
     await conn.websocket.send(json.dumps(message))
 

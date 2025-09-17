@@ -92,9 +92,7 @@ play_music_function_desc = {
 
 
 @register_function("play_music", play_music_function_desc, ToolType.SYSTEM_CTL)
-def play_music(conn, song_name: str):
-    if song_name is None:
-        song_name="素颜"
+def play_music(conn, song_name: str="素颜"):
     conn.logger.bind(tag=TAG).info("进入播放音乐功能函数")
     try:
         # 如果电台正在播放，先停止电台，避免与音乐/回复叠音
@@ -113,12 +111,12 @@ def play_music(conn, song_name: str):
             # 注意：audio_generation 的递增由 handleAbortMessage 统一处理，避免重复递增
             
             # 向客户端发送一次 stop，防止客户端保留的缓冲继续播放旧音频
-            try:
-                asyncio.run_coroutine_threadsafe(
-                    send_tts_message(conn, "stop", None), conn.loop
-                ).result(timeout=1)
-            except Exception:
-                pass
+            # try:
+            #     asyncio.run_coroutine_threadsafe(
+            #         send_tts_message(conn, "stop", None), conn.loop
+            #     ).result(timeout=1)
+            # except Exception:
+            #     pass
                 
             # 立即清空播放相关队列，确保即时打断
             try:
@@ -138,12 +136,12 @@ def play_music(conn, song_name: str):
             pass
 
         # 向客户端发送一次 stop，防止客户端保留的缓冲继续播放旧音频
-        try:
-            asyncio.run_coroutine_threadsafe(
-                send_tts_message(conn, "stop", None), conn.loop
-            ).result(timeout=1)
-        except Exception:
-            pass
+        # try:
+        #     asyncio.run_coroutine_threadsafe(
+        #         send_tts_message(conn, "stop", None), conn.loop
+        #     ).result(timeout=1)
+        # except Exception:
+        #     pass
 
         # 不要在此处切换 client_abort，避免与全局打断竞争导致旧音频恢复
 
@@ -344,11 +342,11 @@ async def play_online_music(conn, specific_file=None, song_name=None):
     try:
         conn.logger.bind(tag=TAG).info("play_online_music 函数开始执行")
         
-        # 再发一次 stop，双保险清理前端播放器缓冲
-        try:
-            await send_tts_message(conn, "stop", None)
-        except Exception:
-            pass
+        # # 再发一次 stop，双保险清理前端播放器缓冲
+        # try:
+        #     await send_tts_message(conn, "stop", None)
+        # except Exception:
+        #     pass
         
         # 统一递增音频代次，确保新播放与中断处理同步（移到音频入队前）
         if hasattr(conn, "audio_generation"):
@@ -437,13 +435,13 @@ async def play_online_music(conn, specific_file=None, song_name=None):
             return
 
         # 正常播放结束
-        conn.tts.tts_text_queue.put(
-            TTSMessageDTO(
-                sentence_id=conn.sentence_id,
-                sentence_type=SentenceType.LAST,
-                content_type=ContentType.ACTION,
-            )
-        )
+        # conn.tts.tts_text_queue.put(
+        #     TTSMessageDTO(
+        #         sentence_id=conn.sentence_id,
+        #         sentence_type=SentenceType.LAST,
+        #         content_type=ContentType.ACTION,
+        #     )
+        # )
 
         # 重置播放状态
         PLAY_CONTROL["is_playing"] = False
@@ -640,9 +638,9 @@ async def handle_online_song_command(conn, song_name):
         conn.client_abort = True
         # 注意：不在此处递增 audio_generation，由 play_online_music 统一处理
         conn.clear_queues()
-        await send_tts_message(conn, "stop", None)
+        # await send_tts_message(conn, "stop", None)
         # 确保stop消息被发送并处理
-        await asyncio.sleep(0.1)
+        # await asyncio.sleep(0.1)
         
         # 重置client_abort状态，确保新音频能够发送
         conn.client_abort = False
@@ -749,6 +747,7 @@ def _get_random_play_prompt(song_name):
 async def play_local_music(conn, specific_file=None):
     global MUSIC_CACHE
     """播放本地音乐文件（支持中断）"""
+    conn.logger.bind(tag=TAG).info("play_local_music 函数开始执行")
     try:
         # 生成唯一歌曲标识
         song_id = hashlib.md5(specific_file.encode() if specific_file else str(time.time()).encode()).hexdigest()
@@ -780,7 +779,8 @@ async def play_local_music(conn, specific_file=None):
             conn.logger.bind(tag=TAG).error(f"选定的音乐文件不存在: {music_path}")
             return
 
-        conn.llm_finish_task = True
+        #分块发送停止导致无法播放
+        # conn.llm_finish_task = True
 
         # 检查中断标志
         if PLAY_CONTROL["interrupt_flag"]:
@@ -820,12 +820,12 @@ async def play_local_music(conn, specific_file=None):
         conn.tts.tts_text_queue.put(tts_msg)
 
         # 发送LAST信号结束播放
-        tts_end_msg = TTSMessageDTO(
-            sentence_id=conn.sentence_id,
-            sentence_type=SentenceType.LAST,
-            content_type=ContentType.ACTION,
-        )
-        conn.tts.tts_text_queue.put(tts_end_msg)
+        # tts_end_msg = TTSMessageDTO(
+        #     sentence_id=conn.sentence_id,
+        #     sentence_type=SentenceType.LAST,
+        #     content_type=ContentType.ACTION,
+        # )
+        # conn.tts.tts_text_queue.put(tts_end_msg)
 
         # 重置播放状态
         PLAY_CONTROL["is_playing"] = False

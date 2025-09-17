@@ -1,4 +1,6 @@
 import json
+import time
+import math
 from core.handle.abortHandle import handleAbortMessage
 from core.handle.helloHandle import handleHelloMessage
 from core.handle.mcpHandle import handle_mcp_message
@@ -7,12 +9,56 @@ from core.handle.receiveAudioHandle import startToChat, handleAudioMessage
 from core.handle.sendAudioHandle import send_stt_message, send_tts_message
 from core.handle.iotHandle import handleIotDescriptors, handleIotStatus
 from core.handle.reportHandle import enqueue_asr_report
+from core.utils.nmea_parser import parse_nmea_message
 import asyncio
 from core.providers.tts.dto.dto import ContentType
 from core.utils.dialogue import Message
 from plugins_func.register import Action
 
 TAG = __name__
+
+# 位置信息处理控制
+class LocationProcessor:
+    def __init__(self):
+        self.last_process_time = {}
+        self.last_location = {}
+        self.min_interval = 30.0  # 最小处理间隔（秒）
+        self.min_distance = 10.0  # 最小距离变化（米）
+    
+    def should_process_location(self, client_id: str, lat: float, lon: float) -> bool:
+        """判断是否应该处理位置信息"""
+        current_time = time.time()
+        
+        # 检查时间间隔
+        last_time = self.last_process_time.get(client_id, 0)
+        if current_time - last_time < self.min_interval:
+            return False
+        
+        # 检查距离变化
+        last_pos = self.last_location.get(client_id)
+        if last_pos:
+            distance = self._calculate_distance(lat, lon, last_pos['lat'], last_pos['lon'])
+            if distance < self.min_distance:
+                return False
+        
+        # 更新记录
+        self.last_process_time[client_id] = current_time
+        self.last_location[client_id] = {'lat': lat, 'lon': lon}
+        return True
+    
+    def _calculate_distance(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+        """计算两点间距离（米）"""
+        R = 6371000.0  # 地球半径（米）
+        phi1 = math.radians(lat1)
+        phi2 = math.radians(lat2)
+        dphi = math.radians(lat2 - lat1)
+        dlambda = math.radians(lon2 - lon1)
+        a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        return R * c
+
+# 全局位置处理器实例
+location_processor = LocationProcessor()
 
 
 async def handleTextMessage(conn, message):
@@ -24,12 +70,13 @@ async def handleTextMessage(conn, message):
             await conn.websocket.send(message)
             return
             
-        # 对于所有类型的消息（除了hello），都先检查是否需要立即中断当前播放
+        # 对于所有类型的消息（除了hello和导航nmea），都先检查是否需要立即中断当前播放
         # 这确保用户的任何输入都能立即停止音频播放
-        if msg_json["type"] != "hello" and msg_json["type"] != "abort":
+        if msg_json["type"] != "hello" and msg_json["type"] != "abort" and msg_json["type"] !="nmea":
             # 检查是否有音频正在播放，如果有则立即中断
             if (hasattr(conn, 'client_is_speaking') and conn.client_is_speaking) or \
                (hasattr(conn, 'tts') and conn.tts and not conn.tts.tts_audio_queue.empty()):
+                conn.logger.bind(tag=TAG).info(f"收到3非消息：{message}")
                 conn.logger.bind(tag=TAG).info(f"检测到用户输入，立即中断当前音频播放")
                 await handleAbortMessage(conn)
         
@@ -55,8 +102,8 @@ async def handleTextMessage(conn, message):
                     await stop_radio_stream(conn.websocket)
                 except Exception:
                     pass
-                conn.client_have_voice = True
-                conn.client_voice_stop = False
+                    conn.client_have_voice = True
+                    conn.client_voice_stop = False
             elif msg_json["state"] == "stop":
                 conn.client_have_voice = True
                 conn.client_voice_stop = True
@@ -113,60 +160,6 @@ async def handleTextMessage(conn, message):
             if "payload" in msg_json:
                 asyncio.create_task(
                     handle_mcp_message(conn, conn.mcp_client, msg_json["payload"])
-                )
-        elif msg_json["type"] == "location":
-            conn.logger.bind(tag=TAG).info(f"收到位置消息：{filter_sensitive_info(msg_json)}")
-            # 兼容多种字段命名与嵌套
-            data = msg_json.get("content", msg_json)
-            lat = data.get("lat") or data.get("latitude")
-            lon = data.get("lon") or data.get("lng") or data.get("longitude")
-            # 解析为浮点数
-            try:
-                if isinstance(lat, str):
-                    lat = float(lat.strip())
-                if isinstance(lon, str):
-                    lon = float(lon.strip())
-                lat = float(lat)
-                lon = float(lon)
-            except Exception:
-                await conn.websocket.send(
-                    json.dumps(
-                        {
-                            "type": "location",
-                            "status": "error",
-                            "message": "经纬度格式错误或缺失，应包含 lat、lon",
-                        }
-                    )
-                )
-                return
-            # 调用导航更新函数
-            try:
-                func_item = conn.func_handler.get_function("navigation_update")
-                if not func_item:
-                    conn.logger.bind(tag=TAG).warning("navigation_update 未注册或不可用")
-                    return
-                # 可能包含网络IO，放入线程池执行避免阻塞事件循环
-                result = await asyncio.to_thread(func_item.func, conn, lat=lat, lon=lon)
-                if result and result.action == Action.RESPONSE:
-                    text = result.response
-                    if text:
-                        conn.tts.tts_one_sentence(conn, ContentType.TEXT, content_detail=text)
-                        conn.dialogue.put(Message(role="assistant", content=text))
-                elif result and result.action == Action.REQLLM:
-                    # 理论上导航更新不需要REQLLM，这里做兜底处理
-                    text = result.result
-                    if text:
-                        conn.dialogue.put(Message(role="tool", content=text))
-            except Exception as e:
-                conn.logger.bind(tag=TAG).error(f"处理位置消息失败: {e}")
-                await conn.websocket.send(
-                    json.dumps(
-                        {
-                            "type": "location",
-                            "status": "error",
-                            "message": f"处理位置消息失败: {str(e)}",
-                        }
-                    )
                 )
         elif msg_json["type"] == "server":
             # 记录日志时过滤敏感信息
@@ -247,6 +240,58 @@ async def handleTextMessage(conn, message):
             # 重启服务器
             elif msg_json["action"] == "restart":
                 await conn.handle_restart(msg_json)
+        elif msg_json["type"] == "nmea":
+            conn.logger.bind(tag=TAG).debug(f"收到NMEA消息：{filter_sensitive_info(msg_json)}")
+            
+            # 检查是否正在播放语音，避免阻塞
+            if hasattr(conn, 'client_is_speaking') and conn.client_is_speaking:
+                conn.logger.bind(tag=TAG).debug("正在播放语音，跳过NMEA消息处理")
+                return
+            
+            # 解析NMEA数据提取经纬度
+            try:
+                coords = parse_nmea_message(msg_json)
+                if coords:
+                    lat, lon = coords
+                    conn.logger.bind(tag=TAG).debug(f"从NMEA解析到坐标: 纬度={lat}, 经度={lon}")
+                    
+                    # 使用选择性处理机制
+                    client_id = getattr(conn, 'client_id', 'default')
+                    if not location_processor.should_process_location(client_id, lat, lon):
+                        conn.logger.bind(tag=TAG).debug(f"NMEA位置信息跳过处理：时间间隔或距离变化不足")
+                        return
+                    
+                    conn.logger.bind(tag=TAG).info(f"处理NMEA位置更新：纬度={lat:.6f}, 经度={lon:.6f}")
+
+                    # 使用选择性处理机制
+                    client_id = getattr(conn, 'client_id', 'default')
+                    if not location_processor.should_process_location(client_id, lat, lon):
+                        conn.logger.bind(tag=TAG).debug(f"位置信息跳过处理：时间间隔或距离变化不足")
+                        return
+
+                    conn.logger.bind(tag=TAG).info(f"处理位置更新：纬度={lat:.6f}, 经度={lon:.6f}")
+                    
+                    # 调用导航更新函数
+                    func_item = conn.func_handler.get_function("navigate_to")
+                    if func_item:
+                        # 可能包含网络IO，放入线程池执行避免阻塞事件循环
+                        result = await asyncio.to_thread(func_item.func, conn, lat=lat, lon=lon)
+                        if result and result.action == Action.RESPONSE:
+                            text = result.response
+                            if text:
+                                conn.tts.tts_one_sentence(conn, ContentType.TEXT, content_detail=text, navigate_info=True)
+                                conn.dialogue.put(Message(role="assistant", content=text))
+                        elif result and result.action == Action.REQLLM:
+                            # 理论上导航更新不需要REQLLM，这里做兜底处理
+                            text = result.result
+                            if text:
+                                conn.dialogue.put(Message(role="tool", content=text))
+                    else:
+                        conn.logger.bind(tag=TAG).warning("navigate_to 未注册或不可用")
+                else:
+                    conn.logger.bind(tag=TAG).warning("无法从NMEA数据中解析出有效坐标")
+            except Exception as e:
+                conn.logger.bind(tag=TAG).error(f"处理NMEA消息失败: {e}")
         else:
             conn.logger.bind(tag=TAG).error(f"收到未知类型消息：{message}")
     except json.JSONDecodeError:

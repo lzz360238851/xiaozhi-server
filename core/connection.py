@@ -203,6 +203,9 @@ class ConnectionHandler:
             self._initialize_private_config()
             # 异步初始化
             self.executor.submit(self._initialize_components)
+            
+            # 清理可能的残留导航状态
+            self.executor.submit(self._cleanup_navigation_on_connect)
 
             try:
                 async for message in self.websocket:
@@ -365,6 +368,28 @@ class ConnectionHandler:
             )
             self.report_thread.start()
             self.logger.bind(tag=TAG).info("TTS上报线程已启动")
+    
+    def _cleanup_navigation_on_connect(self):
+        """连接建立时清理导航状态"""
+        try:
+            from plugins_func.functions.navigation import cleanup_navigation_on_connect
+            cleanup_navigation_on_connect(self)
+        except ImportError:
+            # 如果导航模块未加载，忽略
+            pass
+        except Exception as e:
+            self.logger.bind(tag=TAG).error(f"连接时清理导航状态失败: {e}")
+    
+    def _cleanup_navigation_on_disconnect(self):
+        """连接断开时清理导航状态"""
+        try:
+            from plugins_func.functions.navigation import cleanup_navigation_on_disconnect
+            cleanup_navigation_on_disconnect(self)
+        except ImportError:
+            # 如果导航模块未加载，忽略
+            pass
+        except Exception as e:
+            self.logger.bind(tag=TAG).error(f"断开连接时清理导航状态失败: {e}")
 
     def _initialize_tts(self):
         """初始化TTS"""
@@ -947,6 +972,9 @@ class ConnectionHandler:
             if self.timeout_task:
                 self.timeout_task.cancel()
                 self.timeout_task = None
+
+            # 清理导航状态
+            self._cleanup_navigation_on_disconnect()
 
             # 清理MCP资源
             if hasattr(self, "mcp_manager") and self.mcp_manager:
