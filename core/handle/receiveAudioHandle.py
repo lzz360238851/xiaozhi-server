@@ -23,9 +23,8 @@ async def handleAudioMessage(conn, audio):
         return
 
     if have_voice:
-        # 只要检测到用户说话，就立即打断当前播放/说话
-        # 注意：audio_generation 的递增由 handleAbortMessage 统一处理，避免重复递增
-        await handleAbortMessage(conn)
+        if conn.client_is_speaking:
+           await handleAbortMessage(conn)
         # 同时停止电台播放
         try:
             from core.utils.radio_streamer import stop_radio_stream

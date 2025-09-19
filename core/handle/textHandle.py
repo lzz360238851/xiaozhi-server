@@ -22,28 +22,38 @@ class LocationProcessor:
     def __init__(self):
         self.last_process_time = {}
         self.last_location = {}
-        self.min_interval = 30.0  # 最小处理间隔（秒）
-        self.min_distance = 10.0  # 最小距离变化（米）
+        self.min_interval = 10.0  # 最小处理间隔（秒）
+        self.min_distance = 5.0  # 最小距离变化（米）
     
     def should_process_location(self, client_id: str, lat: float, lon: float) -> bool:
         """判断是否应该处理位置信息"""
         current_time = time.time()
         
+        # 检查是否是首次位置信息
+        last_pos = self.last_location.get(client_id)
+        if last_pos is None:
+            # 首次位置信息，必须处理（用于路线规划）
+            self.last_process_time[client_id] = current_time
+            self.last_location[client_id] = {'lat': lat, 'lon': lon}
+            print(f"首次位置信息，进行路线规划：经纬度{self.last_location.get(client_id)}")
+            return True
+        
+        # 非首次位置信息，进行时间间隔和距离变化判断
         # 检查时间间隔
         last_time = self.last_process_time.get(client_id, 0)
         if current_time - last_time < self.min_interval:
             return False
         
         # 检查距离变化
-        last_pos = self.last_location.get(client_id)
-        if last_pos:
-            distance = self._calculate_distance(lat, lon, last_pos['lat'], last_pos['lon'])
-            if distance < self.min_distance:
-                return False
+        distance = self._calculate_distance(lat, lon, last_pos['lat'], last_pos['lon'])
+        print(f"距离变化：{distance:.2f}米")
+        if distance < self.min_distance:
+            return False
         
         # 更新记录
         self.last_process_time[client_id] = current_time
         self.last_location[client_id] = {'lat': lat, 'lon': lon}
+        print(f"位置更新：经纬度{self.last_location.get(client_id)}")
         return True
     
     def _calculate_distance(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -241,11 +251,11 @@ async def handleTextMessage(conn, message):
             elif msg_json["action"] == "restart":
                 await conn.handle_restart(msg_json)
         elif msg_json["type"] == "nmea":
-            conn.logger.bind(tag=TAG).debug(f"收到NMEA消息：{filter_sensitive_info(msg_json)}")
+            conn.logger.bind(tag=TAG).info(f"收到NMEA消息：{filter_sensitive_info(msg_json)}")
             
             # 检查是否正在播放语音，避免阻塞
-            if hasattr(conn, 'client_is_speaking') and conn.client_is_speaking:
-                conn.logger.bind(tag=TAG).debug("正在播放语音，跳过NMEA消息处理")
+            if conn.client_is_speaking:
+                conn.logger.bind(tag=TAG).info("正在播放语音，跳过NMEA消息处理")
                 return
             
             # 解析NMEA数据提取经纬度
@@ -253,32 +263,48 @@ async def handleTextMessage(conn, message):
                 coords = parse_nmea_message(msg_json)
                 if coords:
                     lat, lon = coords
-                    conn.logger.bind(tag=TAG).debug(f"从NMEA解析到坐标: 纬度={lat}, 经度={lon}")
+                    conn.logger.bind(tag=TAG).info(f"从NMEA解析到坐标: 纬度={lat}, 经度={lon}")
                     
                     # 使用选择性处理机制
                     client_id = getattr(conn, 'client_id', 'default')
-                    if not location_processor.should_process_location(client_id, lat, lon):
-                        conn.logger.bind(tag=TAG).debug(f"NMEA位置信息跳过处理：时间间隔或距离变化不足")
+                    should_process = location_processor.should_process_location(client_id, lat, lon)
+                    
+                    if not should_process:
+                        conn.logger.bind(tag=TAG).info(f"NMEA位置信息跳过处理：时间间隔或距离变化不足")
                         return
                     
-                    conn.logger.bind(tag=TAG).info(f"处理NMEA位置更新：纬度={lat:.6f}, 经度={lon:.6f}")
-
-                    # 使用选择性处理机制
-                    client_id = getattr(conn, 'client_id', 'default')
-                    if not location_processor.should_process_location(client_id, lat, lon):
-                        conn.logger.bind(tag=TAG).debug(f"位置信息跳过处理：时间间隔或距离变化不足")
-                        return
-
-                    conn.logger.bind(tag=TAG).info(f"处理位置更新：纬度={lat:.6f}, 经度={lon:.6f}")
+                    # # 判断是否为首次位置信息
+                    # is_first_location = client_id not in location_processor.last_location or \
+                    #                   len(location_processor.last_location) == 1
+                    #
+                    # if is_first_location:
+                    #     conn.logger.bind(tag=TAG).info(f"处理首次NMEA位置信息，进行路线规划：纬度={lat:.6f}, 经度={lon:.6f}")
+                    # else:
+                    #     conn.logger.bind(tag=TAG).info(f"处理NMEA位置更新：纬度={lat:.6f}, 经度={lon:.6f}")
                     
                     # 调用导航更新函数
                     func_item = conn.func_handler.get_function("navigate_to")
                     if func_item:
-                        # 可能包含网络IO，放入线程池执行避免阻塞事件循环
-                        result = await asyncio.to_thread(func_item.func, conn, lat=lat, lon=lon)
+                        # 如果是“等待位置”的首次更新，且已记录目的地，则同时传入目的地以立即规划路线；
+                        # 否则仅传入经纬度，让navigate_to内部按状态处理（避免重复启动导航）。
+                        from plugins_func.functions.navigation import _get_navigation_state
+                        nav_state = _get_navigation_state(conn)
+                        if nav_state and nav_state.get("waiting_for_location") and nav_state.get("destination"):
+                            dest = nav_state["destination"]
+                            destination_str = f"{dest['lng']},{dest['lat']}"
+                            result = await asyncio.to_thread(
+                                func_item.func, conn,
+                                destination=destination_str,
+                                lat=lat, lon=lon
+                            )
+                        else:
+                            result = await asyncio.to_thread(func_item.func, conn, lat=lat, lon=lon)
+                        
                         if result and result.action == Action.RESPONSE:
                             text = result.response
                             if text:
+                                conn.client_is_speaking = True
+                                await send_tts_message(conn, "start")
                                 conn.tts.tts_one_sentence(conn, ContentType.TEXT, content_detail=text, navigate_info=True)
                                 conn.dialogue.put(Message(role="assistant", content=text))
                         elif result and result.action == Action.REQLLM:

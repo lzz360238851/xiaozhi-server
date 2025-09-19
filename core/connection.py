@@ -74,6 +74,7 @@ class ConnectionHandler:
         self.websocket = None
         self.headers = None
         self.device_id = None
+        self.client_id = None
         self.client_ip = None
         self.client_ip_info = {}
         self.prompt = None
@@ -191,6 +192,7 @@ class ConnectionHandler:
             # 认证通过,继续处理
             self.websocket = ws
             self.device_id = self.headers.get("device-id", None)
+            self.client_id = self.headers.get("client-id", None)
 
             # 启动超时检查任务
             self.timeout_task = asyncio.create_task(self._check_timeout())
@@ -212,13 +214,23 @@ class ConnectionHandler:
                     await self._route_message(message)
             except websockets.exceptions.ConnectionClosed:
                 self.logger.bind(tag=TAG).info("客户端断开连接")
+            except websockets.exceptions.ConcurrencyError as e:
+                self.logger.bind(tag=TAG).error(f"WebSocket并发错误: {str(e)}")
+                # 尝试关闭连接以清理状态
+                try:
+                    await self.websocket.close()
+                except:
+                    pass
+            except Exception as e:
+                stack_trace = traceback.format_exc()
+                self.logger.bind(tag=TAG).error(f"消息处理错误: {str(e)}\n{stack_trace}")
 
         except AuthenticationError as e:
             self.logger.bind(tag=TAG).error(f"Authentication failed: {str(e)}")
             return
         except Exception as e:
             stack_trace = traceback.format_exc()
-            self.logger.bind(tag=TAG).error(f"Connection error: {str(e)}-{stack_trace}")
+            self.logger.bind(tag=TAG).error(f"Connection error: {str(e)}\n{stack_trace}")
             return
         finally:
             await self._save_and_close(ws)

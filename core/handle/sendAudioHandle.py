@@ -79,7 +79,7 @@ async def sendAudioMessage(conn, sentenceType, audios, text, navigate_info=None)
 async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, send_stop_before_audio=False):
     if audios is None or len(audios) == 0:
         return 0
-    
+
     # 只在第一次发送对话时发送stop消息清空客户端缓冲区
     # if send_stop_before_audio:
     #     stop_message = {
@@ -89,7 +89,7 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
     #     }
     #     # await conn.websocket.send(json.dumps(stop_message))
     #     conn.logger.bind(tag=TAG).info("发送预清理stop消息，清空客户端音频缓冲区（仅第一次对话）")
-    
+
     # 在发送音频数据前，先发送音频代次控制消息
     # 修改为测试系统能识别的audio消息类型，避免"未知消息类型"错误
     # 注释掉generation_control消息发送，避免客户端播放问题
@@ -102,7 +102,7 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
     #     }
     #     await conn.websocket.send(json.dumps(audio_generation_message))
     #     conn.logger.bind(tag=TAG).info(f"发送音频代次控制消息: generation={snapshot_generation}")
-        
+
     # 流控参数优化 - 使用更精确的时间控制
     frame_duration_ms = 60  # 帧时长（毫秒），匹配 Opus 编码
     frame_duration_s = frame_duration_ms / 1000.0  # 转换为秒，提高精度
@@ -111,11 +111,11 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
     last_reset_time = time.perf_counter()  # 记录最后的重置时间
 
     # 增强缓冲机制：确保至少缓冲5个音频包，提高播放流畅性
-    min_buffer_frames = 5  # 增加缓冲帧数
-    
+    min_buffer_frames = 10  # 增加缓冲帧数
+
     # 如果音频包数量很少，全部作为缓冲
     buffer_frames = min(min_buffer_frames, len(audios))
-    
+
     # 对于短音频（小于等于5帧），直接缓冲所有帧
     if len(audios) <= min_buffer_frames:
         buffer_frames = len(audios)
@@ -124,7 +124,7 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         # 对于长音频，先缓冲指定数量的帧
         buffer_frames = min_buffer_frames
         remaining_audios = audios[buffer_frames:]
-    
+
     frames_sent = 0
     bytes_sent = 0
     # 发送初始缓冲帧 - 添加适当延迟确保客户端能正确接收
@@ -134,11 +134,11 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止发送缓冲帧 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             return frames_sent
-        
+
         if conn.client_abort:
             conn.logger.bind(tag=TAG).info("客户端中断，停止发送缓冲帧")
             return frames_sent
-            
+
         packet = audios[i]
         await conn.websocket.send(packet)
         frames_sent += 1
@@ -147,9 +147,9 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
             bytes_sent += len(packet)
         except Exception:
             pass
-        
+
         # conn.logger.bind(tag=TAG).info(f"发送初始缓冲帧 {i+1}/{buffer_frames}")
-        
+
         # 在缓冲帧之间添加延迟，确保客户端能正确接收
         if i < buffer_frames - 1:  # 最后一帧不需要延迟
             await asyncio.sleep(0.001)  # 增加到10ms延迟
@@ -161,7 +161,7 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         if snapshot_generation is not None and snapshot_generation != getattr(conn, "audio_generation", 0):
             conn.logger.bind(tag=TAG).info(f"音频代次不匹配，停止播放 (snapshot: {snapshot_generation}, current: {getattr(conn, 'audio_generation', 0)}), 已发送帧数: {frames_sent}, 字节: {bytes_sent}")
             break
-            
+
         if conn.client_abort:
             conn.logger.bind(tag=TAG).info("客户端中断，停止播放")
             break
@@ -175,9 +175,9 @@ async def sendAudio(conn, audios, pre_buffer=True, snapshot_generation=None, sen
         expected_time = start_time + (frame_count * frame_duration_s)
         current_time = time.perf_counter()
         delay = expected_time - current_time
-        
+
         # 添加最小延迟保护，确保不会发送过快
-        min_delay = 0.001  # 1ms最小延迟
+        min_delay = 0.005  # 5ms最小延迟
         if delay > min_delay:
             await asyncio.sleep(delay)
         elif delay < -frame_duration_s:  # 如果延迟过大，重置时间基准

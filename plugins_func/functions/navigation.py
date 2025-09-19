@@ -49,7 +49,9 @@ def _get_nav_cfg(conn) -> Dict[str, Any]:
         "mode": cfg.get("mode", "driving"),
         "turn_distance": int(cfg.get("turn_distance", 80)),
         "arrival_distance": int(cfg.get("arrival_distance", 30)),
-        "api_base": cfg.get("api_base", "https://restapi.amap.com")
+        "api_base": cfg.get("api_base", "https://restapi.amap.com"),
+        "replan_distance": int(cfg.get("replan_distance", 120)),
+        "replan_cooldown": int(cfg.get("replan_cooldown", 30)),
     }
 
 
@@ -182,6 +184,7 @@ def _clear_navigation_state(conn):
 
 
 def cleanup_navigation_on_connect(conn):
+    _send_nmea_control_command(conn, "stop")
     """连接建立时清理可能的残留导航状态"""
     try:
         client_id = getattr(conn, 'client_id', 'default')
@@ -253,6 +256,43 @@ def _send_nmea_control_command(conn, action: str, rate_hz: int = 1):
         logger.bind(tag=TAG).error(f"发送NMEA控制命令失败: {e}")
 
 
+# 新增：计算点到线段的近似横向距离（米）
+def _point_to_segment_distance_m(lon: float, lat: float, lon1: float, lat1: float, lon2: float, lat2: float) -> float:
+    try:
+        R = 6371000.0
+        # 转弧度
+        phi = math.radians(lat)
+        phi1 = math.radians(lat1)
+        phi2 = math.radians(lat2)
+        lam = math.radians(lon)
+        lam1 = math.radians(lon1)
+        lam2 = math.radians(lon2)
+        # 参考纬度用于x缩放
+        phi0 = (phi1 + phi2) / 2.0
+
+        def to_xy(lam_, phi_):
+            x = R * lam_ * math.cos(phi0)
+            y = R * phi_
+            return x, y
+
+        px, py = to_xy(lam, phi)
+        x1, y1 = to_xy(lam1, phi1)
+        x2, y2 = to_xy(lam2, phi2)
+
+        dx = x2 - x1
+        dy = y2 - y1
+        if dx == 0 and dy == 0:
+            return math.hypot(px - x1, py - y1)
+
+        t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)
+        t = max(0.0, min(1.0, t))
+        proj_x = x1 + t * dx
+        proj_y = y1 + t * dy
+        return math.hypot(px - proj_x, py - proj_y)
+    except Exception:
+        return float('inf')
+
+
 @register_function("navigate_to", NAV_FUNCTION_DESC, ToolType.SYSTEM_CTL)
 def navigate_to(conn, destination: str = None, mode: str = "driving", origin: str = None, lat: float = None, lon: float = None):
     """导航功能：开始导航到目的地或更新当前位置"""
@@ -275,6 +315,7 @@ def navigate_to(conn, destination: str = None, mode: str = "driving", origin: st
                 # 地址解析
                 geo_result = _amap_geocode(api_base, api_key, destination)
                 if not geo_result:
+                    logger.bind(tag=TAG).info(f"未找到目的地")
                     return ActionResponse(Action.RESPONSE, None, f"未找到目的地: {destination}")
                 dest_lng, dest_lat, dest_name = geo_result
             else:
@@ -300,13 +341,15 @@ def navigate_to(conn, destination: str = None, mode: str = "driving", origin: st
 
                 route_data = _amap_direction(api_base, api_key, mode, origin_str, dest_str)
                 if not route_data:
+                    logger.bind(tag=TAG).info(f"路线规划失败，请稍后重试")
                     return ActionResponse(Action.RESPONSE, None, "路线规划失败，请稍后重试")
 
                 steps, total_distance, total_duration = _extract_steps_from_route(route_data, mode)
                 if not steps:
+                    logger.bind(tag=TAG).info(f"未找到有效路线")
                     return ActionResponse(Action.RESPONSE, None, "未找到有效路线")
 
-                # 保存导航状态
+                # 保存导航状态（新增：last_replan_time/last_position）
                 nav_state = {
                     "destination": {"lng": dest_lng, "lat": dest_lat, "name": dest_name},
                     "origin": {"lng": origin_lng, "lat": origin_lat},
@@ -315,7 +358,9 @@ def navigate_to(conn, destination: str = None, mode: str = "driving", origin: st
                     "current_step": 0,
                     "total_distance": total_distance,
                     "total_duration": total_duration,
-                    "start_time": time.time()
+                    "start_time": time.time(),
+                    "last_replan_time": 0,
+                    "last_position": {"lng": origin_lng, "lat": origin_lat},
                 }
                 _set_navigation_state(conn, nav_state)
 
@@ -324,6 +369,7 @@ def navigate_to(conn, destination: str = None, mode: str = "driving", origin: st
 
                 distance_km = total_distance / 1000
                 duration_min = total_duration / 60
+                logger.bind(tag=TAG).info(f"结束导航规划")
                 return ActionResponse(Action.RESPONSE, None,
                                       f"开始导航到{dest_name}，全程约{distance_km:.1f}公里，预计{duration_min:.0f}分钟。{steps[0]['instruction']}")
             else:
@@ -332,21 +378,24 @@ def navigate_to(conn, destination: str = None, mode: str = "driving", origin: st
                     "destination": {"lng": dest_lng, "lat": dest_lat, "name": dest_name},
                     "mode": mode,
                     "waiting_for_location": True,
-                    "start_time": time.time()
+                    "start_time": time.time(),
+                    "last_replan_time": 0,
                 }
                 _set_navigation_state(conn, nav_state)
 
                 # 发送NMEA控制启动命令
                 _send_nmea_control_command(conn, "start", 1)
+                logger.bind(tag=TAG).info(f"结束等待位置更新")
 
-                return ActionResponse(Action.RESPONSE, None,
-                                      f"准备导航到{dest_name}，请提供当前位置或等待位置更新")
+                return ActionResponse(Action.RESPONSE, None,f"准备导航到{dest_name}")
         
         elif lat is not None and lon is not None:
             # 位置更新逻辑
+            logger.bind(tag=TAG).info(f"结束")
             return _handle_navigation_update(conn, lat, lon)
         
         else:
+            logger.bind(tag=TAG).info(f"请提供目的地开始导航，或提供经纬度更新位置")
             return ActionResponse(Action.RESPONSE, None, "请提供目的地开始导航，或提供经纬度更新位置")
 
     except Exception as e:
@@ -381,19 +430,22 @@ def _handle_navigation_update(conn, lat: float, lon: float):
             if not steps:
                 return ActionResponse(Action.RESPONSE, None, "未找到有效路线")
             
-            # 更新导航状态
+            # 更新导航状态（新增：last_position/last_replan_time）
             nav_state.update({
                 "origin": {"lng": lon, "lat": lat},
                 "steps": steps,
                 "current_step": 0,
                 "total_distance": total_distance,
                 "total_duration": total_duration,
-                "waiting_for_location": False
+                "waiting_for_location": False,
+                "last_position": {"lng": lon, "lat": lat},
+                "last_replan_time": time.time(),
             })
             _set_navigation_state(conn, nav_state)
             
             distance_km = total_distance / 1000
             duration_min = total_duration / 60
+            logger.bind(tag=TAG).info(f"路线规划结束")
             return ActionResponse(Action.RESPONSE, None, 
                 f"路线规划完成，全程约{distance_km:.1f}公里，预计{duration_min:.0f}分钟。{steps[0]['instruction']}")
         
@@ -408,6 +460,55 @@ def _handle_navigation_update(conn, lat: float, lon: float):
             
             _clear_navigation_state(conn)
             return ActionResponse(Action.RESPONSE, None, f"您已到达目的地：{dest['name']}")
+        
+        # 偏航检测并重新规划
+        steps = nav_state["steps"]
+        current_step = nav_state["current_step"]
+        replan_distance = cfg["replan_distance"]
+        replan_cooldown = cfg["replan_cooldown"]
+        last_replan_time = nav_state.get("last_replan_time", 0)
+
+        if steps:
+            # 确定当前线段起点与终点
+            if current_step >= len(steps):
+                seg_start_lng = steps[-1]["end_lng"]
+                seg_start_lat = steps[-1]["end_lat"]
+                seg_end_lng = dest["lng"]
+                seg_end_lat = dest["lat"]
+            else:
+                if current_step == 0:
+                    origin_pt = nav_state.get("origin") or {"lng": lon, "lat": lat}
+                    seg_start_lng = origin_pt["lng"]
+                    seg_start_lat = origin_pt["lat"]
+                else:
+                    prev = steps[current_step - 1]
+                    seg_start_lng = prev["end_lng"]
+                    seg_start_lat = prev["end_lat"]
+                next_step = steps[current_step]
+                seg_end_lng = next_step["end_lng"]
+                seg_end_lat = next_step["end_lat"]
+
+            lateral = _point_to_segment_distance_m(lon, lat, seg_start_lng, seg_start_lat, seg_end_lng, seg_end_lat)
+            if lateral != float('inf') and lateral > replan_distance and (time.time() - last_replan_time) > replan_cooldown:
+                api_key = cfg.get("api_key")
+                api_base = cfg["api_base"]
+                origin_str = f"{lon},{lat}"
+                dest_str = f"{dest['lng']},{dest['lat']}"
+                route_data = _amap_direction(api_base, api_key, nav_state["mode"], origin_str, dest_str)
+                if route_data:
+                    new_steps, total_distance, total_duration = _extract_steps_from_route(route_data, nav_state["mode"])
+                    if new_steps:
+                        nav_state.update({
+                            "origin": {"lng": lon, "lat": lat},
+                            "steps": new_steps,
+                            "current_step": 0,
+                            "total_distance": total_distance,
+                            "total_duration": total_duration,
+                            "last_replan_time": time.time(),
+                            "last_position": {"lng": lon, "lat": lat},
+                        })
+                        _set_navigation_state(conn, nav_state)
+                        return ActionResponse(Action.RESPONSE, None, f"您已偏离路线，已为您重新规划路线。{new_steps[0]['instruction']}")
         
         # 检查是否需要转向提示
         steps = nav_state["steps"]
@@ -436,8 +537,11 @@ def _handle_navigation_update(conn, lat: float, lon: float):
         if guidance:
             return ActionResponse(Action.RESPONSE, None, "，".join(guidance))
         
-        # 无特殊提示，返回简单状态
+        # 无特殊提示，返回简单状态，并记录当前位置
         remaining_steps = len(steps) - current_step
+        nav_state["last_position"] = {"lng": lon, "lat": lat}
+        _set_navigation_state(conn, nav_state)
+        logger.bind(tag=TAG).info(f"无提示返回简单状态结束")
         return ActionResponse(Action.RESPONSE, None, f"继续直行，还有{remaining_steps}个转向")
     
     except Exception as e:
